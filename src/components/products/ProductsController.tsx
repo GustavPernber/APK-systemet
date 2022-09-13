@@ -16,7 +16,7 @@ const ProductsController = () =>{
     }, [])
 
     return(
-        <main>
+        <main className=" px-3">
             <ProductList products={products}/>
         </main>
     )
