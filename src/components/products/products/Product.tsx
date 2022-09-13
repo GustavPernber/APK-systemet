@@ -48,7 +48,7 @@ const Product = (props:ProductProps) => {
     return (
         <a href="" className="bg-white grid w-full grid-rows-[auto auto auto] grid-cols-1 h-auto px-5 py-3 shadow rounded" >
             
-            <div className="  w-full flex flex-row justify-start min-h-[8rem] gap-3">
+            <div className="  w-full flex flex-row justify-start h-[8rem] gap-3">
                 <div className="  overflow-hidden  w-[4.5rem] p-3 h-[85%]">
                     <img src={imagePath} alt="Produktbild" className=" object-contain w-full h-full object-top"/>
                 </div>
