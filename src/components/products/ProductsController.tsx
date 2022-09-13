@@ -1,4 +1,4 @@
-import ProductList from "./products/products/ProductList"
+import ProductList from "./products/ProductList"
 import api from '@/api'
 import { useEffect, useState } from "react"
 import { ProductType } from "@/api/types"
