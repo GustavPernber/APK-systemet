@@ -16,6 +16,9 @@ import {resolve} from 'path'
 export default defineConfig(()=>{
 
   return{
+    server:{
+      port:3000
+    },
     base: '',
     resolve:{
       alias:{

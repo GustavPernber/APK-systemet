@@ -1,6 +1,6 @@
 import {Handler } from '@netlify/functions'
 const mongoose=require('mongoose')
-const Product=require('../models/Product')
+const Product=require('../../models/Product')
 
 const handler: Handler = async (event, context) =>{
 
