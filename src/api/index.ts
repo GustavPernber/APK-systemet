@@ -1,19 +1,23 @@
 import mockRes from './productsMock.json'
 import {ProductType} from './types'
 
+const base_url = '.netlify/functions/'
 
-async function getProducts(): Promise<ProductType[]> {
-    // let result= await fetch(this.endpoint)
-    // let products= await result.json()
-    // // await this.sleep()
-    // return products.result
-    let result= mockRes 
-    return result as ProductType[]
+async function customFetch(functionName: string){
+    const response = await fetch(`${base_url}${functionName}`)
+    const result = await response.json()
+    return result
 }
 
 
+async function getProducts(): Promise<ProductType[]> {
+
+    let products = await customFetch('getProducts')
+    return products
+}
+
 const api={
-    endpoint:'https://apk-systemet-api.herokuapp.com/products',
+
 
     getProducts
     // sleep(){
