@@ -32,7 +32,7 @@ const Product = (props:ProductProps) => {
         product.nameAndVintage = `${product.nameThin}, ${product.vintage}`;
     }
 
-    product.apk = parseFloat(product.apk).toPrecision(4);
+    product.apk = parseFloat(product.apk).toPrecision(3);
     
     
     if (product.price % 1 != 0) {
@@ -46,9 +46,9 @@ const Product = (props:ProductProps) => {
     
 
     return (
-        <a href="" className="bg-white grid w-full grid-rows-[auto auto auto] grid-cols-1 h-auto px-5 py-3 shadow rounded" >
+        <a href="" className={`${product.assortmentText === "Ordervaror" ? "bg-gray-200" : "bg-white"} grid w-full grid-rows-[auto auto auto] grid-cols-1 h-auto px-5 py-3 shadow rounded`} >
             
-            <div className="  w-full flex flex-row justify-start h-[8rem] gap-3">
+            <div className="  w-full flex flex-row justify-start h-auto gap-3">
                 <div className="  overflow-hidden  w-[4.5rem] p-3 h-[85%]">
                     <img src={imagePath} alt="Produktbild" className=" object-contain w-full h-full object-top"/>
                 </div>
@@ -61,7 +61,7 @@ const Product = (props:ProductProps) => {
                         </p>
 
                         <h1 className=" font-normal">{product.nameBold}</h1>
-                        <h1 className=" font-serif font-normal text-gray-300">{product.nameAndVintage}</h1>
+                        <h1 className=" font-serif font-normal text-gray-400">{product.nameAndVintage}</h1>
 
                     </div>
 
@@ -80,23 +80,28 @@ const Product = (props:ProductProps) => {
                 </div>
             </div>
            
-            <div className="  w-full flex flex-row justify-around items-center py-3 border-t-[2px]  border-gray-200">
 
+            {product.tasteClocks.length > 0 &&
+            (<div className="  w-full flex flex-row justify-around items-center py-3 border-t-[1px]  border-gray-300">
                 {product.tasteClocks.map((clock)=>{
                     return(
                         <TasteClock key={clock.key} name={clock.key} value={clock.value}></TasteClock>
                     )
                 })}
 
-            </div>
+            </div>)}
 
-            <div className=" bg-green w-full py-3 border-t-[2px] border-gray-200">
+            { `${product.taste} ${product.usage}` !== "null null" &&
+            (<div className=" w-full py-3 border-t-[1px] border-gray-300">
                 <p className=" text-sm">
                     {product.taste} {product.usage}
                 </p>
-                {/* <p className=" text-sm">Nyanserad, fruktig smak med tydlig fatkaraktär, inslag av gula päron, smörkola, klöverblommor, apelsinskal och vanilj.  Serveras rumstempererad som avec.</p> */}
-            </div>
-
+            </div>)}
+            
+            {product.assortmentText === "Ordervaror" &&
+            (<div className=" border-t-[1px] border-gray-300 pt-2 ">
+                <span className=" bg-orange rounded-md w-full font-condensed  text-xs p-1 flex justify-center font-bold text-gray-800 uppercase tracking-wide ">Ordervara</span>
+            </div>)}
 
         </a>)
 }
