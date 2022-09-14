@@ -1,8 +1,8 @@
 import { ProductType } from "@/api/types"
 import { getImgPath } from "@/utils/imgPath"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import TasteClock from './TasteClock'
-
+import PlaceHolderWineBottle from "../../../assets/img/placeholder-wine-bottle.png";
 
 type ProductProps = {
     product:ProductType
@@ -16,8 +16,16 @@ type DisplayProductType = Omit<ProductType, 'apk'> & {
 
 
 const Product = (props:ProductProps) => {
+
+    const [imagePath, setImagePath] = useState<string>('')
+
+    useEffect(()=>{
+        setImagePath(getImgPath(product.productId))
+    }, [])
+
+
     const product: DisplayProductType = {...props.product as DisplayProductType}
-    const imagePath = getImgPath(product.productId)
+    // const imagePath = getImgPath(product.productId)
 
     
     product.cat1 = product.cat1==="Cider%20%26%20blanddrycker" ? "Cider & blanddryck" : product.cat1
@@ -50,7 +58,10 @@ const Product = (props:ProductProps) => {
             
             <div className="  w-full flex flex-row justify-start h-auto gap-3">
                 <div className="  overflow-hidden  w-[4.5rem] p-3 h-[85%]">
-                    <img src={imagePath} alt="Produktbild" className=" object-contain w-full h-full object-top"/>
+                    <img src={imagePath}
+                    onError={()=>setImagePath(PlaceHolderWineBottle)}
+                    alt="Produktbild" 
+                    className=" object-contain w-full h-full object-top"/>
                 </div>
               
                 <div className="flex flex-col justify-between w-full">
