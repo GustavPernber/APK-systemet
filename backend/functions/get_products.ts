@@ -5,7 +5,7 @@ import Product from './utils/models/Product'
 
 const handler: Handler = async (event, context) =>{
 
-    mongoose.connect("mongodb+srv://Gustav:PFVtT9SViE05XdB6@cluster0.xno6l.mongodb.net/system-bolaget?retryWrites=true&w=majority")
+    mongoose.connect(process.env.MONGODB_PATH as string)
     let products= await Product.find().limit(30).sort({"apk" : -1})
 
     return {

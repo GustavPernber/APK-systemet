@@ -12,7 +12,7 @@ async function customFetch(functionName: string){
 
 async function getProducts(): Promise<ProductType[]> {
 
-    let products = await customFetch('getProducts')
+    let products = await customFetch('get_products')
     return products
 }
 
