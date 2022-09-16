@@ -17,13 +17,7 @@ async function getProducts(): Promise<ProductType[]> {
 }
 
 const api={
-
-
     getProducts
-    // sleep(){
-    //     return new Promise(resolve => setTimeout(resolve, 6000));
-    // },
-
 }
 
 export default api

@@ -56,19 +56,21 @@ const Product = (props:ProductProps) => {
     return (
         <a href="" className={`${product.assortmentText === "Ordervaror" ? "bg-gray-200" : "bg-white"} grid w-full grid-rows-[auto auto auto] grid-cols-1 h-auto px-5 py-3 shadow rounded`} >
             
-            <div className="  w-full flex flex-row justify-start h-auto gap-3">
-                <div className="  overflow-hidden  w-[4.5rem] p-3 h-[85%]">
-                    <img src={imagePath}
+            <div className="  w-full flex flex-row justify-start h-auto  min-h-[8rem] ">
+                <div className="   h-24  w-16 ">
+                    <img 
+                    src={imagePath}
                     onError={()=>setImagePath(PlaceHolderWineBottle)}
                     alt="Produktbild" 
-                    className=" object-contain w-full h-full object-top"/>
+                    className="  min-h-full min-w-full object-contain max-w-full max-h-full"/>
                 </div>
               
-                <div className="flex flex-col justify-between w-full">
+                <div className="flex flex-col justify-between w-full pl-5">
                     <div className=" pb-5">
                         <p className=" pb-[0.1rem] uppercase font-[400] font-condensed text-[0.8rem] text-black  tracking-widest">
-                        {product.cat1}, {product.cat2},{" "}
-					    {product.cat3}
+                
+                        {product.cat2}{product.cat3 != null ?  `, ${product.cat3}` : ""}
+
                         </p>
 
                         <h1 className=" font-normal">{product.nameBold}</h1>
