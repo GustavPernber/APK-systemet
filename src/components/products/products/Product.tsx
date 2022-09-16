@@ -16,15 +16,15 @@ type DisplayProductType = Omit<ProductType, 'apk'> & {
 
 
 const Product = (props:ProductProps) => {
-
-    const [imagePath, setImagePath] = useState<string>('')
-
-    useEffect(()=>{
-        setImagePath(getImgPath(product.productId))
-    }, [])
-
-
+    
     const product: DisplayProductType = {...props.product as DisplayProductType}
+    const [imagePath, setImagePath] = useState<string>(getImgPath(product.productId))
+
+    // useEffect(()=>{
+    //     setImagePath(getImgPath(product.productId))
+    // }, [])
+
+
     // const imagePath = getImgPath(product.productId)
 
     
@@ -60,7 +60,7 @@ const Product = (props:ProductProps) => {
                 <div className="   h-24  w-16 ">
                     <img 
                     src={imagePath}
-                    onError={()=>setImagePath(PlaceHolderWineBottle)}
+                    onError={(e)=>setImagePath(PlaceHolderWineBottle)}
                     alt="Produktbild" 
                     className="  min-h-full min-w-full object-contain max-w-full max-h-full"/>
                 </div>
