@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mui/material": "^5.10.5",
     "@netlify/functions": "^1.2.0",
     "mongoose": "^6.6.0",
     "path": "^0.12.7",
