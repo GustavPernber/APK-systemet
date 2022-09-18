@@ -19,14 +19,6 @@ const Product = (props:ProductProps) => {
     
     const product: DisplayProductType = {...props.product as DisplayProductType}
     const [imagePath, setImagePath] = useState<string>(getImgPath(product.productId))
-
-    // useEffect(()=>{
-    //     setImagePath(getImgPath(product.productId))
-    // }, [])
-
-
-    // const imagePath = getImgPath(product.productId)
-
     
     product.cat1 = product.cat1==="Cider%20%26%20blanddrycker" ? "Cider & blanddryck" : product.cat1
     

@@ -1,4 +1,4 @@
-import { SortByOptions } from "../ProductsController"
+import { SortByOptions } from "@/utils/types"
 import SortViewOptions from "./SortViewOptions"
 
 type ProductOptionsProps = {

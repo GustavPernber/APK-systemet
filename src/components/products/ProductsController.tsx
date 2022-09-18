@@ -3,8 +3,7 @@ import api from '@/api'
 import { useEffect, useState } from "react"
 import { ProductType } from "@/api/types"
 import ProductOptions from "./productOptions/ProductOptions"
-
-export type SortByOptions = "apk" | "price_asc" | "alc_desc" 
+import { ProductsFilterOptions, SortByOptions } from "@/utils/types"
 
 
 const ProductsController = () =>{
@@ -19,6 +18,13 @@ const ProductsController = () =>{
         }
         getProducts()
     }, [])
+
+
+    useEffect(()=>{
+        const options: ProductsFilterOptions= {
+            sort: sortBy
+        }
+    }, [sortBy])
 
     return(
         <main className=" px-3">
