@@ -1,54 +1,66 @@
-import { FormControl, MenuItem, InputLabel, Select, Button } from "@mui/material";
 import { SortByOptions } from "@/utils/types";
+import  smallArticles from '@/assets/icons/smallArticles.svg'
+import  bigArticles from '@/assets/icons/bigArticles.svg'
+
 
 type SortViewOptionsProps = {
-    sortBy: SortByOptions
-    setSortBy: Function
-    isCompactProducts: boolean
-    setIsCompactProducts: Function
+  sortBy: SortByOptions;
+  setSortBy: Function;
+  isCompactProducts: boolean;
+  setIsCompactProducts: Function;
+};
+
+function SortViewOptions({
+  sortBy,
+  setSortBy,
+  setIsCompactProducts,
+  isCompactProducts,
+}: SortViewOptionsProps) {
+  const Sort = () => {
+    return (
+      <form >
+        <label
+          htmlFor="hs-select-label"
+          className="block text-sm font-medium ml-1"
+        >
+          Sortera
+        </label>
+
+        <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            id="hs-select-label"
+            className="py-3 px-4 pr-9 block  h-12 w-full border-gray-200 rounded-md text-sm bg-green-100 "
+        >
+          <option value='apk'>APK</option>
+          <option value='alc_desc'>Högst alkoholhalt</option>
+          <option value='price_asc'>Lägsta pris</option>
+        </select>
+      </form>
+    );
+  };
+
+  const CompactToggle = ({isCompactProducts, setIsCompactProducts}: {isCompactProducts: boolean, setIsCompactProducts: Function} )=> {
+    return (
+      
+    <button type="button" 
+    onClick={()=>setIsCompactProducts(!isCompactProducts)}
+    className="py-3 px-4 py-3 px-4 h-12 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm ">
+      Byt vy:
+      <img src={isCompactProducts ? smallArticles : bigArticles} alt="" />
+    </button>
+    );
+  };
+
+  return (
+    <div className="py-3 flex flex-row justify-between items-end">
+      <Sort />
+      <CompactToggle 
+        isCompactProducts={isCompactProducts}
+        setIsCompactProducts={setIsCompactProducts}
+      />
+    </div>
+  );
 }
 
-function SortViewOptions({ sortBy, setSortBy, setIsCompactProducts, isCompactProducts}: SortViewOptionsProps) {
-
-    const Sort = () => {
-        return(
-            
-            <FormControl sx={{minWidth:100, border: "none"}}  size="small" >
-
-                <InputLabel>Sortera</InputLabel>
-                <Select 
-                className=" bg-green-100 !rounded-md  "
-                label=" Sortera "
-                value={sortBy}
-                onChange={(e)=>setSortBy(e.target.value)}     
-                >
-                    <MenuItem dense={true} value={"apk"}>APK</MenuItem>
-                    <MenuItem  dense={true} value={"alc_desc"}>Alkoholhalt</MenuItem>
-                    <MenuItem  dense={true} value={"price_asc"}>Lägsta pris</MenuItem>
-                </Select>
-
-            </FormControl>
-  
-        )
-    }
-
-    const CompactToggle = () => {
-        return (
-            // <FormControl size="small" sx={{minWidth:100, border: "none"}} className=" bg-green-100 !rounded-md">
-                
-            // </FormControl>
-            <Button size="small" sx={{minWidth:100, border: "none"}} className=" !rounded-md bg-green-200 !hover:bg-slate-400">
-                <p>hello</p>
-            </Button>
-        )
-    }
-
-    return(
-        <div  className="py-3 flex flex-row justify-between">
-            <Sort/>
-            <CompactToggle/>
-        </div>
-    )
-}
-
-export default SortViewOptions
+export default SortViewOptions;
