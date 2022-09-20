@@ -6,6 +6,7 @@ import PlaceHolderWineBottle from "../../../assets/img/placeholder-wine-bottle.p
 
 type ProductProps = {
     product:ProductType
+    isCompact:boolean
 }
 
 type DisplayProductType = Omit<ProductType, 'apk'> & {
@@ -80,13 +81,12 @@ const Product = (props:ProductProps) => {
                         </div>
                         <p className=" font-bold text-sm self-end ">{product.priceString}</p>
                        
-                        
                     </div>
                 </div>
             </div>
            
 
-            {product.tasteClocks.length > 0 &&
+            {product.tasteClocks.length > 0 && !props.isCompact ? 
             (<div className="  w-full flex flex-row justify-around items-center py-3 border-t-[1px]  border-gray-300">
                 {product.tasteClocks.map((clock)=>{
                     return(
@@ -94,14 +94,14 @@ const Product = (props:ProductProps) => {
                     )
                 })}
 
-            </div>)}
+            </div>) : null}
 
-            { `${product.taste} ${product.usage}` !== "null null" &&
+            { `${product.taste} ${product.usage}` !== "null null" && !props.isCompact ? 
             (<div className=" w-full py-3 border-t-[1px] border-gray-300">
                 <p className=" text-sm">
                     {product.taste} {product.usage}
                 </p>
-            </div>)}
+            </div>) : null}
             
             {product.assortmentText === "Ordervaror" &&
             (<div className=" border-t-[1px] border-gray-300 pt-2 ">

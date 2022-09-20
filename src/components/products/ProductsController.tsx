@@ -10,12 +10,14 @@ const ProductsController = () =>{
     const [products, setProducts] = useState<ProductType[]>([])
     const [sortBy, setSortBy] = useState<SortByOptions>("apk")
     const [isLoading, setIsLoading] = useState<boolean>(true)
-    
+    const [isCompactProducts, setIsCompactProducts] = useState<boolean>(true)
+
     const filters: ProductsFilterOptions = useMemo(()=>{
         return{
             sortBy: sortBy
         }
     }, [sortBy])
+
 
     useEffect(()=>{
         const getProducts = async () =>{
@@ -33,12 +35,17 @@ const ProductsController = () =>{
             <ProductOptions
                 sortBy={sortBy}
                 setSortBy={setSortBy}
+
+                isCompactProducts={isCompactProducts}
+                setIsCompactProducts={setIsCompactProducts}
             />
 
             {isLoading ? 
             <SkeletonProductList/>
             :
-            <ProductList products={products}/>}
+            <ProductList 
+            isCompactProducts={isCompactProducts}
+            products={products}/>}
         </main>
     )
 }
