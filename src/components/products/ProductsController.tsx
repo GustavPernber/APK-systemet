@@ -3,12 +3,13 @@ import api from '@/api'
 import { useEffect, useMemo, useState } from "react"
 import ProductOptions from "./productOptions/ProductOptions"
 import { ProductsFilterOptions, SortByOptions, ProductType } from "@/utils/types"
-
+import SkeletonProductList from "./products/SkeletonProductList"
 
 const ProductsController = () =>{
 
     const [products, setProducts] = useState<ProductType[]>([])
     const [sortBy, setSortBy] = useState<SortByOptions>("apk")
+    const [isLoading, setIsLoading] = useState<boolean>(true)
     
     const filters: ProductsFilterOptions = useMemo(()=>{
         return{
@@ -18,8 +19,10 @@ const ProductsController = () =>{
 
     useEffect(()=>{
         const getProducts = async () =>{
+            setIsLoading(true)
             const res = await api.getProducts(filters)
             setProducts(res.data)
+            setIsLoading(false)
         }
         getProducts()
     }, [filters])
@@ -31,7 +34,11 @@ const ProductsController = () =>{
                 sortBy={sortBy}
                 setSortBy={setSortBy}
             />
-            <ProductList products={products}/>
+
+            {isLoading ? 
+            <SkeletonProductList/>
+            :
+            <ProductList products={products}/>}
         </main>
     )
 }

@@ -21,8 +21,6 @@ async function getProducts(filters: ProductsFilterOptions = {}): Promise<Product
     })
 
     let products = await response.json()
-    console.log('response:');
-    console.log(products);
     return products
 }
 
