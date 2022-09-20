@@ -10,7 +10,7 @@ const ProductsController = () =>{
     const [products, setProducts] = useState<ProductType[]>([])
     const [sortBy, setSortBy] = useState<SortByOptions>("apk")
     const [isLoading, setIsLoading] = useState<boolean>(true)
-    const [isCompactProducts, setIsCompactProducts] = useState<boolean>(true)
+    const [isCompactProducts, setIsCompactProducts] = useState<boolean>(false)
 
     const filters: ProductsFilterOptions = useMemo(()=>{
         return{
