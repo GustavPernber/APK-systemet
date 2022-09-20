@@ -1,10 +1,3 @@
-import {
-  FormControl,
-  MenuItem,
-  InputLabel,
-  Select,
-  Button,
-} from "@mui/material";
 import { SortByOptions } from "@/utils/types";
 
 type SortViewOptionsProps = {
@@ -46,13 +39,9 @@ function SortViewOptions({
 
   const CompactToggle = () => {
     return (
-      <Button
-        size="small"
-        sx={{ minWidth: 100, border: "none" }}
-        className=" !rounded-md bg-green-200 !hover:bg-slate-400"
-      >
-        <p>hello</p>
-      </Button>
+        <div>
+            hello btn
+        </div>
     );
   };
 
