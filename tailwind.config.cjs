@@ -1,8 +1,8 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  
+  content: ["./src/**/*.{js,jsx,ts,tsx}",'node_modules/preline/dist/*.js',],
+  darkMode: false,
   theme: {
     fontFamily:{
       'sans':['Roboto', ...defaultTheme.fontFamily.sans],
@@ -39,5 +39,5 @@ module.exports = {
 
     },
   },
-  plugins: [],
+  plugins: [require('preline/plugin'), require('@tailwindcss/forms')],
 }
