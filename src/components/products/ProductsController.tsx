@@ -1,9 +1,8 @@
 import ProductList from "./products/ProductList"
 import api from '@/api'
-import { useEffect, useState } from "react"
-import { ProductType } from "@/api/types"
+import { useEffect, useMemo, useState } from "react"
 import ProductOptions from "./productOptions/ProductOptions"
-import { ProductsFilterOptions, SortByOptions } from "@/utils/types"
+import { ProductsFilterOptions, SortByOptions, ProductType } from "@/utils/types"
 
 
 const ProductsController = () =>{
@@ -11,20 +10,20 @@ const ProductsController = () =>{
     const [products, setProducts] = useState<ProductType[]>([])
     const [sortBy, setSortBy] = useState<SortByOptions>("apk")
     
-    useEffect(()=>{
-        const getProducts = async () =>{
-            const res = await api.getProducts()
-            setProducts(res)
-        }
-        getProducts()
-    }, [])
-
-
-    useEffect(()=>{
-        const options: ProductsFilterOptions= {
-            sort: sortBy
+    const filters: ProductsFilterOptions = useMemo(()=>{
+        return{
+            sortBy: sortBy
         }
     }, [sortBy])
+
+    useEffect(()=>{
+        const getProducts = async () =>{
+            const res = await api.getProducts(filters)
+            setProducts(res.data)
+        }
+        getProducts()
+    }, [filters])
+
 
     return(
         <main className=" px-3">

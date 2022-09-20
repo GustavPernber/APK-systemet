@@ -1,14 +1,11 @@
-import { ProductType } from "@/api/types"
+import { ProductType } from "@/utils/types"
 import Product from "./Product"
-
-
 
 type ProductListProps = {
     products:ProductType[]
 }
 
 const ProductList = (props: ProductListProps) => {
-
 
     return(
         <div className=" w-full flex flex-col justify-center items-center gap-5" >

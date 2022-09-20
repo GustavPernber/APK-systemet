@@ -1,6 +1,5 @@
-import { ProductsFilterOptions } from '@/utils/types'
+import { ProductsFilterOptions, ProductTypeResponse } from '@/utils/types'
 import mockRes from './productsMock.json'
-import {ProductType} from './types'
 
 const base_url = '.netlify/functions/'
 
@@ -11,18 +10,19 @@ const base_url = '.netlify/functions/'
 // }
 
 
-async function getProducts(filters: ProductsFilterOptions = {}): Promise<ProductType[]> {
+async function getProducts(filters: ProductsFilterOptions = {}): Promise<ProductTypeResponse> {
 
     let response = await fetch(`${base_url}get_products`,{
-        // method: "POST",
-        // headers:{
-        //     'Content-Type': 'application/json'
-        // },
-        // body: JSON.stringify(filters) 
+        method: "POST",
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({filters: filters}) 
     })
 
     let products = await response.json()
-
+    console.log('response:');
+    console.log(products);
     return products
 }
 

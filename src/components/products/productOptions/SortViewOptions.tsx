@@ -1,9 +1,5 @@
-import Select from "@mui/material/Select"
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import { FormControl } from "@mui/material";
-import { SortByOptions } from "../ProductsController";
-
+import { FormControl, MenuItem, InputLabel, Select } from "@mui/material";
+import { SortByOptions } from "@/utils/types";
 
 type SortViewOptionsProps = {
     sortBy: SortByOptions

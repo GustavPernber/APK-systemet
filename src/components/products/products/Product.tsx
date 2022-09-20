@@ -1,4 +1,4 @@
-import { ProductType } from "@/api/types"
+import { ProductType } from "@/utils/types"
 import { getImgPath } from "@/utils/imgPath"
 import { useEffect, useState } from "react"
 import TasteClock from './TasteClock'
