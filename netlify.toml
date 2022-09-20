@@ -1,2 +1,2 @@
 [functions]
-  directory = "backend"
+  directory = "backend/functions"
