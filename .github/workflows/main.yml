@@ -19,7 +19,7 @@ jobs:
       #     NETLIFY_DEPLOY_MESSAGE: "Prod deploy v${{ github.ref }}"
       #     NETLIFY_DEPLOY_TO_PROD: true
       
-      - run: netlify dev
+      - run: npm ci & netlify dev
       # - name: Run e2e tests
       #   # run: cypress install
       #   run: npm ci & cypress install & npx cypress run
