@@ -18,7 +18,7 @@ describe('Site test', () => {
     cy.visit(BASE_URL_DEV)
     cy.get('a').should('have.length.at.least', 15)
     cy.get('select').select('Lägsta pris', {force: true})
-    cy.get('a').should('have.length.at.least', 15)
+    cy.get('a').should('have.length.at.least', 150)
   })
 
 })
