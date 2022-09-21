@@ -30,7 +30,7 @@ function SortViewOptions({
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
             id="hs-select-label"
-            className="py-3 px-4 pr-9 block  h-12 w-full border-gray-200 rounded-md text-sm bg-green-100 "
+            className="py-3 px-4 pr-9 block  h-12 w-full border-gray-200 rounded-md text-sm  bg-[url('./assets/icons/sort-arrows.svg')] "
         >
           <option value='apk'>APK</option>
           <option value='alc_desc'>Högst alkoholhalt</option>
