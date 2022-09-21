@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import Product from './utils/models/Product.js'
+import Product from '../utils/models/Product.js'
 import Joi from 'joi'
 
 
