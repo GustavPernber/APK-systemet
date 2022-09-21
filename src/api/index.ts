@@ -10,14 +10,14 @@ const base_url = '.netlify/functions/'
 // }
 
 
-async function getProducts(filters: ProductsFilterOptions = {}): Promise<ProductTypeResponse> {
+async function getProducts(filters: ProductsFilterOptions = {}, page: number = 1): Promise<ProductTypeResponse> {
 
     let response = await fetch(`${base_url}get_products`,{
         method: "POST",
         headers:{
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({filters: filters}) 
+        body: JSON.stringify({filters: filters, page: page}) 
     })
 
     let products = await response.json()
