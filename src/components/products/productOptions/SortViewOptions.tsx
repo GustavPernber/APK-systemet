@@ -48,10 +48,9 @@ function SortViewOptions({
     className="py-3 px-4 py-3 px-4 h-12 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm ">
       Byt vy:
 
-      <div className=" h-6 w-6">
-        {isCompactProducts ? 
-        <img src={smallArticles} alt="Small articles icon" /> : 
-        <img src={bigArticles} alt="Big articles icon" />}
+      <div className=" relative h-6 w-6">
+        <img src={smallArticles} alt="Small articles icon" className={`${!isCompactProducts && "opacity-0"} absolute`}/> 
+        <img src={bigArticles} alt="Big articles icon" className={`${isCompactProducts && "opacity-0"} absolute`}/>
       </div>
     </button>
     );
