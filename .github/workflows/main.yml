@@ -18,11 +18,10 @@ jobs:
       #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       #     NETLIFY_DEPLOY_MESSAGE: "Prod deploy v${{ github.ref }}"
       #     NETLIFY_DEPLOY_TO_PROD: true
-      
-      - run: npm ci & netlify dev
-      # - name: Run e2e tests
-      #   # run: cypress install
-      #   run: npm ci & cypress install & npx cypress run
+      - name: Start local netlify environment
+        run: npm ci & cypress install & netlify dev
+      - name: Run e2e tests
+        run:  npx cypress run
 
 
 
