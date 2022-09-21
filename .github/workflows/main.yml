@@ -21,7 +21,7 @@ jobs:
       
       - name: Run e2e tests
         # run: cypress install
-        run: cypress install & npx cypress run
+        run: npm ci & cypress install & npx cypress run
 
 
 
