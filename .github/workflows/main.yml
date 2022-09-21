@@ -16,6 +16,9 @@ jobs:
           start: netlify dev
           # quote the url to be safe against YML parsing surprises
           wait-on: 'http://localhost:8888'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MONGODB_PATH: ${{ secrets.MONGODB_PATH }}
 
       # - name: Checkout
       #   uses: actions/checkout@v1
