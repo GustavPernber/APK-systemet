@@ -3,8 +3,7 @@ name: 'CI'
 on: [push]
 
 jobs:
-  deploy:
-    name: 'E2E testing'
+  "E2E testing":
     runs-on: ubuntu-latest
 
     steps:
