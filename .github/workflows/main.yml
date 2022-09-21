@@ -14,4 +14,4 @@ jobs:
         uses: cypress-io/github-action@v4 # use the explicit version number
         with:
           build: npm run build
-          start: npm preview
+          start: npm run preview
