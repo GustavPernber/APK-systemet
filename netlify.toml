@@ -1,3 +1,4 @@
 [functions]
   directory = "functions/"
   node_bundler = "esbuild"
+  # package = "netlify-plugin-cypress"
