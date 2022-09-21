@@ -1,2 +1,3 @@
 [functions]
-  directory = "functions"
+  directory = "functions/"
+  included_files = ["functions/utils/models/Product.js"]
