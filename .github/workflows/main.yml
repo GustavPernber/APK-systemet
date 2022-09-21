@@ -3,21 +3,21 @@ name: 'CI'
 on: [push]
 
 jobs:
-  
-  name: 'E2E testing'
-  runs-on: ubuntu-latest
+  deploy:
+    name: 'E2E testing'
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout code.
-      uses: actions/checkout@v2
-    - name: Serve and test.
-      uses: cypress-io/github-action@v4
-      with:
-        start: netlify dev
-        wait-on: 'http://localhost:8888'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        MONGODB_PATH: ${{ secrets.MONGODB_PATH }}
+    steps:
+      - name: Checkout code.
+        uses: actions/checkout@v2
+      - name: Serve and test.
+        uses: cypress-io/github-action@v4
+        with:
+          start: netlify dev
+          wait-on: 'http://localhost:8888'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MONGODB_PATH: ${{ secrets.MONGODB_PATH }}
 
   
 
