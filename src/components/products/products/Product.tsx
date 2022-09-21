@@ -68,7 +68,7 @@ const Product = (props:ProductProps) => {
     }
 
     return (
-        <a href={formatProductPath()} className={`${product.assortmentText === "Ordervaror" ? "bg-gray-200" : "bg-white"} grid w-full grid-rows-[auto auto auto] grid-cols-1 h-auto px-5 py-3 shadow rounded`} >
+        <a href={formatProductPath()} target="_blank" rel="noopener noreferrer" className={`${product.assortmentText === "Ordervaror" ? "bg-gray-200" : "bg-white"} grid w-full grid-rows-[auto auto auto] grid-cols-1 h-auto px-5 py-3 shadow rounded`} >
             
             <div className="  w-full flex flex-row justify-start h-auto  min-h-[8rem] ">
                 <div className="   h-24  w-16 ">
