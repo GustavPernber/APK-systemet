@@ -11,6 +11,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
+      - name: npm install, build, and test
+        run: |
+          npm ci
+          netlify dev & npx wait-on http://localhost:8888
+      - name: Run Cypress
+        run: |
+          npx cypress run
+
       # - name: Deploy to netlify dev
       #   uses: jsmrcaga/action-netlify-deploy@master
       #   with:
@@ -19,8 +27,8 @@ jobs:
       #     NETLIFY_DEPLOY_MESSAGE: "Prod deploy v${{ github.ref }}"
       #     NETLIFY_DEPLOY_TO_PROD: true
       # - name: Start local netlify environment
-      - run: npm install 
-      - run: sudo BROWSER=none netlify dev & sleep 30s & npx cypress run
+      # - run: npm install 
+      # - run: sudo BROWSER=none netlify dev & npx cypress run
   
 
 
