@@ -15,16 +15,17 @@ const handler= async (event, context) =>{
         }
     }
 
-    const requestFilters = JSON.parse(event.body).filters
+    const requestBody = JSON.parse(event.body)
 
+    const pageSchema = Joi.number().min(1).failover(1)
     const filterSchema = Joi.object().keys({
         sortBy: Joi.string().valid('apk', 'alc_desc', 'price_asc').failover('apk')
     })
-
-    const validFilters = filterSchema.validate(requestFilters);
+    const validPage = pageSchema.validate(requestBody.page).value
+    const validFilters = filterSchema.validate(requestBody.filters).value;
 
     let sortObject
-    switch (validFilters.value.sortBy) {
+    switch (validFilters.sortBy) {
         case 'apk':
             sortObject = { 'apk' : -1}
             break;
@@ -36,9 +37,12 @@ const handler= async (event, context) =>{
             break
     }
 
+    const productsLimit = 30
+    const offset = productsLimit * validPage - productsLimit
+
     let productsFromDB
     try {
-        productsFromDB  = await Product.find().limit(30).sort(sortObject)
+        productsFromDB  = await Product.find().limit(productsLimit).sort(sortObject).skip(offset)
     } catch (error) {
         console.error(error);
         return {
