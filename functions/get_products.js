@@ -8,10 +8,10 @@ const handler= async (event, context) =>{
     try {
         mongoose.connect(process.env.MONGODB_PATH)
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return {
             statusCode: 500,
-            body: JSON.stringify({error: `Couldn't connect to server: ${error}` })
+            body: JSON.stringify({error: {message: "Failed to connect to database.", error: error} })
         }
     }
 
@@ -22,7 +22,6 @@ const handler= async (event, context) =>{
     })
 
     const validFilters = filterSchema.validate(requestFilters);
-    console.log(validFilters);
 
     let sortObject
     switch (validFilters.value.sortBy) {
@@ -41,10 +40,10 @@ const handler= async (event, context) =>{
     try {
         productsFromDB  = await Product.find().limit(30).sort(sortObject)
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return {
             statusCode: 500,
-            body: JSON.stringify({error: error})
+            body: JSON.stringify({error: {message: "Failed to fetch products.", error: error}})
         }
     }
 
