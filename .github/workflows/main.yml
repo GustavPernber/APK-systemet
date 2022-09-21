@@ -4,14 +4,6 @@ on: [push]
 
 jobs:
 
-  Build:
-    runs-on: ubuntu-latest
-    
-    steps: 
-      - name: Checkout code.
-        uses: actions/checkout@v2
-      - run: npm run build
-
   E2E_testing:
     name: "E2E tests"
     runs-on: ubuntu-latest
