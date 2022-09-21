@@ -13,7 +13,7 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm ci
+          npm install
           netlify dev & npx wait-on http://localhost:8888
       - name: Run Cypress
         run: |
