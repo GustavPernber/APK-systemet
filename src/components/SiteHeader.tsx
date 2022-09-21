@@ -1,6 +1,6 @@
 export default function SiteHeader() {
 	return (
-		<header className=" flex flex-row justify-between px-3 py-4">
+		<header className=" flex flex-row justify-between px-3 py-4 bg-red-200">
 			{/* <img className=" w-24" src={logo} alt="logo" />
 			 */}
 			 <h1 className=" font-extrabold font-sans  text-green-200 text-[1rem] tracking-tight  leading-4">APK<br></br> SYSTEMET.</h1>

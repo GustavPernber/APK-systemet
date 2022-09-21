@@ -16,6 +16,9 @@ import {resolve} from 'path'
 export default defineConfig(()=>{
 
   return{
+    build: {
+      outDir: './build'
+    },
     server:{
       port:3000
     },
