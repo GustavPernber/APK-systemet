@@ -3,7 +3,7 @@ name: 'CI'
 on: [push]
 
 jobs:
-  "E2E testing":
+  E2E_testing:
     runs-on: ubuntu-latest
 
     steps:
