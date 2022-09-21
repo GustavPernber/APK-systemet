@@ -19,8 +19,8 @@ jobs:
           NETLIFY_DEPLOY_MESSAGE: "Prod deploy v${{ github.ref }}"
           NETLIFY_DEPLOY_TO_PROD: true
       
-      - name: Run e2e tests
-      - run: npx cypress run
+      # - name: Run e2e tests
+      # - run: npx cypress run
 
 
 
