@@ -56,7 +56,7 @@ function SortViewOptions({
   };
 
   return (
-    <div className="py-3 flex flex-row justify-between items-end">
+    <div className="pb-4 pt-3 flex flex-row justify-between items-end ">
       <Sort />
       <CompactToggle 
         isCompactProducts={isCompactProducts}
