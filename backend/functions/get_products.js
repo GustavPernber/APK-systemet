@@ -5,7 +5,15 @@ import Joi from 'joi'
 
 const handler= async (event, context) =>{
 
-    mongoose.connect(process.env.MONGODB_PATH)
+    try {
+        mongoose.connect(process.env.MONGODB_PATH)
+    } catch (error) {
+        console.log(error);
+        return {
+            statusCode: 500,
+            body: JSON.stringify({error: `Couldn't connect to server: ${error}` })
+        }
+    }
 
     const requestFilters = JSON.parse(event.body).filters
 
@@ -14,6 +22,7 @@ const handler= async (event, context) =>{
     })
 
     const validFilters = filterSchema.validate(requestFilters);
+    console.log(validFilters);
 
     let sortObject
     switch (validFilters.value.sortBy) {
@@ -32,6 +41,7 @@ const handler= async (event, context) =>{
     try {
         productsFromDB  = await Product.find().limit(30).sort(sortObject)
     } catch (error) {
+        console.log(error);
         return {
             statusCode: 500,
             body: JSON.stringify({error: error})
