@@ -20,8 +20,8 @@ jobs:
       #     NETLIFY_DEPLOY_TO_PROD: true
       # - name: Start local netlify environment
       - run: npm install 
-      - run: sudo BROWSER=none netlify dev
-      - run: npx cypress run
+      - run: sudo BROWSER=none netlify dev & sleep 30s & npx cypress run
+  
 
 
 
