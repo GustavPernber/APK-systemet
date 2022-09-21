@@ -86,22 +86,27 @@ const Product = (props:ProductProps) => {
             </div>
            
 
-            {product.tasteClocks.length > 0 && !props.isCompact ? 
-            (<div className="  w-full flex flex-row justify-around items-center py-3 border-t-[1px]  border-gray-300">
-                {product.tasteClocks.map((clock)=>{
-                    return(
-                        <TasteClock key={clock.key} name={clock.key} value={clock.value}></TasteClock>
-                    )
-                })}
+            {product.tasteClocks.length > 0 &&  
+            (<div className={`${props.isCompact && 'h-0'} overflow-hidden`}>
 
-            </div>) : null}
+                <div className={`w-full flex flex-row justify-around items-center py-3 border-t-[1px]  border-gray-300`}>
+                    {product.tasteClocks.map((clock)=>{
+                        return(
+                            <TasteClock key={clock.key} name={clock.key} value={clock.value}></TasteClock>
+                        )
+                    })}
 
-            { `${product.taste} ${product.usage}` !== "null null" && !props.isCompact ? 
-            (<div className=" w-full py-3 border-t-[1px] border-gray-300">
-                <p className=" text-sm">
-                    {product.taste} {product.usage}
-                </p>
-            </div>) : null}
+                </div>
+            </div>)}
+
+            { `${product.taste} ${product.usage}` !== "null null" &&
+            (<div className={`${props.isCompact && 'h-0'} overflow-hidden`}>
+                <div className=" w-full py-3 border-t-[1px] border-gray-300">
+                    <p className=" text-sm">
+                        {product.taste} {product.usage}
+                    </p>
+                </div>
+            </div>)}
             
             {product.assortmentText === "Ordervaror" &&
             (<div className=" border-t-[1px] border-gray-300 pt-2 ">
