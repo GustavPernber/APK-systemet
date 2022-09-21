@@ -19,7 +19,8 @@ jobs:
       #     NETLIFY_DEPLOY_MESSAGE: "Prod deploy v${{ github.ref }}"
       #     NETLIFY_DEPLOY_TO_PROD: true
       - name: Start local netlify environment
-        run: npm ci & cypress install & netlify dev & npx cypress run
+        run: npm ci & cypress install & netlify dev
+      - run: npx cypress run
 
 
 
