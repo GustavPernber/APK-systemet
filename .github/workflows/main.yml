@@ -18,9 +18,9 @@ jobs:
       #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       #     NETLIFY_DEPLOY_MESSAGE: "Prod deploy v${{ github.ref }}"
       #     NETLIFY_DEPLOY_TO_PROD: true
-      - name: Start local netlify environment
-        run: npm install & sudo netlify dev --context production
-      - run: npx cypress run
+      # - name: Start local netlify environment
+      - run: npm install 
+      - run: sudo BROWSER=none netlify dev & npx cypress run
 
 
 
