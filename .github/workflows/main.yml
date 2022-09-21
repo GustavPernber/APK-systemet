@@ -9,15 +9,24 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+      - name: Cypress run
+        uses: cypress-io/github-action@v4
+        with:
+          start: netlify dev
+          # quote the url to be safe against YML parsing surprises
+          wait-on: 'http://localhost:8888'
 
-      - name: npm install, build, and test
-        run: |
-          npm install
-          netlify dev & npx wait-on http://localhost:8888
-      - name: Run Cypress
-        run: |
-          npx cypress run
+      # - name: Checkout
+      #   uses: actions/checkout@v1
+
+      # - name: npm install, build, and test
+      #   run: |
+      #     npm install
+      #     netlify dev & npx wait-on http://localhost:8888
+      # - name: Run Cypress
+      #   run: |
+      #     npx cypress run
 
       # - name: Deploy to netlify dev
       #   uses: jsmrcaga/action-netlify-deploy@master
