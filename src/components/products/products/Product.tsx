@@ -1,12 +1,12 @@
 import { ProductType } from "@/utils/types"
 import { getImgPath } from "@/utils/imgPath"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import TasteClock from './TasteClock'
 import PlaceHolderWineBottle from "../../../assets/img/placeholder-wine-bottle.png";
+import { ProductContext } from "../ProductsController";
 
 type ProductProps = {
     product:ProductType
-    isCompact:boolean
 }
 
 type DisplayProductType = Omit<ProductType, 'apk'> & {
@@ -18,11 +18,12 @@ type DisplayProductType = Omit<ProductType, 'apk'> & {
 
 const Product = (props:ProductProps) => {
     
+    const isCompact = useContext(ProductContext).isCompactProducts
+
     const product: DisplayProductType = {...props.product as DisplayProductType}
     const [imagePath, setImagePath] = useState<string>(getImgPath(product.productId))
     
     product.cat1 = product.cat1==="Cider%20%26%20blanddrycker" ? "Cider & blanddryck" : product.cat1
-    
     
     const formatNameVintage = () => {
         let nameAndVintage
@@ -108,7 +109,7 @@ const Product = (props:ProductProps) => {
            
 
             {product.tasteClocks.length > 0 &&  
-            (<div className={`${props.isCompact && 'h-0'} overflow-hidden`}>
+            (<div className={`${isCompact && 'h-0'} overflow-hidden`}>
 
                 <div className={`w-full flex flex-row justify-around items-center py-3 border-t-[1px]  border-gray-300`}>
                     {product.tasteClocks.map((clock)=>{
@@ -121,7 +122,7 @@ const Product = (props:ProductProps) => {
             </div>)}
 
             { `${product.taste} ${product.usage}` !== "null null" &&
-            (<div className={`${props.isCompact && 'h-0'} overflow-hidden`}>
+            (<div className={`${isCompact && 'h-0'} overflow-hidden`}>
                 <div className=" w-full py-3 border-t-[1px] border-gray-300">
                     <p className=" text-sm">
                         {product.taste} {product.usage}
