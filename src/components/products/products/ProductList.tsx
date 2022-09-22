@@ -1,17 +1,12 @@
 import { ProductType } from "@/utils/types"
 import Product from "./Product"
 import SkeletonProductList from '@/components/products/products/SkeletonProductList'
-import { MouseEventHandler } from "react"
+import { MouseEventHandler, useContext } from "react"
+import { ProductContext } from "../ProductsController"
 
-type ProductListProps = {
-    products:ProductType[]
-    isCompactProducts: boolean
-    isLoading: boolean
-    fetchMore: () => void
+const ProductList = () => {
 
-}
-
-const ProductList = ({isCompactProducts, products, isLoading, fetchMore}: ProductListProps) => {
+    const { products, isLoading, fetchMore } = useContext(ProductContext)
 
     const LoadMoreButton = ({fetchMore}:{fetchMore:Function} ) => {
         return(
@@ -26,7 +21,7 @@ const ProductList = ({isCompactProducts, products, isLoading, fetchMore}: Produc
         <div className=" w-full flex flex-col justify-center items-center gap-5 pb-10" >
             {products.map((product)=>{
                 return (
-                   <Product product={product} isCompact={isCompactProducts} key={product.productId}></Product>
+                   <Product product={product} key={product.productId}></Product>
                 ) 
             })} 
 

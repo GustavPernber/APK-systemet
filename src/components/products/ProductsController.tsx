@@ -1,9 +1,20 @@
 import ProductList from "./products/ProductList"
 import api from '@/api'
-import { useEffect, useMemo, useState } from "react"
+import { createContext, useEffect, useMemo, useState } from "react"
 import ProductOptions from "./productOptions/ProductOptions"
 import { ProductsFilterOptions, SortByOptions, ProductType } from "@/utils/types"
-import SkeletonProductList from "./products/SkeletonProductList"
+
+type ProductContextType = {
+    fetchMore: Function
+    sortBy: SortByOptions
+    setSortBy: Function
+    isCompactProducts: boolean,
+    setIsCompactProducts: Function,
+    products: ProductType[]
+    isLoading: boolean,
+}
+
+export const ProductContext = createContext<ProductContextType>({} as ProductContextType)
 
 const ProductsController = () =>{
 
@@ -19,7 +30,16 @@ const ProductsController = () =>{
         }
     }, [sortBy])
 
-
+    const fetchMore = async () => {
+        setIsLoading(true)
+        const newPage = page + 1
+        setPage(newPage)
+        const res = await api.getProducts(filters, newPage)
+        const newProducts = [...products, ...res.data]
+        setProducts(newProducts)
+        setIsLoading(false)
+    }
+    
     useEffect(()=>{
         setPage(1)
         setIsLoading(true)
@@ -31,34 +51,24 @@ const ProductsController = () =>{
         getProducts()
     }, [filters])
 
-    const fetchMore = async () => {
-        setIsLoading(true)
-        const newPage = page + 1
-        setPage(newPage)
-        const res = await api.getProducts(filters, newPage)
-        const newProducts = [...products, ...res.data]
-        setProducts(newProducts)
-        setIsLoading(false)
+
+    const productContextValues: ProductContextType= {
+        fetchMore,
+        sortBy,
+        setSortBy,
+        isCompactProducts,
+        setIsCompactProducts,
+        products,
+        isLoading
     }
 
     return(
-        <main className=" px-3">
-            <ProductOptions
-                sortBy={sortBy}
-                setSortBy={setSortBy}
-
-                isCompactProducts={isCompactProducts}
-                setIsCompactProducts={setIsCompactProducts}
-            />
-
-            <ProductList 
-            isCompactProducts={isCompactProducts}
-            products={products}
-            isLoading={isLoading}
-            fetchMore={fetchMore}
-            />
-            
-        </main>
+        <ProductContext.Provider value={productContextValues}>
+            <main className=" px-3">
+                <ProductOptions/>
+                <ProductList/>   
+            </main>
+        </ProductContext.Provider>
     )
 }
 

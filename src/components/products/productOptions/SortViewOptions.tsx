@@ -1,21 +1,13 @@
 import { SortByOptions } from "@/utils/types";
 import  smallArticles from '@/assets/icons/smallArticles.svg'
 import  bigArticles from '@/assets/icons/bigArticles.svg'
+import { useContext } from "react";
+import {ProductContext} from '@/components/products/ProductsController'
 
+function SortViewOptions() {
 
-type SortViewOptionsProps = {
-  sortBy: SortByOptions;
-  setSortBy: Function;
-  isCompactProducts: boolean;
-  setIsCompactProducts: Function;
-};
+  const {sortBy, setSortBy, isCompactProducts, setIsCompactProducts } = useContext(ProductContext)
 
-function SortViewOptions({
-  sortBy,
-  setSortBy,
-  setIsCompactProducts,
-  isCompactProducts,
-}: SortViewOptionsProps) {
   const Sort = () => {
     return (
       <form >
