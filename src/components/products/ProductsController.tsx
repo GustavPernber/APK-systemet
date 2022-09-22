@@ -1,6 +1,6 @@
 import ProductList from "./products/ProductList"
 import api from '@/api'
-import { createContext, useEffect, useMemo, useState } from "react"
+import { createContext, useCallback, useEffect, useMemo, useState } from "react"
 import ProductOptions from "./productOptions/ProductOptions"
 import { ProductsFilterOptions, SortByOptions, ProductType } from "@/utils/types"
 
@@ -12,6 +12,8 @@ type ProductContextType = {
     setIsCompactProducts: Function,
     products: ProductType[]
     isLoading: boolean,
+    showFilters: boolean,
+    toggleShowFilters: Function
 }
 
 export const ProductContext = createContext<ProductContextType>({} as ProductContextType)
@@ -23,6 +25,7 @@ const ProductsController = () =>{
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [isCompactProducts, setIsCompactProducts] = useState<boolean>(false)
     const [page, setPage] = useState<number>(1)
+    const [showFilters, setShowFilters] = useState<boolean>(false)
 
     const filters: ProductsFilterOptions = useMemo(()=>{
         return{
@@ -30,7 +33,9 @@ const ProductsController = () =>{
         }
     }, [sortBy])
 
-    const fetchMore = async () => {
+    const toggleShowFilters = () => useCallback(setShowFilters(!showFilters), [])
+
+    const fetchMore = useCallback(async () => {
         setIsLoading(true)
         const newPage = page + 1
         setPage(newPage)
@@ -38,7 +43,7 @@ const ProductsController = () =>{
         const newProducts = [...products, ...res.data]
         setProducts(newProducts)
         setIsLoading(false)
-    }
+    }, []) 
     
     useEffect(()=>{
         setPage(1)
@@ -59,7 +64,9 @@ const ProductsController = () =>{
         isCompactProducts,
         setIsCompactProducts,
         products,
-        isLoading
+        isLoading,
+        showFilters,
+        toggleShowFilters,
     }
 
     return(
