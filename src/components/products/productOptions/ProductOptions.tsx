@@ -15,6 +15,7 @@ function ProductOptions() {
                 Filtrera
                 <img src={sortArrows} alt="" />
             </button>
+            
             {/* <Filters/> */}
             <SortViewOptions/>
         </section> 

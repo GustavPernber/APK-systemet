@@ -33,7 +33,7 @@ const ProductsController = () =>{
         }
     }, [sortBy])
 
-    const toggleShowFilters = () => useCallback(setShowFilters(!showFilters), [])
+    const toggleShowFilters = () => useCallback(() => setShowFilters(!showFilters), [])
 
     const fetchMore = useCallback(async () => {
         setIsLoading(true)
