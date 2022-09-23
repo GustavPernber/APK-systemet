@@ -1,5 +1,15 @@
 export type SortByOptions = "apk" | "price_asc" | "alc_desc" 
 
+export type Category = {
+    url: string
+    name: string
+}
+
+export type Categories = {
+    cat1: Category[]
+}
+
+
 export type ProductsFilterOptions = {
     sortBy?:SortByOptions
 }
