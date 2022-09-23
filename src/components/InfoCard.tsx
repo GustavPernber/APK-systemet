@@ -5,7 +5,7 @@ function InfoCard(){
     const { showInfoCard, toggleInfoCard } = useContext(InfoCardContext)
 
     return(
-        <div className={`fixed w-full h-full ${!showInfoCard && "pointer-events-none"} z-30` } >
+        <div className={`fixed w-full h-[calc(100vh+2rem)] ${!showInfoCard && "pointer-events-none"} z-30` } >
             <section className={`${showInfoCard ? "bg-black opacity-60" : " opacity-0 pointer-events-none"}  transition-all h-screen w-full top-0 right-0 absolute `}>
             </section>
             <div className={`${showInfoCard ? "" : " translate-y-full"} transition-all duration-300 bg-gray-100 rounded-xl h-[20rem] w-screen absolute bottom-0 left-0 
