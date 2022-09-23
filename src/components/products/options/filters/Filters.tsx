@@ -8,7 +8,7 @@ function Filters() {
   return (
     <section
       className={`${!showFilters && "opacity-0 pointer-events-none"} 
-       transition z-10 absolute h-screen w-screen bg-gray-100 top-0 left-0 `}
+       transition z-10 fixed h-screen w-screen bg-gray-100 top-0 left-0 `}
     >
       <div className=" bg-gray-100 w-full pt-10 pb-14 px-10 min-h-screen flex gap-5 flex-col">
 
