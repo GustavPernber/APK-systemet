@@ -1,0 +1,25 @@
+{
+    "cat1":[
+        {
+            "url": "vin",
+            "name": "Vin",
+            "cat2": [
+                {
+                    "url": "rott-vin",
+                    "name" : "Rött vin"
+                }
+            ]
+        },
+
+        {
+            "url": "%C3%96l",
+            "name": "Öl",
+            "cat2": [
+                {
+                    "url": "Ale",
+                    "name": "Ale"
+                }
+            ]
+        }
+    ]
+}

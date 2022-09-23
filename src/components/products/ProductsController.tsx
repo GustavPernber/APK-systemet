@@ -1,7 +1,7 @@
 import ProductList from "./products/ProductList"
 import api from '@/api'
 import { createContext, useCallback, useEffect, useMemo, useState } from "react"
-import ProductOptions from "./productOptions/ProductOptions"
+import ProductOptions from "./options/ProductOptions"
 import { ProductsFilterOptions, SortByOptions, ProductType } from "@/utils/types"
 
 type ProductContextType = {
@@ -33,8 +33,8 @@ const ProductsController = () =>{
         }
     }, [sortBy])
 
-    const toggleShowFilters = () => useCallback(() => setShowFilters(!showFilters), [])
-
+    const toggleShowFilters = useCallback(() => setShowFilters(!showFilters), [showFilters])
+    
     const fetchMore = useCallback(async () => {
         setIsLoading(true)
         const newPage = page + 1
