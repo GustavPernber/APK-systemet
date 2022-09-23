@@ -25,7 +25,8 @@ function Categories() {
                             onClick={() => setCat1(cat1Object) }
                             className={`${cat1.url === cat1Object.url && "bg-green-400 text-white font-semibold "} 
                             bg-white transition-colors text-lg py-3 pr-8 pl-4 w-full grid place-content-start`}>
-                            {cat1Object.name}
+                            
+                            {cat1Object.name === "Cider%20%26%20blanddrycker" ? "Cider & blanddryck" : cat1Object.name}
                             </button>
                         )
                     })}
