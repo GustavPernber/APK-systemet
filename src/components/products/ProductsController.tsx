@@ -19,6 +19,8 @@ type ProductContextType = {
     cat1: Category,
     setCat1: Function
     categories: Categories
+    showOrderStock: boolean
+    setShowOrderStock: Function
 }
 
 export const ProductContext = createContext<ProductContextType>({} as ProductContextType)
@@ -32,16 +34,18 @@ const ProductsController = () =>{
     const [page, setPage] = useState<number>(1)
     const [showFilters, setShowFilters] = useState<boolean>(false)
 
+    const [showOrderStock, setShowOrderStock] = useState<boolean>(false)
     const [cat1, setCat1] = useState<Category>({url:"all", name: "Visa alla"})
 
     const categories: Categories = useMemo(() => categoriesData, [])
 
     const filters: ProductsFilterOptions = useMemo(()=>{
         return{
+            showOrderStock: showOrderStock,
             cat1: cat1.name,
             sortBy: sortBy
         }
-    }, [sortBy, cat1])
+    }, [sortBy, cat1, showOrderStock])
 
     const toggleShowFilters = useCallback(() => setShowFilters(!showFilters), [showFilters])
     
@@ -58,7 +62,9 @@ const ProductsController = () =>{
     useEffect(()=>{
         setPage(1)
         setIsLoading(true)
-        setShowFilters(false)
+        setTimeout(() => { 
+            setShowFilters(false)
+        }, 500);
         const getProducts = async () =>{
             const res = await api.getProducts(filters, 1)
             setProducts(res.data)
@@ -68,7 +74,7 @@ const ProductsController = () =>{
     }, [filters])
 
 
-    const productContextValues: ProductContextType= {
+    const productContextValues: ProductContextType = {
         fetchMore,
         sortBy,
         setSortBy,
@@ -80,7 +86,9 @@ const ProductsController = () =>{
         toggleShowFilters,
         cat1,
         setCat1,
-        categories
+        categories,
+        showOrderStock,
+        setShowOrderStock
     }
 
     return(
