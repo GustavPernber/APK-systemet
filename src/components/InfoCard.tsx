@@ -5,20 +5,19 @@ function InfoCard(){
     const { showInfoCard, toggleInfoCard } = useContext(InfoCardContext)
 
     return(
-        <div className={`fixed w-full h-[calc(100vh+2rem)] ${!showInfoCard && "pointer-events-none"} z-30` } >
-            <section className={`${showInfoCard ? "bg-black opacity-60" : " opacity-0 pointer-events-none"}  transition-all h-screen w-full top-0 right-0 absolute `}>
+        <div className={`fixed w-full h-[calc(100vh+10rem)] ${!showInfoCard && "pointer-events-none"} z-30` } >
+            <section 
+            onClick={()=> toggleInfoCard()}
+            className={`${showInfoCard ? "bg-black opacity-60" : " opacity-0 pointer-events-none"}  transition-all h-screen w-full top-0 right-0 absolute `}>
             </section>
-            <div className={`${showInfoCard ? "" : " translate-y-full"} transition-all duration-300 bg-gray-100 rounded-xl h-[20rem] w-screen absolute bottom-0 left-0 
+            <div className={`${showInfoCard ? "" : " translate-y-full"} transition-all duration-300 bg-gray-100 rounded-xl h-[35rem] w-screen absolute bottom-0 left-0 
              py-8 px-10`} 
             >
                 <div className={`flex flex-row justify-between pb-5`}>
                     <h1>Vad är APK?</h1>
 
                     <span 
-                    onClick={()=> {
-                        console.log('should change');
-                        toggleInfoCard()
-                    }}
+                    onClick={()=> toggleInfoCard()}
                     className="material-icons-outlined text-xl 
                      bg-white w-8 h-8 rounded-full flex flex-col items-center justify-center text-gray-400 ">
                         close
