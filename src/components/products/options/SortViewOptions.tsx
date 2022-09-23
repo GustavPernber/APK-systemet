@@ -22,7 +22,10 @@ function SortViewOptions() {
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
             id="hs-select-label"
-            className="py-3 px-4 pr-9 block  h-12 w-full border-gray-200 rounded-md text-sm  bg-[url('./assets/icons/sort-arrows.svg')] "
+            className="py-3 px-4 pr-9 block 
+             text-green-400
+             font-bold
+            h-12 w-full border-gray-200 rounded-md text-sm  bg-[url('./assets/icons/sort-arrows.svg')] "
         >
           <option value='apk'>APK</option>
           <option value='alc_desc'>Högst alkoholhalt</option>
@@ -37,7 +40,9 @@ function SortViewOptions() {
       
     <button type="button" 
     onClick={()=>setIsCompactProducts(!isCompactProducts)}
-    className="py-3 px-4 h-12 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm ">
+    className="py-3 px-4 h-12 inline-flex 
+     font-bold text-green-400
+    justify-center items-center gap-2 rounded-md border bg-white shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm ">
       Byt vy:
       <div className=" relative h-6 w-6">
         <img src={smallArticles} alt="Small articles icon" className={`${!isCompactProducts && "opacity-0"} absolute`}/> 
