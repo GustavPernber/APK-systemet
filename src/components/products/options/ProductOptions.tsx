@@ -2,7 +2,7 @@ import SortViewOptions from "./SortViewOptions"
 import filterIcon from '@/assets/icons/filter-settings.svg'
 import { useContext } from "react"
 import { ProductContext } from "../ProductsController"
-import Filters from './filters/Filters'
+import Filters from './Filters/Filters'
 
 function ProductOptions() {
 

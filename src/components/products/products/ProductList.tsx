@@ -1,6 +1,6 @@
 import { ProductType } from "@/utils/types"
 import Product from "./Product"
-import SkeletonProductList from '@/components/products/products/SkeletonProductList'
+import SkeletonProductList from '@/components/Products/Products/SkeletonProductList'
 import { MouseEventHandler, useContext } from "react"
 import { ProductContext } from "../ProductsController"
 
