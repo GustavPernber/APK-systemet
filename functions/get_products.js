@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import Product from './utils/models/Product.js'
 import Joi from 'joi'
-
+import categoriesData from './utils/categories.json'
 
 const handler= async (event, context) =>{
 
@@ -15,25 +15,35 @@ const handler= async (event, context) =>{
         }
     }
 
+    const categories = categoriesData
+    let allCat1Name = categories.cat1.map((cat1)=>{
+        return cat1.name
+    })
+    allCat1Name.push('all')
+
     const requestBody = JSON.parse(event.body)
+
+
 
     const pageSchema = Joi.number().min(1).failover(1)
     const filterSchema = Joi.object().keys({
-        sortBy: Joi.string().valid('apk', 'alc_desc', 'price_asc').failover('apk')
+        sortBy: Joi.string().valid('apk', 'alc_desc', 'price_asc').failover('apk'),
+        cat1: Joi.string().valid(...allCat1Name).failover('all')
     })
+
     const validPage = pageSchema.validate(requestBody.page).value
     const validFilters = filterSchema.validate(requestBody.filters).value;
-
-    let sortObject
+    console.log(validFilters);
+    let sortByObject
     switch (validFilters.sortBy) {
         case 'apk':
-            sortObject = { 'apk' : -1}
+            sortByObject = { 'apk' : -1}
             break;
         case 'alc_desc':
-            sortObject = { 'alcPercentage' : -1}
+            sortByObject = { 'alcPercentage' : -1}
             break
         case 'price_asc':
-            sortObject = { 'price' : 1}
+            sortByObject = { 'price' : 1}
             break
     }
 
@@ -42,12 +52,19 @@ const handler= async (event, context) =>{
 
     let productsFromDB
     try {
-        productsFromDB  = await Product.find().limit(productsLimit).sort(sortObject).skip(offset)
-    } catch (error) {
-        console.error(error);
+        if (validFilters.cat1 !== 'all') {
+            productsFromDB  = await Product.find().limit(productsLimit)
+            .where('cat1').equals(validFilters.cat1)
+            .sort(sortByObject).skip(offset)
+        }else{
+            productsFromDB  = await Product.find().limit(productsLimit)
+            .sort(sortByObject).skip(offset)
+        }
+    } catch (e) {
+        console.error(e);
         return {
             statusCode: 500,
-            body: JSON.stringify({error: {message: "Failed to fetch products.", error: error}})
+            body: JSON.stringify({error: {message: "Failed to fetch products.", error: e}})
         }
     }
 

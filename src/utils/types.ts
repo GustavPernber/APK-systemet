@@ -12,6 +12,7 @@ export type Categories = {
 
 export type ProductsFilterOptions = {
     sortBy?:SortByOptions
+    cat1?: Category["url"]
 }
 
 export type ProductType = {

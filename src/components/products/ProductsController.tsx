@@ -31,14 +31,14 @@ const ProductsController = () =>{
     const [isCompactProducts, setIsCompactProducts] = useState<boolean>(false)
     const [page, setPage] = useState<number>(1)
     const [showFilters, setShowFilters] = useState<boolean>(false)
-    
+
     const [cat1, setCat1] = useState<Category>({url:"all", name: "Visa alla"})
 
     const categories: Categories = useMemo(() => categoriesData, [])
 
     const filters: ProductsFilterOptions = useMemo(()=>{
         return{
-            cat1: cat1.url,
+            cat1: cat1.name,
             sortBy: sortBy
         }
     }, [sortBy, cat1])
