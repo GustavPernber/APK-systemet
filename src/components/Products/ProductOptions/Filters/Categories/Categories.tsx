@@ -1,4 +1,4 @@
-import Accordion from '@/components/Products/Options/Filters/utils/Accordion'
+import Accordion from '@/components/Products/ProductOptions/Filters/utils/Accordion'
 import { ProductContext } from '@/components/Products/ProductsController'
 import { useContext } from 'react'
 
