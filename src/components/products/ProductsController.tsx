@@ -1,7 +1,7 @@
-import ProductList from "./Products/ProductList"
+import ProductList from './Products/ProductList'
 import api from '@/api'
 import { createContext, useCallback, useEffect, useMemo, useState } from "react"
-import ProductOptions from "./Options/ProductOptions"
+import ProductOptions from './Options/ProductOptions'
 import { ProductsFilterOptions, SortByOptions, ProductType, Category, Categories } from "@/utils/types"
 import categoriesData from '@/utils/categories.json'
 

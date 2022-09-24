@@ -10,7 +10,7 @@ const base_url = '.netlify/functions/'
 // }
 
 
-async function getProducts(filters: ProductsFilterOptions = {}, page: number = 1): Promise<ProductTypeResponse> {
+async function getProducts(filters: ProductsFilterOptions = {} as ProductsFilterOptions, page: number = 1): Promise<ProductTypeResponse> {
 
     let response = await fetch(`${base_url}get_products`,{
         method: "POST",
