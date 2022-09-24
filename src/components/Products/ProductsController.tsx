@@ -57,15 +57,13 @@ const ProductsController = () =>{
         const newProducts = [...products, ...res.data]
         setProducts(newProducts)
         setIsLoading(false)
-    }, []) 
+    }, [page, filters, products]) 
     
     //States verkar batchas ihop. Se till att isloading körs först
     useEffect(()=>{
         setIsLoading(true)
         setPage(1)
-        
         setShowFilters(false)
-        
         const getProducts = async () =>{
             const res = await api.getProducts(filters, 1)
             setProducts(res.data)
