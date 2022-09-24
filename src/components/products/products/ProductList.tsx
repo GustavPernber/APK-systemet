@@ -19,14 +19,14 @@ const ProductList = () => {
 
     return(
         <div className=" w-full flex flex-col justify-center items-center gap-5 pb-10" >
+            {isLoading && (<SkeletonProductList/>)}
             {products.map((product)=>{
                 return (
                    <Product product={product} key={product.productId}></Product>
                 ) 
             })} 
 
-            {isLoading && (<SkeletonProductList/>)}
-
+    
             <LoadMoreButton fetchMore={fetchMore}/>
         </div>
     )

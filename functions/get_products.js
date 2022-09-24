@@ -23,12 +23,11 @@ const handler= async (event, context) =>{
 
     const requestBody = JSON.parse(event.body)
 
-
-
     const pageSchema = Joi.number().min(1).failover(1)
     const filterSchema = Joi.object().keys({
         sortBy: Joi.string().valid('apk', 'alc_desc', 'price_asc').failover('apk'),
-        cat1: Joi.string().valid(...allCat1Name).failover('all')
+        cat1: Joi.string().valid(...allCat1Name).failover('all'),
+        showOrderStock: Joi.boolean().failover(true)
     })
 
     const validPage = pageSchema.validate(requestBody.page).value
@@ -50,16 +49,28 @@ const handler= async (event, context) =>{
     const productsLimit = 30
     const offset = productsLimit * validPage - productsLimit
 
+
+    // Todo: Dynamic and conditional queries. Not any if-statements
     let productsFromDB
     try {
-        if (validFilters.cat1 !== 'all') {
+        if (validFilters.cat1 !== 'all' && validFilters.showOrderStock === false) {
             productsFromDB  = await Product.find().limit(productsLimit)
             .where('cat1').equals(validFilters.cat1)
+            .where("assortmentText").ne("Ordervaror")
             .sort(sortByObject).skip(offset)
-        }else{
+            
+
+        }else if(validFilters.cat1 !== 'all'){
             productsFromDB  = await Product.find().limit(productsLimit)
             .sort(sortByObject).skip(offset)
+            .where('cat1').equals(validFilters.cat1)
+         
+        }else {
+            productsFromDB  = await Product.find().limit(productsLimit)
+            .sort(sortByObject).skip(offset)
+
         }
+        
     } catch (e) {
         console.error(e);
         return {

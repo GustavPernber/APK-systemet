@@ -34,7 +34,7 @@ const ProductsController = () =>{
     const [page, setPage] = useState<number>(1)
     const [showFilters, setShowFilters] = useState<boolean>(false)
 
-    const [showOrderStock, setShowOrderStock] = useState<boolean>(false)
+    const [showOrderStock, setShowOrderStock] = useState<boolean>(true)
     const [cat1, setCat1] = useState<Category>({url:"all", name: "Visa alla"})
 
     const categories: Categories = useMemo(() => categoriesData, [])
@@ -59,12 +59,13 @@ const ProductsController = () =>{
         setIsLoading(false)
     }, []) 
     
+    //States verkar batchas ihop. Se till att isloading körs först
     useEffect(()=>{
-        setPage(1)
         setIsLoading(true)
-        setTimeout(() => { 
-            setShowFilters(false)
-        }, 500);
+        setPage(1)
+        
+        setShowFilters(false)
+        
         const getProducts = async () =>{
             const res = await api.getProducts(filters, 1)
             setProducts(res.data)

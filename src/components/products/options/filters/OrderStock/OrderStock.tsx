@@ -10,7 +10,7 @@ function OrderStock() {
         return(
             <div className="flex">
                 <input 
-                checked={showOrderStock}
+                checked={!showOrderStock}
                 onChange={() => setShowOrderStock(!showOrderStock)}
                 type="checkbox" className="shrink-0 mt-0.5 border-gray-200 rounded text-green-400   focus:ring-0" id="hs-checked-checkbox" />
                 <label htmlFor="hs-checked-checkbox" className="text-md text-black ml-3 ">
