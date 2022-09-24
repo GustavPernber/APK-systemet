@@ -63,9 +63,7 @@ const ProductsController = () =>{
     useEffect(()=>{
         setIsLoading(true)
         setPage(1)
-        
         setShowFilters(false)
-        
         const getProducts = async () =>{
             const res = await api.getProducts(filters, 1)
             setProducts(res.data)

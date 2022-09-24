@@ -32,8 +32,6 @@ const handler= async (event, context) =>{
 
     const validPage = pageSchema.validate(requestBody.page).value
     const validFilters = filterSchema.validate(requestBody.filters).value;
-    console.log('validfilters:');
-    console.log(validFilters);
     let sortByObject
     switch (validFilters.sortBy) {
         case 'apk':
@@ -66,8 +64,7 @@ const handler= async (event, context) =>{
     
     
     let query = Product.find(queryParams)
-    console.log('query params');
-    console.log(queryParams);
+
     let productsFromDB
     try {
        productsFromDB = await query.sort(sortByObject).skip(offset).limit(productsLimit)
