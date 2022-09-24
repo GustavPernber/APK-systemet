@@ -11,8 +11,9 @@ export type Categories = {
 
 
 export type ProductsFilterOptions = {
-    sortBy?:SortByOptions
-    cat1?: Category["url"]
+    sortBy:SortByOptions
+    cat1: Category["url"]
+    showOrderStock:boolean
 }
 
 export type ProductType = {

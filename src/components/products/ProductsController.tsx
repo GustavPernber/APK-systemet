@@ -1,7 +1,7 @@
-import ProductList from "./products/ProductList"
+import ProductList from "./Products/ProductList"
 import api from '@/api'
 import { createContext, useCallback, useEffect, useMemo, useState } from "react"
-import ProductOptions from "./options/ProductOptions"
+import ProductOptions from "./Options/ProductOptions"
 import { ProductsFilterOptions, SortByOptions, ProductType, Category, Categories } from "@/utils/types"
 import categoriesData from '@/utils/categories.json'
 
@@ -19,6 +19,8 @@ type ProductContextType = {
     cat1: Category,
     setCat1: Function
     categories: Categories
+    showOrderStock: boolean
+    setShowOrderStock: Function
 }
 
 export const ProductContext = createContext<ProductContextType>({} as ProductContextType)
@@ -32,16 +34,18 @@ const ProductsController = () =>{
     const [page, setPage] = useState<number>(1)
     const [showFilters, setShowFilters] = useState<boolean>(false)
 
+    const [showOrderStock, setShowOrderStock] = useState<boolean>(true)
     const [cat1, setCat1] = useState<Category>({url:"all", name: "Visa alla"})
 
     const categories: Categories = useMemo(() => categoriesData, [])
 
     const filters: ProductsFilterOptions = useMemo(()=>{
         return{
+            showOrderStock: showOrderStock,
             cat1: cat1.name,
             sortBy: sortBy
         }
-    }, [sortBy, cat1])
+    }, [sortBy, cat1, showOrderStock])
 
     const toggleShowFilters = useCallback(() => setShowFilters(!showFilters), [showFilters])
     
@@ -55,10 +59,13 @@ const ProductsController = () =>{
         setIsLoading(false)
     }, []) 
     
+    //States verkar batchas ihop. Se till att isloading körs först
     useEffect(()=>{
-        setPage(1)
         setIsLoading(true)
+        setPage(1)
+        
         setShowFilters(false)
+        
         const getProducts = async () =>{
             const res = await api.getProducts(filters, 1)
             setProducts(res.data)
@@ -68,7 +75,7 @@ const ProductsController = () =>{
     }, [filters])
 
 
-    const productContextValues: ProductContextType= {
+    const productContextValues: ProductContextType = {
         fetchMore,
         sortBy,
         setSortBy,
@@ -80,7 +87,9 @@ const ProductsController = () =>{
         toggleShowFilters,
         cat1,
         setCat1,
-        categories
+        categories,
+        showOrderStock,
+        setShowOrderStock
     }
 
     return(

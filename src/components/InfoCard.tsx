@@ -10,10 +10,10 @@ function InfoCard(){
             onClick={()=> toggleInfoCard()}
             className={`${showInfoCard ? "bg-black opacity-60" : " opacity-0 pointer-events-none"}  transition-all h-screen w-full top-0 right-0 absolute `}>
             </section>
-            <div className={`${showInfoCard ? "" : " translate-y-full"} transition-all duration-300 bg-gray-100 rounded-xl h-[35rem] w-screen absolute bottom-0 left-0 
+            <div className={`${!showInfoCard && "translate-y-full"} transition-all duration-300 bg-gray-100 rounded-xl h-[32rem] w-screen absolute bottom-0 left-0 
              py-8 px-10`} 
             >
-                <div className={`flex flex-row justify-between pb-5`}>
+                <div className={`flex flex-row justify-between pb-8`}>
                     <h1>Vad är APK?</h1>
 
                     <span 

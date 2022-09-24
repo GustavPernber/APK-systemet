@@ -1,7 +1,7 @@
-name: 'Test and deploy'
+name: 'Test'
 
 on:
-  push: 
+  pull_request: 
     branches: 
       - master
 
@@ -32,27 +32,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MONGODB_PATH: ${{ secrets.MONGODB_PATH }}
-    
-  Deploy: 
-    needs: E2E_testing
-    name: "Deploy to Netlify"
-    runs-on: ubuntu-latest
-
-    steps:
-
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - run: npm ci
-      - run: npm run build --if-present
-      - name: Deploy
-        uses: netlify/actions/cli@master
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        with:
-          args: deploy --dir=build --prod
-          secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
 
   
 

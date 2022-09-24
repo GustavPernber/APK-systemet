@@ -1,5 +1,5 @@
-import Accordion from '@/components/products/options/filters/utils/Accordion'
-import { ProductContext } from '@/components/products/ProductsController'
+import Accordion from '@/components/Products/Options/Filters/utils/Accordion'
+import { ProductContext } from '@/components/Products/ProductsController'
 import { useContext } from 'react'
 
 

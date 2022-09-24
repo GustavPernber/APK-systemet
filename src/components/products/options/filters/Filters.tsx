@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { ProductContext } from "../../ProductsController";
-import Categories from "./categories/Categories";
+import Categories from "./Categories/Categories";
+import OrderStock from "./OrderStock/OrderStock";
 
 function Filters() {
   const { showFilters, toggleShowFilters } = useContext(ProductContext);
@@ -20,7 +21,8 @@ function Filters() {
         </div>
 
         <div>
-          <Categories></Categories>
+          <Categories/>
+          <OrderStock/>
 
         </div>
 

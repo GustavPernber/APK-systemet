@@ -2,7 +2,7 @@ import { SortByOptions } from "@/utils/types";
 import  smallArticles from '@/assets/icons/smallArticles.svg'
 import  bigArticles from '@/assets/icons/bigArticles.svg'
 import { useContext } from "react";
-import {ProductContext} from '@/components/products/ProductsController'
+import {ProductContext} from '@/components/Products/ProductsController'
 
 function SortViewOptions() {
 

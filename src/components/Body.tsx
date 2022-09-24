@@ -1,6 +1,6 @@
 import Disclaimer from './Disclaimer'
 import SiteHeader from './SiteHeader'
-import ProductsController from './products/ProductsController'
+import ProductsController from './Products/ProductsController'
 import InfoCard from './InfoCard'
 import { createContext, useCallback, useState } from 'react'
 

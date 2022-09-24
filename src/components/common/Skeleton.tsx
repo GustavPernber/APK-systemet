@@ -9,7 +9,7 @@ function Skeleton ({className, width='100%', height='1rem'}: SkeletonProps){
         <p 
         style={{width:width, height:height}}
         
-        className={`${className} bg-gray-200 rounded-md text-md m-2` }></p>
+        className={ `bg-gray-200 rounded-md text-md my-2 ${className} ` }></p>
     )
 }
 
