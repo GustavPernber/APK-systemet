@@ -32,6 +32,7 @@ const handler= async (event, context) =>{
 
     const validPage = pageSchema.validate(requestBody.page).value
     const validFilters = filterSchema.validate(requestBody.filters).value;
+    console.log('validfilters:');
     console.log(validFilters);
     let sortByObject
     switch (validFilters.sortBy) {
@@ -51,25 +52,38 @@ const handler= async (event, context) =>{
 
 
     // Todo: Dynamic and conditional queries. Not any if-statements
+    //OM showorderstock == false .where("assortmentText").ne("Ordervaror")
+    // OM cat1 != 'all .where('cat1').equals(validFilters.cat1)
+    let queryParams = { }
+    validFilters.showOrderStock === false ? queryParams.assortmentText = {$ne: "Ordervaror"} : null
+    validFilters.cat1 != 'all' ? queryParams.cat1 = validFilters.cat1 : null
+
+
+    // .where('cat1').equals(validFilters.cat1)
+    // .where("assortmentText").ne("Ordervaror")
+    
+    
+    
+    
+    let query = Product.find(queryParams)
+    console.log('query params');
+    console.log(queryParams);
     let productsFromDB
     try {
-        if (validFilters.cat1 !== 'all' && validFilters.showOrderStock === false) {
-            productsFromDB  = await Product.find().limit(productsLimit)
-            .where('cat1').equals(validFilters.cat1)
-            .where("assortmentText").ne("Ordervaror")
-            .sort(sortByObject).skip(offset)
+       productsFromDB = await query.sort(sortByObject).skip(offset).limit(productsLimit)
+        // if (validFilters.cat1 !== 'all' && validFilters.showOrderStock === false) {
+        //     productsFromDB  = query.sort(sortByObject).skip(offset).limit(productsLimit)
             
-
-        }else if(validFilters.cat1 !== 'all'){
-            productsFromDB  = await Product.find().limit(productsLimit)
-            .sort(sortByObject).skip(offset)
-            .where('cat1').equals(validFilters.cat1)
+        // }else if(validFilters.cat1 !== 'all'){
+        //     productsFromDB  = await Product.find().limit(productsLimit)
+        //     .sort(sortByObject).skip(offset)
+        //     .where('cat1').equals(validFilters.cat1)
          
-        }else {
-            productsFromDB  = await Product.find().limit(productsLimit)
-            .sort(sortByObject).skip(offset)
+        // }else {
+        //     productsFromDB  = await Product.find().limit(productsLimit)
+        //     .sort(sortByObject).skip(offset)
 
-        }
+        // }
         
     } catch (e) {
         console.error(e);
