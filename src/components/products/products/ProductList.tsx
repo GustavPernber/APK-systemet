@@ -25,7 +25,6 @@ const ProductList = () => {
                    <Product product={product} key={product.productId}></Product>
                 ) 
             })} 
-
     
             <LoadMoreButton fetchMore={fetchMore}/>
         </div>
