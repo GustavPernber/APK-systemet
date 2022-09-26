@@ -15,7 +15,11 @@ module.exports = {
     extend: {
 
       gridTemplateRows:{
-        'main':'auto auto 1fr'
+        'main':'auto auto 1fr',
+      },
+      gridTemplateColumns: {
+        'productsController': 'auto auto'
+
       },
       
       colors:{

@@ -10,10 +10,12 @@ function Filters() {
     <section
       className={`${!showFilters && "opacity-0 pointer-events-none "} 
       transition z-10 fixed h-screen w-screen bg-gray-100 top-0 left-0 
-      md:opacity-100 md:h-auto  md:relative  md:col-start-1  md:row-start-2 md:w-[21rem] md:pointer-events-auto
+      md:opacity-100 md:h-auto  md:relative  md:col-start-1  md:row-span-2 md:row-start-1
+      md:w-[14rem] md:pointer-events-auto
+      md:border-r-[1px] md:border-gray-300  md:mt-4
       `}
     >
-      <div className=" bg-gray-100 w-full pt-10 pb-14 px-10 min-h-screen flex gap-5 flex-col">
+      <div className=" bg-gray-100 w-full pt-10 pb-14 px-10 min-h-screen flex gap-5 flex-col md:p-0 md:pr-3">
 
         <div className=" flex flex-row justify-between">
           <h1 className=" text-2xl  font-semibold ml-[-3px]">Filtrera</h1>

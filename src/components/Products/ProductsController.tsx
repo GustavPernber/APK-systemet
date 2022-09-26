@@ -93,11 +93,18 @@ const ProductsController = () =>{
 
     return(
         <ProductContext.Provider value={productContextValues}>
-            <main className=" px-3  md:grid  md:grid-flow-row  md:px-12">
-                <ProductOptions/>
-                <Filters/>
-                <ProductList/>   
-            </main>
+            <div className=' md:w-full grid place-items-center md:border-t-[1px] md:border-t-gray-300'>
+                <main className=" 
+                md:mx-8
+                px-3 md:w-auto md:grid  md:grid-flow-row  md:grid-cols-productsController  md:gap-x-6 md:pt-4 md:px-auto">
+                    <Filters/>
+                    <section className=' md:max-w-[50rem] md:w-full'>
+                        <ProductOptions/>
+                        <ProductList/>   
+                    </section>
+                </main>
+            </div>
+
         </ProductContext.Provider>
     )
 }
