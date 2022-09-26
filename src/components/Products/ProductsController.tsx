@@ -95,7 +95,7 @@ const ProductsController = () =>{
         <ProductContext.Provider value={productContextValues}>
             <div className=' md:w-full grid place-items-center md:border-t-[1px] md:border-t-gray-300 pb-[rem]'>
                 <main className=" 
-                
+                w-full
                 px-3 md:px-8 lg:w-auto lg:grid  lg:grid-flow-row  lg:grid-cols-productsController md:pt-4 lg:gap-x-6 ">
                     <Filters/>
                     <section className=' flex flex-col justify-center md:max-w-screen lg:max-w-[55rem] md:w-full'>
