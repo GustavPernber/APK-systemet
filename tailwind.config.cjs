@@ -17,7 +17,7 @@ module.exports = {
       gridTemplateRows:{
         'main':'auto auto 1fr'
       },
-
+      
       colors:{
         gray:{
           100:"#F9F9F9",
