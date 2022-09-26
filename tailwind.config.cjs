@@ -19,7 +19,7 @@ module.exports = {
       },
       gridTemplateColumns: {
         'productsController': 'auto auto'
-
+        
       },
       
       colors:{

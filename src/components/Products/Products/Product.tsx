@@ -70,11 +70,11 @@ const Product = (props:ProductProps) => {
 
     return (
         <a href={formatProductPath()} target="_blank" rel="noopener noreferrer" className={`${product.assortmentText === "Ordervaror" ? "bg-gray-200" : "bg-white"} 
-        grid w-full grid-rows-[auto auto auto] grid-cols-1 h-auto px-5 pb-2 pt-5 shadow rounded
+         w-full flex flex-col  justify-between  h-auto px-5 pb-2 pt-5 shadow rounded min-h-[12rem]
         
         `} >
             
-            <div className="  w-full flex flex-row justify-start h-auto  min-h-[8rem] ">
+            <div className="  w-full flex flex-row justify-start h-[9rem] border-b-[1px] border-gray-300">
                 <div className="   h-24  w-16 ">
                     <img 
                     src={imagePath}
@@ -84,7 +84,7 @@ const Product = (props:ProductProps) => {
                 </div>
               
                 <div className="flex flex-col justify-between w-full pl-5">
-                    <div className=" pb-5">
+                    <div className="">
                         <p className=" pb-[0.1rem] uppercase font-[400] font-condensed text-[0.8rem] text-black  tracking-widest">
                 
                         {product.cat2}{product.cat3 != null ?  `, ${product.cat3}` : ""}
@@ -114,7 +114,7 @@ const Product = (props:ProductProps) => {
             {product.tasteClocks.length > 0 &&  
             (<div className={`${isCompact && 'h-0'} overflow-hidden`}>
 
-                <div className={`w-full flex flex-row justify-around items-center py-3 border-t-[1px]  border-gray-300`}>
+                <div className={`w-full flex flex-row justify-around items-center py-3  `}>
                     {product.tasteClocks.map((clock)=>{
                         return(
                             <TasteClock key={clock.key} name={clock.key} value={clock.value}></TasteClock>
@@ -125,18 +125,32 @@ const Product = (props:ProductProps) => {
             </div>)}
 
             { `${product.taste} ${product.usage}` !== "null null" &&
-            (<div className={`${isCompact && 'h-0'} overflow-hidden`}>
-                <div className=" w-full py-3 border-t-[1px] border-gray-300">
+            (<div className={`${isCompact ? 'h-0' : 'h-[7rem]' } overflow-hidden `}>
+                <div className=" w-full py-3 h-full border-t-[1px] border-gray-300 ">
                     <p className=" text-sm">
                         {product.taste} {product.usage}
                     </p>
                 </div>
             </div>)}
             
-            {product.assortmentText === "Ordervaror" &&
-            (<div className=" border-t-[1px] border-gray-300 pt-2 ">
+            
+            <div className=" h-8 w-full flex flex-col justify-center items-center mt-2 ">
+                {product.assortmentText === "Ordervaror" && 
+                    (
+                        <div className=" w-full">
+                            <span className=" bg-orange rounded-md w-full font-condensed  text-xs p-1 flex justify-center font-bold text-gray-800 uppercase tracking-wide ">
+                                Ordervara</span>
+                        </div>
+                    )
+
+                }
+
+            </div>
+
+            {/* {product.assortmentText === "Ordervaror" &&
+            (<div className="  pt-2 self-end w-full">
                 <span className=" bg-orange rounded-md w-full font-condensed  text-xs p-1 flex justify-center font-bold text-gray-800 uppercase tracking-wide ">Ordervara</span>
-            </div>)}
+            </div>)} */}
 
         </a>
     )
