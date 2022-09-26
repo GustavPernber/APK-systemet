@@ -6,7 +6,7 @@ export default function Disclaimer(){
     const [hidden, setHidden] = useState(false)
 
     return(
-        <div className={`${hidden && "hiddenDisclaimer"} max-h-96 overflow-hidden w-full mx-3`}>
+        <div className={`${hidden && "hiddenDisclaimer"} max-h-96 overflow-hidden w-full mx-3 md:max-w-lg`}>
 
             <div
             className={`   h-[auto]  bg-gray-200 transition overflow-hidden flex flex-col     gap-1 rounded w-full py-3 px-3    relative  `}>

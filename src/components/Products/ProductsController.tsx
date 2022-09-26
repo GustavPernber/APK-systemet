@@ -4,6 +4,7 @@ import { createContext, useCallback, useEffect, useMemo, useState } from "react"
 import ProductOptions from './ProductOptions/ProductOptions'
 import { ProductsFilterOptions, SortByOptions, ProductType, Category, Categories } from "@/utils/types"
 import categoriesData from '@/utils/categories.json'
+import Filters from './ProductOptions/Filters/Filters'
 
 
 type ProductContextType = {
@@ -92,8 +93,9 @@ const ProductsController = () =>{
 
     return(
         <ProductContext.Provider value={productContextValues}>
-            <main className=" px-3">
+            <main className=" px-3  md:grid  md:grid-flow-row  md:px-12">
                 <ProductOptions/>
+                <Filters/>
                 <ProductList/>   
             </main>
         </ProductContext.Provider>

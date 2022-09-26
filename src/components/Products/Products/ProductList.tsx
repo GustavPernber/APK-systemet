@@ -11,14 +11,14 @@ const ProductList = () => {
     const LoadMoreButton = ({fetchMore}:{fetchMore:Function} ) => {
         return(
             <button onClick={fetchMore as MouseEventHandler}
-            className=" bg-green-400 rounded-full  w-40 h-12 font-sans font-bold text-white">
+            className=" bg-green-400 rounded-full w-40 h-12 font-sans font-bold text-white">
                 Visa fler
             </button>
         )
     }
 
     return(
-        <div className=" w-full flex flex-col justify-center items-center gap-5 pb-10" >
+        <div className=" w-full gap-5 pb-10   grid-flow-row grid  md:grid-cols-2  md:col-start-2" >
             {isLoading && (<SkeletonProductList/>)}
             {products.map((product)=>{
                 return (

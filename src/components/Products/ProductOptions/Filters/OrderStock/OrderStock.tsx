@@ -8,12 +8,12 @@ function OrderStock() {
 
     const OrderStockContent = () => {
         return(
-            <div className="flex">
+            <div className="flex flex-row items-center py-3 cursor-pointer ">
                 <input 
                 checked={!showOrderStock}
                 onChange={() => setShowOrderStock(!showOrderStock)}
-                type="checkbox" className="shrink-0 mt-0.5 border-gray-200 rounded text-green-400   focus:ring-0" id="hs-checked-checkbox" />
-                <label htmlFor="hs-checked-checkbox" className="text-md text-black ml-3 ">
+                type="checkbox" className="shrink-0  border-gray-200 cursor-pointer rounded text-green-400  p-3  focus:ring-0" id="hs-checked-checkbox" />
+                <label htmlFor="hs-checked-checkbox" className=" cursor-pointer text-lg md:text-base text-black ml-3 ">
                     Dölj ordervaror
                 </label>
             </div>
