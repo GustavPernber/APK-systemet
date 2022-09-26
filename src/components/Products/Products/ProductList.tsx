@@ -18,14 +18,16 @@ const ProductList = () => {
     }
 
     return(
-        <div className=" w-full gap-5 pb-10   grid-flow-row grid  md:grid-cols-2  md:col-start-2 " >
-            {isLoading && (<SkeletonProductList/>)}
-            {products.map((product)=>{
-                return (
-                   <Product product={product} key={product.productId}></Product>
-                ) 
-            })} 
-    
+        <div className=" flex flex-col justify-start items-center">
+            <div className=" w-full gap-5 pb-10   grid-flow-row grid  md:grid-cols-2  md:col-start-2 " >
+                {isLoading && (<SkeletonProductList/>)}
+                {products.map((product)=>{
+                    return (
+                    <Product product={product} key={product.productId}></Product>
+                    ) 
+                })} 
+        
+            </div>
             <LoadMoreButton fetchMore={fetchMore}/>
         </div>
     )
