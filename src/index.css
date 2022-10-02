@@ -10,21 +10,18 @@ body {
 @keyframes slideRightAndHide{
 	from{
 		transform: translateX(0);
-		
-		
 	}
-	60%{
+	70%{
 		transform: translateX(110vw);
 
 	}
 	to{
 		max-height: 0;
-		transform: translateX(110vw);
-		
+		transform: translateX(110vw);	
 	}
 }
 .hiddenDisclaimer{	
-	animation: slideRightAndHide 0.6s forwards cubic-bezier(.42,0,.2,1);
+	animation: slideRightAndHide 0.6s forwards ease-out;
 }
 
 @font-face {

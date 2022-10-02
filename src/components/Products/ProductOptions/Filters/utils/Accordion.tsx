@@ -10,17 +10,17 @@ function Accordion({ contentComponent, title }: AccordionProps) {
   const [show, setShow] = useState<boolean>(false) 
 
   return (
-    <div className="hs-accordion-group ">
+    <div className="hs-accordion-group w-full">
       <div
         className="hs-accordion"
         id="hs-basic-with-title-and-arrow-stretched-heading-one"
       >
         <button 
           onClick={() => setShow(!show)}
-          className="hs-accordion-toggle  group py-3 inline-flex items-center justify-between gap-x-3 w-full font-semibold text-left text-gray-800 transition hover:text-gray-500"
+          className="hs-accordion-toggle  group py-0 inline-flex items-center justify-between gap-x-3 w-full font-semibold text-left text-gray-800 transition hover:text-gray-500"
           aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-one"
         >
-          <h2 className={`font-normal ${ show && "font-semibold "} text-lg`}>
+          <h2 className={`font-normal ${ show && "font-semibold "}   text-base`}>
             {title}
           </h2>
           <svg
@@ -34,7 +34,7 @@ function Accordion({ contentComponent, title }: AccordionProps) {
             <path
               d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
               stroke="black"
-              stroke-width="4"
+              stroke-width="3"
               stroke-linecap="round"
             />
           </svg>

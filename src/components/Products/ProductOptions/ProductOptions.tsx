@@ -9,15 +9,15 @@ function ProductOptions() {
     const { toggleShowFilters } = useContext(ProductContext)
 
     return(
-        <section>
+        <section className="  md:row-span-1 md:col-start-2 ">
             <button 
             onClick={() => toggleShowFilters()}
-            type="button" className="w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-green-400 shadow-xs align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-offset-white focus:ring-green-200 transition-all text-md ">
+            type="button" className="   lg:hidden w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-green-400 shadow-xs align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-offset-white focus:ring-green-200 transition-all text-md ">
                 Filtrera
                 <img src={filterIcon} alt="" />
             </button>
             
-            <Filters/>
+            
             <SortViewOptions/>
         </section> 
     )

@@ -4,6 +4,7 @@ import { createContext, useCallback, useEffect, useMemo, useState } from "react"
 import ProductOptions from './ProductOptions/ProductOptions'
 import { ProductsFilterOptions, SortByOptions, ProductType, Category, Categories } from "@/utils/types"
 import categoriesData from '@/utils/categories.json'
+import Filters from './ProductOptions/Filters/Filters'
 
 
 type ProductContextType = {
@@ -92,10 +93,18 @@ const ProductsController = () =>{
 
     return(
         <ProductContext.Provider value={productContextValues}>
-            <main className=" px-3">
-                <ProductOptions/>
-                <ProductList/>   
-            </main>
+            <div className=' md:w-full grid place-items-center md:border-t-[1px] md:border-t-gray-300 pb-[10rem]'>
+                <main className=" 
+                w-full
+                px-3 md:px-8  md:pt-4 flex flex-row justify-center items-start">
+                    <Filters/>
+                    <section className=' flex flex-col justify-center md:max-w-screen lg:max-w-[55rem] lg:w-full lg:border-l-[1px] lg:border-gray-300 lg:pl-6 flex-auto'>
+                        <ProductOptions/>
+                        <ProductList/>   
+                    </section>
+                </main>
+            </div>
+
         </ProductContext.Provider>
     )
 }

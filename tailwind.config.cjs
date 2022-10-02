@@ -15,9 +15,13 @@ module.exports = {
     extend: {
 
       gridTemplateRows:{
-        'main':'auto auto 1fr'
+        'main':'auto auto 1fr',
       },
-
+      gridTemplateColumns: {
+        'productsController': 'min-content 1fr'
+        
+      },
+      
       colors:{
         gray:{
           100:"#F9F9F9",

@@ -6,10 +6,10 @@ export default function Disclaimer(){
     const [hidden, setHidden] = useState(false)
 
     return(
-        <div className={`${hidden && "hiddenDisclaimer"} max-h-96 overflow-hidden w-full mx-3`}>
+        <div className={`${hidden && "hiddenDisclaimer"} max-h-96 overflow-hidden w-full mx-3 md:max-w-lg `}>
 
             <div
-            className={`   h-[auto]  bg-gray-200 transition overflow-hidden flex flex-col     gap-1 rounded w-full py-3 px-3    relative  `}>
+            className={`   h-[auto]  bg-gray-200 transition overflow-hidden flex flex-col  md:my-3   gap-1 rounded w-full py-3 px-3    relative  `}>
 
                 <button className=" bg-white   grid items-center h-5 w-5  rounded-full absolute right-3 top-2"
                 onClick={()=>setHidden(true)}
