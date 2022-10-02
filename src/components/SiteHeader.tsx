@@ -6,7 +6,7 @@ export default function SiteHeader() {
 
 	
 	return (
-		<header className=" flex flex-row justify-between px-3 pt-4 pb-2 lg:mx-12 lg:mt-3 md:px-6 ">
+		<header className=" flex flex-row justify-between px-3 pt-4 pb-2 lg:mx-12 md:px-6 md:pb-0 ">
 			 <h1 className=" font-extrabold font-sans  text-green-200 text-[1rem] md:text-[1.5rem] tracking-tight  leading-4 md:leading-6">APK<br></br> SYSTEMET.</h1>
 
 			<button 

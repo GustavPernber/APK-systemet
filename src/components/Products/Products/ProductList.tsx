@@ -1,4 +1,3 @@
-import { ProductType } from "@/utils/types"
 import Product from "./Product"
 import SkeletonProductList from '@/components/Products/Products/SkeletonProductList'
 import { MouseEventHandler, useContext } from "react"
@@ -18,11 +17,9 @@ const ProductList = () => {
     }
 
     return(
-        <div className=" flex flex-col justify-start items-center">
+        <div className=" flex flex-col justify-start items-center flex-auto ">
             <div className=" w-full gap-5 pb-10   grid-flow-row grid  md:grid-cols-2  md:col-start-2 " >
-                <SkeletonProductList/>
                 
-
                 {isLoading && (<SkeletonProductList/>)} 
                 {products.map((product)=>{
                     return (

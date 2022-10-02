@@ -93,12 +93,12 @@ const ProductsController = () =>{
 
     return(
         <ProductContext.Provider value={productContextValues}>
-            <div className=' md:w-full grid place-items-center md:border-t-[1px] md:border-t-gray-300 pb-[rem]'>
+            <div className=' md:w-full grid place-items-center md:border-t-[1px] md:border-t-gray-300 pb-[10rem]'>
                 <main className=" 
                 w-full
-                px-3 md:px-8 lg:w-auto lg:grid  lg:grid-flow-row  lg:grid-cols-productsController md:pt-4 lg:gap-x-6 ">
+                px-3 md:px-8  md:pt-4 flex flex-row justify-center items-start">
                     <Filters/>
-                    <section className=' flex flex-col justify-center md:max-w-screen lg:max-w-[55rem] md:w-full'>
+                    <section className=' flex flex-col justify-center md:max-w-screen lg:max-w-[55rem] lg:w-full lg:border-l-[1px] lg:border-gray-300 lg:pl-6 flex-auto'>
                         <ProductOptions/>
                         <ProductList/>   
                     </section>

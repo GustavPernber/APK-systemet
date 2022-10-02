@@ -9,13 +9,16 @@ function Filters() {
   return (
     <section
       className={`${!showFilters && "opacity-0 pointer-events-none "} 
-      transition z-10 fixed h-screen w-screen bg-gray-100 top-0 left-0 
-      lg:opacity-100 lg:h-auto  lg:relative  lg:col-start-1  lg:row-span-2 lg:row-start-1
+      transition z-10 fixed h-screen w-screen bg-gray-100 top-0 left-0 grid place-items-center
+      
+      lg:opacity-100 lg:h-auto lg:col-start-1  lg:row-span-2 lg:row-start-1
       lg:w-[14rem] lg:pointer-events-auto
-      lg:border-r-[1px] lg:border-gray-300  lg:mt-4
+      lg:sticky lg:pt-10 
       `}
     >
-      <div className=" bg-gray-100 w-full pt-10 pb-14 px-10 min-h-screen flex gap-5 flex-col lg:p-0 lg:pr-3">
+      <div className=" bg-gray-100  pt-10 
+       max-w-[30rem] w-full
+      pb-14 px-10 min-h-screen  lg:min-h-0 flex gap-5 flex-col lg:p-0 lg:pr-2">
 
         <div className=" flex flex-row justify-between">
           <h1 className=" text-2xl  font-semibold ml-[-3px]">Filtrera</h1>

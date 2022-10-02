@@ -25,7 +25,7 @@ const Body = ()=>{
     }
 
     return(
-        <div className='App  gap-y-3  grid grid-rows-main  bg-gray-100 w-screen  min-h-screen '>
+        <div className='App  gap-y-3 md:gap-y-2  grid grid-rows-main  bg-gray-100 w-screen  min-h-screen '>
             <InfoCardContext.Provider value={infoCardContextValues}>
                 <SiteHeader/>
                 <InfoCard/>

@@ -18,7 +18,7 @@ module.exports = {
         'main':'auto auto 1fr',
       },
       gridTemplateColumns: {
-        'productsController': 'auto auto'
+        'productsController': 'min-content 1fr'
         
       },
       
