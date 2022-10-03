@@ -31,6 +31,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - run: npm ci
+      - run: npm run build
 
       - name: Serve and test.
         uses: cypress-io/github-action@v4
