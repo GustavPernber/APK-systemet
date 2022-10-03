@@ -29,4 +29,6 @@ cypress/videos
 
 # Local Netlify folder
 .netlify
-cypress/videos/spec.cy.ts.mp4
+
+web/cypress/screenshots/spec.cy.ts/
+web/cypress/videos/spec.cy.ts.mp4

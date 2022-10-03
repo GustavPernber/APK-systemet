@@ -1,4 +1,4 @@
-name: 'Test and deploy'
+name: 'Test and deploy to dev'
 
 on:
   push: 
@@ -9,7 +9,9 @@ jobs:
 
   Build:
       runs-on: ubuntu-latest
-      
+      defaults:
+        run:
+          working-directory: ./web
       steps: 
         - name: Checkout code
           uses: actions/checkout@v2
@@ -20,6 +22,9 @@ jobs:
     needs: Build
     name: "E2E tests"
     runs-on: ubuntu-latest
+    defaults:
+        run:
+          working-directory: ./web
 
     steps:
       - name: Checkout code
@@ -37,6 +42,10 @@ jobs:
     needs: E2E_testing
     name: "Deploy to Netlify"
     runs-on: ubuntu-latest
+    defaults:
+        run:
+          working-directory: ./web
+
 
     steps:
 
@@ -51,6 +60,7 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         with:
+          working-directory: ./web
           args: deploy --dir=build --prod
           secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
 
