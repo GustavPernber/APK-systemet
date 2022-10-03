@@ -29,9 +29,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Serve and test.
         uses: cypress-io/github-action@v4
         with:
+          working-directory: ./web
           start: netlify dev
           wait-on: 'http://localhost:8888'
         env:
@@ -46,7 +48,6 @@ jobs:
         run:
           working-directory: ./web
 
-
     steps:
 
       - name: Checkout code
@@ -60,7 +61,6 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         with:
-          working-directory: ./web
           args: deploy --dir=build --prod
           secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
 
