@@ -14,8 +14,9 @@ jobs:
       steps: 
         - name: Checkout code
           uses: actions/checkout@v2
-
+        - run: pwd
         - run: cd web
+        - run: pwd
         - run: npm ci
         - run: npm run build
 
