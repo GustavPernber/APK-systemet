@@ -24,11 +24,13 @@ jobs:
     needs: Build
     name: "E2E tests"
     runs-on: ubuntu-latest
+    defaults:
+        run:
+          working-directory: ./web
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - run: cd web
 
       - name: Serve and test.
         uses: cypress-io/github-action@v4
