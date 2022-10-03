@@ -9,16 +9,16 @@ on:
 jobs:
 
   Build:
-      runs-on: ubuntu-latest
-      defaults:
-        run:
-          working-directory: ./web
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./web
 
-      steps: 
-        - name: Checkout code
-          uses: actions/checkout@v2
-        - run: npm ci
-        - run: npm run build
+    steps: 
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - run: npm ci
+      - run: npm run build
 
   E2E_testing:
     needs: Build
