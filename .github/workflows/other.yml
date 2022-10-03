@@ -35,7 +35,7 @@ jobs:
       - name: Serve and test.
         uses: cypress-io/github-action@v4
         with:
-          project: ./web
+          working-directory: ./web
           start: netlify dev
           wait-on: 'http://localhost:8888'
         env:
