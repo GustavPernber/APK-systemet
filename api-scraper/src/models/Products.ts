@@ -294,7 +294,7 @@ const ProductSchema = new Schema<Product>({
     type: Number,
     required: true
   }
-});
+}, {collection: "products-tmp"});
 
 const OLDProductSchema = new Schema({
   productId: {
