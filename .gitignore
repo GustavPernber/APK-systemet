@@ -32,3 +32,7 @@ cypress/videos
 
 web/cypress/screenshots/spec.cy.ts/
 web/cypress/videos/spec.cy.ts.mp4
+api-scraper/src/main.js
+.gitignore
+api-scraper/src/utils/types.js
+api-scraper/src/models/Products.js
