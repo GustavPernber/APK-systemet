@@ -73,5 +73,6 @@ export interface Product {
     tasteClocks: TasteClock[];
     color: string;
     dishPoints?: any;
+    apk: number
 }
 

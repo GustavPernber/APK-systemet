@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+import {Schema, model} from "mongoose";
 import {Product, Image, TasteClock} from '../utils/types'
 
-const ImageSchema = new mongoose.Schema<Image>({
+const ImageSchema = new Schema<Image>({
     imageUrl: {
         type: String,
         required: true
@@ -14,7 +14,7 @@ const ImageSchema = new mongoose.Schema<Image>({
     }
 })
 
-const TasteClockSchema = new mongoose.Schema<TasteClock>({
+const TasteClockSchema = new Schema<TasteClock>({
     key: {
         type: String,
         required: true
@@ -25,7 +25,7 @@ const TasteClockSchema = new mongoose.Schema<TasteClock>({
     }
 })
 
-const ProductSchema = new mongoose.Schema<Product>({
+const ProductSchema = new Schema<Product>({
 //   productId: {type: Number, required: true, unique: true},
   productId: {
     type: String,
@@ -42,7 +42,7 @@ const ProductSchema = new mongoose.Schema<Product>({
   },
   productNameThin: {
     type: String,
-    required: true,
+    required: false,
   },
   category: {
     type: String,
@@ -50,15 +50,15 @@ const ProductSchema = new mongoose.Schema<Product>({
   },
   productNumberShort: {
     type: String,
-    required: true,
+    required: false,
   },
   producerName: {
     type: String,
-    required: true,
+    required: false,
   },
   supplierName: {
     type: String,
-    required: true,
+    required: false,
   },
   isKosher: {
     type: Boolean,
@@ -66,7 +66,7 @@ const ProductSchema = new mongoose.Schema<Product>({
   },
   bottleText: {
     type: String,
-    required: true,
+    required: false,
   },
   restrictedParcelQuantity: {
     type: Number,
@@ -92,7 +92,7 @@ const ProductSchema = new mongoose.Schema<Product>({
   },
   ethicalLabel: {
     type: String,
-    required: true,
+    required: false,
  
   },
   isWebLaunch: {
@@ -137,7 +137,7 @@ const ProductSchema = new mongoose.Schema<Product>({
   },
   originLevel1: {
     type: String,
-    required: true,
+    required: false,
   },
   originLevel2: {
     type: String,
@@ -153,7 +153,7 @@ const ProductSchema = new mongoose.Schema<Product>({
   },
   categoryLevel3: {
     type: String,
-    required: true,
+    required: false,
   },
   categoryLevel4:{
     type: String,
@@ -170,16 +170,16 @@ const ProductSchema = new mongoose.Schema<Product>({
   usage:
   {
     type: String,
-    required: true,
+    required: false,
   },
   taste:
   {
     type: String,
-    required: true,
+    required: false,
   },
   tasteSymbols:{
     type: [String],
-    required: true,
+    required: false,
   },
   tasteClockGroupBitter: {
     type: String,
@@ -256,23 +256,23 @@ const ProductSchema = new mongoose.Schema<Product>({
   },
   sugarContent: {
     type: Number,
-    required: true,
+    required: false,
   },
   sugarContentGramPer100ml: {
     type: Number,
-    required: true,
+    required: false,
   },
   seal: {
     type: [String],
-    required: true,
+    required: false,
   },
   vintage: {
     type: String,
-    required: true,
+    required: false,
   },
   grapes:{
     type: [String],
-    required: true,
+    required: false,
   },
   otherSelections: {
     type: String,
@@ -280,19 +280,23 @@ const ProductSchema = new mongoose.Schema<Product>({
   },
   tasteClocks: {
     type: [TasteClockSchema],
-    required: true,
+    required: false,
   },
   color: {
     type: String,
-    required: true,
+    required: false,
   },
   dishPoints: {
     type: String,
     required: false,
   },
+  apk: {
+    type: Number,
+    required: true
+  }
 });
 
-const OLDProductSchema = new mongoose.Schema({
+const OLDProductSchema = new Schema({
   productId: {
     type: Number,
     required: true,
@@ -367,4 +371,4 @@ const OLDProductSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Product", ProductSchema);
+export const ProductModel = model("Product", ProductSchema);
