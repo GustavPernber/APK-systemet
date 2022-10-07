@@ -1,36 +1,13 @@
 {
     "cat1":[
         {
-            "url": "vin",
+            "url": "Vin",
             "name": "Vin",
             "cat2": [
                 {
-                    "url": "rott-vin",
+                    "url": "R%C3%B6tt%20vin",
                     "name" : "Rött vin"
                 }
-            ]
-        },
-
-        {
-            "url": "%C3%96l",
-            "name": "Öl",
-            "cat2": [
-                {
-                    "url": "Ale",
-                    "name": "Ale"
-                }
-            ]
-        },
-        {
-            "url": "Sprit",
-            "name": "Sprit",
-            "cat2": [
-            ]
-        },
-        {
-            "url": "Cider%20%26%20blanddrycker",
-            "name": "Cider & Blanddrycker",
-            "cat2": [
             ]
         }
         

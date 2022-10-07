@@ -1,43 +1,67 @@
 import categoriesData from './categories.json'
 import config from './config.json'
 import https from 'https'
+import sleep from 'sleep-promise';
+
 
 import * as dotenv from 'dotenv'
 import axios from 'axios'
 import path from 'path'
 dotenv.config({ path: path.resolve(__dirname, '../../.env') })
 
+type Product = any
+
 
 async function main(){
 
-
     const categories = categoriesData
+    const writeToDbPromises: any[] = []
+    const consoleFetchStatus: any = {}
+
+    function addToDb(product: Product) {
+        return Promise.resolve(product)
+    }
 
     for (const firstCategory of categories.cat1) {
+        consoleFetchStatus[`${firstCategory.name}`] = {}
         for (const secondCategory of firstCategory.cat2) {
+            consoleFetchStatus[`${firstCategory.name}`][`${secondCategory.name}`] = "lol"
             let maxPages = false
-            for (let i = 1; i<10; i++) {
-                console.log('fetching...');
-                let response = await axios({
-                    method: "get",
-                    // url: `${config.systembolaget_api_url}categoryLevel1=${firstCategory.url}&categoryLevel2=${secondCategory.url}&page=${i}`,
-                    url:"https://www.systembolaget.se/api/gateway/productsearch/search/?page=1&size=30&sortBy=Score&sortDirection=Ascending&categoryLevel1=Vin",
-                    headers: {
-                        // ...config.headers
-                        baseurl:"https://api-extern.systembolaget.se/sb-api-ecommerce/v1"
-                    },
-                    httpsAgent: new https.Agent({
-                        rejectUnauthorized: false
-                      })
+            for (let i = 1; !maxPages; i++) {
+                console.log(consoleFetchStatus)
 
-                })
-                console.log(response);
+                try {
+                    console.log('fetching...', i);
+                    const response = await axios({
+                        method:"get",
+                        url: `${config.systembolaget_api_url}page=${i}&categoryLevel1=${firstCategory.url}&categoryLevel2=${secondCategory.url}`,
+                        headers: {
+                            ...config.headers
+                        },
+                        httpsAgent: new https.Agent({
+                            rejectUnauthorized: false
+                        })
+                    })
+
+                    console.log(response.data.products.length);
+                    if (response.data.products < 1) {
+                        maxPages = true
+                    }
+                    console.log('Succes');
+                } catch (error) {
+                    maxPages = true
+                    console.log(error);
+                    throw new Error()
+                }
                 
-                
+  
             }
 
         }
     }
+
+    return Promise.all(writeToDbPromises)
+
 
     // Loopa igenom alla level1
         // Loopa igenom alla level 2
