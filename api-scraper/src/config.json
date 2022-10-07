@@ -1,0 +1,6 @@
+{
+    "systembolaget_api_url": "https://www.systembolaget.se/api/gateway/productsearch/search/?",
+    "headers": {
+        "baseurl": "https://api-extern.systembolaget.se/sb-api-ecommerce/v1"
+    }
+}
