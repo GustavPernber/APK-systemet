@@ -10,6 +10,8 @@ import axios from 'axios'
 import path from 'path'
 dotenv.config({ path: path.resolve(__dirname, '../../.env') }) // Points to env in dev env
 
+// TODO write function to get categories and store in DB
+
 async function main(){
 
     console.log('Connecting to database...')
