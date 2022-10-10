@@ -70,7 +70,7 @@ const ProductSchema = new Schema<Product>({
   },
   restrictedParcelQuantity: {
     type: Number,
-    required: true,
+    required: false,
   },
   isOrganic: {
     type: Boolean,
@@ -102,7 +102,7 @@ const ProductSchema = new Schema<Product>({
   },
   productLaunchDate: {
     type: Date,
-    required: true,
+    required: false,
 
   },
   isCompletelyOutOfStock: {
@@ -159,7 +159,7 @@ const ProductSchema = new Schema<Product>({
   },
   customCategoryTitle: {
     type: String,
-    required: true,
+    required: false,
   },
   assortmentText:{
     type: String,
@@ -233,7 +233,7 @@ const ProductSchema = new Schema<Product>({
   },
   packagingLevel1: {
     type: String,
-    required: true,
+    required: false,
   },
   isNews: {
     type: Boolean,
@@ -241,7 +241,7 @@ const ProductSchema = new Schema<Product>({
   },
   images: {
     type: [ImageSchema],
-    required: true
+    required: false
   },
   
   isDiscontinued: {
