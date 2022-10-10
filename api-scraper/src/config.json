@@ -1,0 +1,7 @@
+{
+    "systembolaget_api_url": "https://www.systembolaget.se/api/gateway/productsearch/search/?size=30&sortBy=Score&sortDirection=Ascending&",
+
+    "headers": {
+        "baseurl": "https://api-extern.systembolaget.se/sb-api-ecommerce/v1"
+    }
+}
