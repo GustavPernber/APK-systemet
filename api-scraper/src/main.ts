@@ -9,11 +9,13 @@ import axios from "axios";
 import path from "path";
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env") }); // Points to env in dev env
+const MONGO_DB_WRITE_PATH = process.env.MONGODB_WRITE_PATH_DEV || process.env.MONGODB_WRITE_PATH_DEV
+if (!MONGO_DB_WRITE_PATH) throw new Error("No path specified for mongo db")
 
 export async function main() {
   console.log("Connecting to database...");
   try {
-    await mongoose.connect(process.env.MONGODB_WRITE_PATH_DEV as string);
+    await mongoose.connect(MONGO_DB_WRITE_PATH as string);
   } catch (error) {
     console.error("Failed to connect to db.");
     console.log(error);
