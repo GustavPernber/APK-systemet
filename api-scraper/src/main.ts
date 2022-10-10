@@ -14,7 +14,13 @@ dotenv.config({ path: path.resolve(__dirname, "../../.env") }); // Points to env
 const app = express()
 const port = process.env.PORT || 3000
 
+app.get('/', (req, res) => {
+  console.log('the root in console!');
+  res.send('Welcome to the root!')
+})
+
 app.get('/run', async (req, res) => {
+  console.log('running');
   await main()
   res.send("Completed update!")
 })
