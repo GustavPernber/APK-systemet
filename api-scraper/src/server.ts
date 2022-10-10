@@ -9,7 +9,6 @@ if (!API_SCRAPER_KEY) throw new Error("No API_SCRAPER_KEY in env");
  
 
 export const router = express.Router()
-let isRunning = false
 
 router.get('/', (req, res) => {
     console.log('the root in console!');
@@ -18,12 +17,8 @@ router.get('/', (req, res) => {
 
 router.get('/run', async (req, res) => {
     if (req.headers["api_scraper_key"] !== API_SCRAPER_KEY ) return res.status(401).send("API_SCRAPER_KEY is required in header.")
-    if (isRunning) return res.send("Process is already running")
-
-    isRunning = true
     res.send("Starting process")
     await main()
-    isRunning = false
     return
 })
 
