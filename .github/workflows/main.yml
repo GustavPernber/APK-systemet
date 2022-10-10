@@ -38,7 +38,7 @@ jobs:
           wait-on: 'http://localhost:8888'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MONGODB_READ_PATH: ${{ secrets.MONGODB_READ_PATH }}
+          MONGODB_READ_PATH_OLD: ${{ secrets.MONGODB_READ_PATH_OLD }}
     
   # Deploy: 
   #   needs: E2E_testing
