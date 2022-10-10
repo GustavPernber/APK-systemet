@@ -36,3 +36,4 @@ api-scraper/src/main.js
 .gitignore
 api-scraper/src/utils/types.js
 api-scraper/src/models/Products.js
+api-scraper/src/models/Metadata.js
