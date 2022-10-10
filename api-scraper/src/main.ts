@@ -4,7 +4,7 @@ import { Product } from "./utils/types";
 import mongoose from "mongoose";
 import { ProductModel } from "./models/Products";
 import { MetadataModel } from "./models/Metadata";
-
+import cron from 'node-cron';
 import * as dotenv from "dotenv";
 import axios from "axios";
 import path from "path";
@@ -189,4 +189,15 @@ async function main() {
   return;
 }
 
-main();
+function cronTest(){
+  let time = new Date
+  console.log(time.toISOString(), "Cron job executed");
+}
+
+
+cron.schedule('* * * * *', async ()=>{
+  // main()
+  cronTest()
+})
+
+// main();
