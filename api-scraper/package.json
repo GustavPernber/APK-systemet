@@ -2,11 +2,11 @@
   "name": "api-scraper",
   "version": "0.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "App.js",
   "scripts": {
     "build": "npm ci && tsc --build",
-    "start": "node src/main.js",
-    "dev": "npx ts-node src/main.ts",
+    "start": "node src/App.js",
+    "dev": "npx ts-node src/App.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
