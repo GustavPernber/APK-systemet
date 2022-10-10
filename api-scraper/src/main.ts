@@ -16,6 +16,7 @@ const port = process.env.PORT || 3000
 
 app.get('/run', async (req, res) => {
   await main()
+  res.send("Completed update!")
 })
 
 app.listen(port, ()=>{
