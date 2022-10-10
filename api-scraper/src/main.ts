@@ -4,13 +4,24 @@ import { Product } from "./utils/types";
 import mongoose from "mongoose";
 import { ProductModel } from "./models/Products";
 import { MetadataModel } from "./models/Metadata";
-import cron from 'node-cron';
 import * as dotenv from "dotenv";
 import axios from "axios";
 import path from "path";
+import express from 'express'
+
 dotenv.config({ path: path.resolve(__dirname, "../../.env") }); // Points to env in dev env
 
-// TODO create a cron job
+const app = express()
+const port = process.env.PORT || 3000
+
+app.get('/run', async (req, res) => {
+  await main()
+})
+
+app.listen(port, ()=>{
+  console.log('App is live on port: ', port);
+})
+
 async function main() {
   console.log("Connecting to database...");
   try {
@@ -189,15 +200,5 @@ async function main() {
   return;
 }
 
-function cronTest(){
-  let time = new Date
-  console.log(time.toISOString(), "Cron job executed");
-}
 
 
-cron.schedule('* * * * *', async ()=>{
-  // main()
-  cronTest()
-})
-
-// main();
