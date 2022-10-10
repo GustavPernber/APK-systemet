@@ -6,7 +6,7 @@ import categoriesData from './utils/categories.json'
 const handler= async (event, context) =>{
 
     try {
-        mongoose.connect(process.env.MONGODB_PATH)
+        mongoose.connect(process.env.MONGODB_READ_PATH)
     } catch (error) {
         console.error(error);
         return {
