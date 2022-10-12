@@ -74,8 +74,8 @@ const Product = (props:ProductProps) => {
                             <div className="flex flex-row  flex-wrap
                             justify-start   gap-x-3 text-sm whitespace-nowrap">
                                 <p className=" font-semibold">APK: {parseFloat(product.apk).toPrecision(3)}</p>
-                                <p>{product.volume} ml</p>
-                                <p>{product.alcPercentage} %</p>
+                                <p>{product.volumeText} </p>
+                                <p>{product.alcoholPercentage} %</p>
 
                             </div>
                             <p className=" font-bold text-sm self-end ">{parsedPriceString()}</p>

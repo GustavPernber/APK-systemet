@@ -35,7 +35,7 @@ const main = async (event, context): Promise<MainHandlerResponse> => {
             sortBy = { 'apk' : -1}
             break;
         case 'alc_desc':
-            sortBy = { 'alcPercentage' : -1}
+            sortBy = { 'alcoholPercentage' : -1}
             break
         case 'price_asc':
             sortBy = { 'price' : 1}
