@@ -29,6 +29,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - run: netlify unlink
 
       - name: Serve and test.
         uses: cypress-io/github-action@v4
@@ -38,7 +39,7 @@ jobs:
           wait-on: 'http://localhost:8888'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MONGODB_READ_PATH_OLD: ${{ secrets.MONGODB_READ_PATH_OLD }}
+          MONGODB_READ_PATH_DEV: ${{ secrets.MONGODB_READ_PATH_DEV }}
     
   # Deploy: 
   #   needs: E2E_testing
