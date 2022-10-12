@@ -9,12 +9,6 @@ type ProductProps = {
     product:ProductType
 }
 
-type DisplayProductType = Omit<ProductType, 'apk'> & {
-    nameAndVintage: string | null
-    apk: any
-    priceString: string
-}
-
 const Product = (props:ProductProps) => {
     
     const isCompact = useContext(ProductContext).isCompactProducts
