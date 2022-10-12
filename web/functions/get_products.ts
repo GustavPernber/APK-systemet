@@ -29,7 +29,6 @@ const main = async (event, context): Promise<MainHandlerResponse> => {
     }
     const validPageRequest = schemas.pageSchema.validate(requestBody?.page).value
     const validFilters = schemas.filterSchema.validate(requestBody?.filters ? requestBody?.filters : {}).value;
-    console.log(decodeURIComponent(validFilters.cat1));
     let sortBy: {[key: string] : SortOrder}| undefined = undefined;
     switch (validFilters.sortBy) {
         case 'apk':
@@ -45,9 +44,9 @@ const main = async (event, context): Promise<MainHandlerResponse> => {
 
     const paginationOffset = PAGINATION_LIMIT * validPageRequest - PAGINATION_LIMIT
 
-    let queryParams: any = {categoryLevel1: decodeURIComponent(validFilters.cat1)}
+    let queryParams: any = {}
+    validFilters.cat1 != "all" ? queryParams.categoryLevel1 = decodeURIComponent(validFilters.cat1) : null
     validFilters.showOrderStock === false ? queryParams.assortmentText = {$ne: "Ordervaror"} : null
-    
     const result = await ProductModel.find(queryParams).sort(sortBy).skip(paginationOffset).limit(PAGINATION_LIMIT)
     return {
         body: {data: result}
