@@ -34,8 +34,8 @@ function Accordion({ contentComponent, title }: AccordionProps) {
             <path
               d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
               stroke="black"
-              stroke-width="3"
-              stroke-linecap="round"
+              strokeWidth="3"
+              strokeLinecap="round"
             />
           </svg>
         </button>

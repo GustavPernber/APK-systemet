@@ -1,12 +1,13 @@
-import { SortByOptions } from "@/utils/types";
 import  smallArticles from '@/assets/icons/smallArticles.svg'
 import  bigArticles from '@/assets/icons/bigArticles.svg'
 import { useContext } from "react";
 import {ProductContext} from '@/components/Products/ProductsController'
+import filterIcon from '@/assets/icons/filter-settings.svg'
 
 function SortViewOptions() {
 
-  const {sortBy, setSortBy, isCompactProducts, setIsCompactProducts } = useContext(ProductContext)
+  const {toggleShowFilters, sortBy, setSortBy, isCompactProducts, setIsCompactProducts } = useContext(ProductContext)
+
 
   const Sort = () => {
     return (
@@ -53,13 +54,27 @@ function SortViewOptions() {
   };
 
   return (
-    <div className="pb-4 pt-3 flex flex-row justify-between items-end ">
-      <Sort />
-      <CompactToggle 
-        isCompactProducts={isCompactProducts}
-        setIsCompactProducts={setIsCompactProducts}
-      />
-    </div>
+
+
+    <section className="  md:row-span-1 md:col-start-2 ">
+      <button 
+      onClick={() => toggleShowFilters()}
+      type="button" className="   lg:hidden w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-green-400 shadow-xs align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-offset-white focus:ring-green-200 transition-all text-md ">
+          Filtrera
+          <img src={filterIcon} alt="" />
+      </button>
+      
+      
+      <div className="pb-4 pt-3 flex flex-row justify-between items-end ">
+        <Sort />
+        <CompactToggle 
+          isCompactProducts={isCompactProducts}
+          setIsCompactProducts={setIsCompactProducts}
+        />
+      </div>
+      </section> 
+
+    
   );
 }
 

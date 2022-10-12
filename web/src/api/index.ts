@@ -1,13 +1,7 @@
-import { ProductsFilterOptions, ProductTypeResponse } from '@/utils/types'
+import { Metadata, ProductsFilterOptions, ProductTypeResponse } from '@/utils/types'
 import mockRes from './productsMock.json'
 
 const base_url = '.netlify/functions/'
-
-// async function customFetch(functionName: string){
-//     const response = await fetch()
-//     const result = await response.json()
-//     return result
-// }
 
 
 async function getProducts(filters: ProductsFilterOptions = {} as ProductsFilterOptions, page: number = 1): Promise<ProductTypeResponse> {
@@ -24,7 +18,21 @@ async function getProducts(filters: ProductsFilterOptions = {} as ProductsFilter
     return products
 }
 
+async function getMetadata(): Promise<Metadata>{
+    let response = await fetch(`${base_url}get_metadata`,{
+        method: "GET",
+        headers:{
+            'Content-Type': 'application/json'
+        },
+    })
+
+    let products = await response.json()
+    return products
+}
+
+
 const api={
+    getMetadata,
     getProducts
 }
 

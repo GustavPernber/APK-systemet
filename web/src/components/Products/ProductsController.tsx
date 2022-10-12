@@ -1,10 +1,9 @@
 import ProductList from './Products/ProductList'
 import api from '@/api'
 import { createContext, useCallback, useEffect, useMemo, useState } from "react"
-import ProductOptions from './ProductOptions/ProductOptions'
-import { ProductsFilterOptions, SortByOptions, ProductType, Category, Categories } from "@/utils/types"
-import categoriesData from '@/utils/categories.json'
-import Filters from './ProductOptions/Filters/Filters'
+import ProductOptions from './ProductOptions'
+import { ProductsFilterOptions, SortByOptions, ProductType, Category, Categories, Metadata } from "@/utils/types"
+import Filters from './Filters/Filters'
 
 
 type ProductContextType = {
@@ -19,9 +18,9 @@ type ProductContextType = {
     toggleShowFilters: Function
     cat1: Category,
     setCat1: Function
-    categories: Categories
     showOrderStock: boolean
     setShowOrderStock: Function
+    metadata: Metadata
 }
 
 export const ProductContext = createContext<ProductContextType>({} as ProductContextType)
@@ -29,21 +28,20 @@ export const ProductContext = createContext<ProductContextType>({} as ProductCon
 const ProductsController = () =>{
 
     const [products, setProducts] = useState<ProductType[]>([])
-    const [sortBy, setSortBy] = useState<SortByOptions>("apk")
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [isCompactProducts, setIsCompactProducts] = useState<boolean>(false)
     const [page, setPage] = useState<number>(1)
     const [showFilters, setShowFilters] = useState<boolean>(false)
 
+    const [sortBy, setSortBy] = useState<SortByOptions>("apk")
     const [showOrderStock, setShowOrderStock] = useState<boolean>(true)
-    const [cat1, setCat1] = useState<Category>({url:"all", name: "Visa alla"})
-
-    const categories: Categories = useMemo(() => categoriesData, [])
+    const [cat1, setCat1] = useState<Category>({value: null})
+    const [metadata, setMetadata] = useState<Metadata>({categories: {cat1:[]}} as Metadata)
 
     const filters: ProductsFilterOptions = useMemo(()=>{
         return{
             showOrderStock: showOrderStock,
-            cat1: cat1.name,
+            cat1: cat1.value,
             sortBy: sortBy
         }
     }, [sortBy, cat1, showOrderStock])
@@ -60,17 +58,22 @@ const ProductsController = () =>{
         setIsLoading(false)
     }, [page, filters, products]) 
     
-    //States verkar batchas ihop. Se till att isloading körs först
+    useEffect(() => {
+        api.getMetadata()
+        .then(response => {
+            setMetadata(response)
+        })
+    }, [])
+
     useEffect(()=>{
         setIsLoading(true)
         setPage(1)
-        setShowFilters(false)
-        const getProducts = async () =>{
-            const res = await api.getProducts(filters, 1)
+        setShowFilters(false);
+        api.getProducts(filters, 1)
+        .then(res => {
             setProducts(res.data)
             setIsLoading(false)
-        }
-        getProducts()
+        })
     }, [filters])
 
 
@@ -86,7 +89,7 @@ const ProductsController = () =>{
         toggleShowFilters,
         cat1,
         setCat1,
-        categories,
+        metadata,
         showOrderStock,
         setShowOrderStock
     }

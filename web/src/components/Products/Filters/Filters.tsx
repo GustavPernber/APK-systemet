@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { ProductContext } from "../../ProductsController";
-import Categories from "./Categories/Categories";
-import OrderStock from "./OrderStock/OrderStock";
+import { ProductContext } from "../ProductsController";
+import Categories from "./Categories";
+import OrderStock from "./OrderStock";
 
 function Filters() {
   const { showFilters, toggleShowFilters } = useContext(ProductContext);

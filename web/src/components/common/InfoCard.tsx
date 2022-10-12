@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { InfoCardContext } from "./Body"
+import { InfoCardContext } from "../Body"
 
 function InfoCard(){
     const { showInfoCard, toggleInfoCard } = useContext(InfoCardContext)

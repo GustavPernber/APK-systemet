@@ -1,7 +1,7 @@
-import Disclaimer from './Disclaimer'
-import SiteHeader from './SiteHeader'
+import Disclaimer from './common/Disclaimer'
+import SiteHeader from './common/SiteHeader'
 import ProductsController from './Products/ProductsController'
-import InfoCard from './InfoCard'
+import InfoCard from './common/InfoCard'
 import { createContext, useCallback, useState } from 'react'
 
 type InfoCardContextType = {

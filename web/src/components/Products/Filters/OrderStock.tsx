@@ -1,6 +1,6 @@
 import { ProductContext } from "@/components/Products/ProductsController"
 import { useContext } from "react"
-import Accordion from "../utils/Accordion"
+import Accordion from "../../Utils/Accordion"
 
 function OrderStock() {
 

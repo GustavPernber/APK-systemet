@@ -18,7 +18,7 @@ const main = async (event, context): Promise<MainHandlerResponse> => {
     }
 
     const metadata =[...await mongoose.connection.db.collection("metadata").find({}).toArray()][0]
-    const allCat1Names: string[] = metadata.categories.cat1.map((element: {value: string}) => encodeURIComponent(element.value))
+    const allCat1Names: string[] = metadata.categories.cat1.map((element: {value: string}) => element.value)
     const schemas = {
         pageSchema: Joi.number().min(1).failover(1).required(),
         filterSchema: Joi.object().required().keys({

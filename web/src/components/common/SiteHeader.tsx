@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { InfoCardContext } from "./Body";
+import { InfoCardContext } from "../Body";
 
 export default function SiteHeader() {
 	const {toggleInfoCard, showInfoCard} = useContext(InfoCardContext)

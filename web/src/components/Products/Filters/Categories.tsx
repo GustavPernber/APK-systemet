@@ -1,10 +1,10 @@
-import Accordion from '@/components/Products/ProductOptions/Filters/utils/Accordion'
+import Accordion from '@/components/Utils/Accordion'
 import { ProductContext } from '@/components/Products/ProductsController'
 import { useContext } from 'react'
 
 
 function Categories() {
-    const {categories, setCat1, cat1} = useContext(ProductContext)
+    const {metadata, setCat1, cat1} = useContext(ProductContext)
 
     const CategoriesContent = () => {
         return(
@@ -14,19 +14,19 @@ function Categories() {
                 rounded-lg overflow-hidden flex flex-col gap-[1px] w-full
                 '>
                     <button 
-                    onClick={() => setCat1({url:"all", name: "Visa alla"}) }
-                    className={`${cat1.url === "all" && "bg-green-400 text-white font-semibold"} 
+                    onClick={() => setCat1({value:"all"}) }
+                    className={`${cat1.value === "all" && "bg-green-400 text-white font-semibold"} 
                     bg-white transition-colors text-sm py-3 pr-8 pl-4 w-full grid place-content-start md:text-sm`}>
                         Visa alla
                     </button>
-                    {categories.cat1.map((category) =>{
+                    {metadata.categories.cat1.map((category) =>{
                         return(
                             <button 
-                            onClick={() => setCat1(category) }
-                            className={`${cat1.url === category.url && "bg-green-400 text-white font-semibold "} 
+                            key={category.value}
+                            onClick={() => setCat1({value: category.value}) }
+                            className={`${cat1.value === category.value && "bg-green-400 text-white font-semibold "} 
                             bg-white transition-colors text-sm py-3 pr-8 pl-4 w-full grid place-content-start`}>
-                            
-                            {category.name === "Cider%20%26%20blanddrycker" ? "Cider & blanddryck" : category.name}
+                            {category.value}
                             </button>
                         )
                     })}
