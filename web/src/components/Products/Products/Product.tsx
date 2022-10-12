@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from "react"
 import TasteClock from './TasteClock'
 import PlaceHolderWineBottle from "../../../assets/img/placeholder-wine-bottle.png";
 import { ProductContext } from "../ProductsController";
-import Skeleton from '@/components/common/Skeleton'
 
 type ProductProps = {
     product:ProductType
@@ -16,59 +15,36 @@ type DisplayProductType = Omit<ProductType, 'apk'> & {
     priceString: string
 }
 
-
 const Product = (props:ProductProps) => {
     
     const isCompact = useContext(ProductContext).isCompactProducts
 
-    const product: DisplayProductType = {...props.product as DisplayProductType}
+    const product: any = {...props.product}
     const [imagePath, setImagePath] = useState<string>(getImgPath(product.productId))
-    
-    product.cat1 = product.cat1==="Cider%20%26%20blanddrycker" ? "Cider & blanddryck" : product.cat1
-    
-    const formatNameVintage = () => {
-        let nameAndVintage
-        if (product.vintage === null && product.nameThin === null) {
-            nameAndVintage = "";
-        } else if (product.nameThin === null) {
-            nameAndVintage = product.vintage;
-        } else if (product.vintage === null) {
-            nameAndVintage = product.nameThin;
-        } else {
-            nameAndVintage = `${product.nameThin}, ${product.vintage}`;
-        }
-        return nameAndVintage
-    }
-    
-    const formatApk = () => {
-        return product.apk = parseFloat(product.apk).toPrecision(3);
-    }
+        
+    const parsedNameVintage = [product.productNameThin, product.vintage].filter(element => !!element).join(', ')
 
-    const formatProductPath = () => {
-        const productUrlName = `${product.nameBold
+    const parsedProductPath = () => {
+        const productUrlName = `${product.productNameBold
             .replace(/\s+/g, "-")
             .toLowerCase()}-${props.product.productNumber}`;
-    
-        const cat1NameURL = product.cat1==="Cider%20%26%20blanddrycker" ? "cider-blanddrycker" : product.cat1
-    
-        const productUrl = `https://www.systembolaget.se/produkt/${cat1NameURL}/${productUrlName}`;
-
+        const productUrl = `https://www.systembolaget.se/produkt/${encodeURIComponent(product.categoryLevel1)}/${productUrlName}`;
         return productUrl
     }
     
-    const formatPriceString= () => {
+    const parsedPriceString= () => { // TODO: Clean up maybe? Export to utils
         let priceString
         if (product.price % 1 != 0) {
-            let numbers=product.price.toFixed(2).split('.')
-            priceString=`${numbers[0]}:${numbers[1]}`
+            let numbers = product.price.toFixed(2).split('.')
+            priceString = `${numbers[0]}:${numbers[1]}`
         }else{
-            priceString=`${product.price.toFixed(0)}:-`
+            priceString = `${product.price.toFixed(0)}:-`
         }
         return priceString
     }
 
     return (
-        <a href={formatProductPath()} target="_blank" rel="noopener noreferrer" className={`${product.assortmentText === "Ordervaror" ? "bg-gray-200" : "bg-white"} 
+        <a href={parsedProductPath()} target="_blank" rel="noopener noreferrer" className={`${product.assortmentText === "Ordervaror" ? "bg-gray-200" : "bg-white"} 
          w-full flex flex-col  justify-between  h-auto px-5 pb-2 pt-5 shadow rounded min-h-[12rem]
         
         `} >
@@ -86,25 +62,23 @@ const Product = (props:ProductProps) => {
                     <div className="flex flex-col justify-between w-full pl-5">
                         <div className="">
                             <p className=" pb-[0.1rem] uppercase font-[400] font-condensed text-[0.8rem] text-black  tracking-widest">
-                    
-                            {product.cat2}{product.cat3 != null ?  `, ${product.cat3}` : ""}
-
+                                {product.customCategoryTitle}
                             </p>
 
-                            <h1 className=" font-normal">{product.nameBold}</h1>
-                            <h1 className=" font-serif font-normal text-gray-400">{formatNameVintage()}</h1>
+                            <h1 className=" font-normal">{product.productNameBold}</h1>
+                            <h1 className=" font-serif font-normal text-gray-400">{parsedNameVintage}</h1>
 
                         </div>
 
                         <div className="w-full flex flex-row justify-between items-center pb-3">
                             <div className="flex flex-row  flex-wrap
                             justify-start   gap-x-3 text-sm whitespace-nowrap">
-                                <p className=" font-semibold">APK: {formatApk()}</p>
+                                <p className=" font-semibold">APK: {parseFloat(product.apk).toPrecision(3)}</p>
                                 <p>{product.volume} ml</p>
                                 <p>{product.alcPercentage} %</p>
 
                             </div>
-                            <p className=" font-bold text-sm self-end ">{formatPriceString()}</p>
+                            <p className=" font-bold text-sm self-end ">{parsedPriceString()}</p>
                         
                         </div>
                     </div>
@@ -114,7 +88,7 @@ const Product = (props:ProductProps) => {
                 {product.tasteClocks.length > 0 &&  
                 (<div className={`${isCompact && 'h-0'} overflow-hidden `}>
                     <div className={`w-full flex flex-row justify-around items-center py-3  `}>
-                        {product.tasteClocks.map((clock)=>{
+                        {product.tasteClocks.map((clock: {key: string, value: number})=>{
                             return(
                                 <TasteClock key={clock.key} name={clock.key} value={clock.value}></TasteClock>
                             )
