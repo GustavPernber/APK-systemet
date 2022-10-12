@@ -68,6 +68,7 @@ const ProductsController = () =>{
     useEffect(()=>{
         setIsLoading(true)
         setPage(1)
+        setProducts([])
         setShowFilters(false);
         api.getProducts(filters, 1)
         .then(res => {
