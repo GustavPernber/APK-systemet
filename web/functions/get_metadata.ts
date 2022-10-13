@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 
 
 const main = async (event, context): Promise<MainHandlerResponse> => {
-    await mongoose.connect(process.env.MONGODB_READ_PATH_DEV as string)
+    await mongoose.connect(process.env.MONGODB_READ_PATH || process.env.MONGODB_READ_PATH_DEV as string)
     const metadata =[...await mongoose.connection.db.collection("metadata").find({}).toArray()][0]
     return {
         body: metadata

@@ -26,6 +26,10 @@ const MetadataSchema = new Schema({
     categories: {
         type: CategoriesSchema,
         required: true
+    },
+    lasUpdated: {
+        type: String,
+        required: true
     }
 }, {collection: "metadata"})
 

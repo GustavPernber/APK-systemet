@@ -15,25 +15,18 @@ if (!MONGO_DB_WRITE_PATH) throw new Error("No path specified for mongo db")
 export async function main() {
   console.log("Connecting to database with: ");
   console.log(MONGO_DB_WRITE_PATH);
-  try {
-    await mongoose.connect(MONGO_DB_WRITE_PATH as string);
-  } catch (error) {
-    console.error("Failed to connect to db.");
-    console.log(error);
-    throw new Error();
-  }
+
+  await mongoose.connect(MONGO_DB_WRITE_PATH as string);
+
   console.log("Connected!");
 
-  let categories: any;
-  try {
-    categories = await fetchCategories();
-    console.log(categories);
-  } catch (error) {
-    console.log("Failed to fetch categories");
-    console.log(error);
-    throw new Error()
-  }
-
+  try{
+    mongoose.connection.dropCollection("products-tmp")
+  }catch{}
+  
+  
+  let categories = await fetchCategories();
+ 
   async function fetchNewProducts() {
     console.log("Fetching new products...");
     const writeToDbPromises: Promise<void>[] = [];
@@ -176,20 +169,23 @@ export async function main() {
       newCat1.push({ ...cat1Filter, cat2: [...cat2FilterObjects] });
     }
     categories.cat1 = newCat1;
-    const data = new MetadataModel({ categories: categories });
-    await mongoose.connection.dropCollection("metadata");
-    await data.save();
+    
     console.log(categories);
     return categories;
   }
 
-  try {
-    await fetchNewProducts();
-    await transferCollections();
-  } catch (error) {
-    console.log(error);
-    throw new Error()
+  async function updateMetadata() {
+    const data = new MetadataModel({ categories: categories, lastUpdated: (new Date).toISOString() });
+    try {
+      await mongoose.connection.dropCollection("metadata");
+    } finally{
+      await data.save();
+    }
   }
+  
+  await fetchNewProducts();
+  await updateMetadata()
+  await transferCollections();
   console.log("UPDATE COMPLETED");
   return;
 }
