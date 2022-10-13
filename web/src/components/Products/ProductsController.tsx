@@ -35,7 +35,7 @@ const ProductsController = () =>{
 
     const [sortBy, setSortBy] = useState<SortByOptions>("apk")
     const [showOrderStock, setShowOrderStock] = useState<boolean>(true)
-    const [cat1, setCat1] = useState<Category>({value: null})
+    const [cat1, setCat1] = useState<Category>({value: "all"})
     const [metadata, setMetadata] = useState<Metadata>({categories: {cat1:[]}} as Metadata)
 
     const filters: ProductsFilterOptions = useMemo(()=>{
@@ -97,12 +97,12 @@ const ProductsController = () =>{
 
     return(
         <ProductContext.Provider value={productContextValues}>
-            <div className=' md:w-full grid place-items-center md:border-t-[1px] md:border-t-gray-300 pb-[10rem]'>
+            <div className=' md:w-full grid  place-items-start min-h-screen md:border-t-[1px] md:border-t-gray-300 pb-[10rem]'>
                 <main className=" 
                 w-full
                 px-3 md:px-8  md:pt-4 flex flex-row justify-center items-start">
                     <Filters/>
-                    <section className=' flex flex-col justify-center md:max-w-screen lg:max-w-[55rem] lg:w-full lg:border-l-[1px] lg:border-gray-300 lg:pl-6 flex-auto'>
+                    <section className=' flex flex-col justify-start md:max-w-screen lg:max-w-[55rem] lg:w-full lg:border-l-[1px] lg:border-gray-300 lg:pl-6 min-h-screen flex-auto'>
                         <ProductOptions/>
                         <ProductList/>   
                     </section>

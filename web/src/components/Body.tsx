@@ -3,6 +3,7 @@ import SiteHeader from './common/SiteHeader'
 import ProductsController from './Products/ProductsController'
 import InfoCard from './common/InfoCard'
 import { createContext, useCallback, useState } from 'react'
+import SiteFooter from './common/SiteFooter'
 
 type InfoCardContextType = {
     showInfoCard: boolean,
@@ -36,6 +37,7 @@ const Body = ()=>{
             </div>
 
             <ProductsController/>
+            <SiteFooter/>
         </div>
 
         

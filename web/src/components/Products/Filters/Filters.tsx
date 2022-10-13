@@ -9,9 +9,9 @@ function Filters() {
   return (
     <section
       className={`${!showFilters && "opacity-0 pointer-events-none "} 
-      transition z-10 fixed h-screen w-screen bg-gray-100 top-0 left-0 grid place-items-center
+      transition z-10 fixed h-screen w-screen bg-gray-100 top-0 left-0 grid place-items-start
       
-      lg:opacity-100 lg:h-auto lg:col-start-1  lg:row-span-2 lg:row-start-1
+      lg:opacity-100 lg:h-screen lg:col-start-1  lg:row-span-2 lg:row-start-1
       lg:w-[14rem] lg:pointer-events-auto
       lg:sticky lg:pt-10 
       `}
