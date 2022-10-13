@@ -38,11 +38,10 @@ export async function main() {
     console.log("Fetching new products...");
     const writeToDbPromises: Promise<void>[] = [];
     const consoleFetchStatus: any = {};
+    let allProducts: Product[] = []
 
     function addToDb(
       product: Product,
-      firstCategory: string,
-      secondCategory: string
     ) {
       return new Promise<void>(async (resolve, reject) => {
         const apk =
@@ -50,37 +49,28 @@ export async function main() {
         try {
           const data = new ProductModel({ ...product, apk: apk });
           await data.save();
-          consoleFetchStatus[`${firstCategory}`][`${secondCategory}`] += 1;
+          consoleFetchStatus[`${product.categoryLevel1}`][`${product.categoryLevel2}`] += 1;
+          console.log(consoleFetchStatus)
         } catch (error: any) {
-          if (error.code === 11000) {
-            console.log(
-              "DUPLICATE DETECTED:",
-              product.productNameBold,
-              product.productNumber
-            );
-            resolve();
-          } else {
-            reject(error);
-          }
+          console.log(error)
+          throw new Error()
         }
         resolve();
       });
     }
 
     for (const firstCategory of categories.cat1) {
-      console.log("first loop");
+        
       consoleFetchStatus[`${firstCategory.value}`] = {};
       for (const secondCategory of firstCategory.cat2) {
-        console.log("second loop");
+
         consoleFetchStatus[`${firstCategory.value}`][
           `${secondCategory.value}`
         ] = 0;
-
+        console.log(consoleFetchStatus);
         let maxPages = false;
-
+        allProducts = []
         for (let i = 1; !maxPages; i++) {
-          console.log(consoleFetchStatus);
-
           let response = await axios({
             method: "get",
             url: `${
@@ -96,18 +86,28 @@ export async function main() {
             }),
           });
 
-          response.data.products.forEach((product: Product) => {
-            writeToDbPromises.push(
-              addToDb(product, firstCategory.value, secondCategory.value)
-            );
-          });
-
+          allProducts = [...allProducts, ...response.data.products]
+          
           if (response.data.products < 1) {
             maxPages = true;
           }
+          
         }
+
+        console.log("Adding cat2 to db...");
+        const products = new Set()
+        allProducts.filter(product => {
+          const duplicate = products.has(product.productId);
+          products.add(product.productId);
+          return !duplicate;
+        }).forEach(product => {
+          writeToDbPromises.push(addToDb(product))
+        })
+
       }
+    
     }
+
     await Promise.all(writeToDbPromises);
     return;
   }
@@ -115,9 +115,12 @@ export async function main() {
   async function transferCollections() {
     console.log("Dropping old collection...");
     const db = mongoose.connection.db;
-    await db.dropCollection("products");
-    await db.collection("products-tmp").rename("products");
-    return;
+    try {
+      await db.dropCollection("products");
+    } finally{
+      await db.collection("products-tmp").rename("products");
+      return;
+    }
   }
 
   async function fetchCategories() {

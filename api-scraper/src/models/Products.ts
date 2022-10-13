@@ -26,11 +26,10 @@ const TasteClockSchema = new Schema<TasteClock>({
 })
 
 const ProductSchema = new Schema<Product>({
-//   productId: {type: Number, required: true, unique: true},
   productId: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
   productNumber: {
     type: String,
