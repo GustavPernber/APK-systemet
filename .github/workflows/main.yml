@@ -37,6 +37,8 @@ jobs:
           browser: chrome
           start: sudo netlify dev
           wait-on: 'http://localhost:8888'
+          wait-on-timeout: 120
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MONGODB_READ_PATH_DEV: ${{ secrets.MONGODB_READ_PATH_DEV }}
