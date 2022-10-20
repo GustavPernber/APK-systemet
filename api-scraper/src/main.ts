@@ -13,6 +13,7 @@ const MONGO_DB_WRITE_PATH = process.env.MONGODB_WRITE_PATH_DEV || process.env.MO
 if (!MONGO_DB_WRITE_PATH) throw new Error("No path specified for mongo db")
 
 export async function main() {
+  console.time("Completed program in: ")
   console.log("Connecting to database with: ");
   console.log(MONGO_DB_WRITE_PATH);
 
@@ -192,6 +193,7 @@ export async function main() {
   await fetchNewProducts();
   await updateMetadata()
   await transferCollections();
+  console.timeEnd("Completed program in: ")
   console.log("UPDATE COMPLETED");
   return;
 }
