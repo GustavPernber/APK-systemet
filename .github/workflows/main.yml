@@ -1,5 +1,10 @@
 name: 'FE Build and test'
 
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  MONGODB_READ_PATH_DEV: ${{ secrets.MONGODB_READ_PATH_DEV }}
+  MONGODB_READ_PATH: ${{ secrets.MONGODB_READ_PATH_DEV }}
+
 on:
   push: 
     branches: 
@@ -30,6 +35,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Check env
+        run: env
       - name: Serve and test.
         uses: cypress-io/github-action@v4
         with:
@@ -39,10 +46,7 @@ jobs:
           wait-on: 'http://localhost:8888'
           wait-on-timeout: 120
 
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MONGODB_READ_PATH_DEV: ${{ secrets.MONGODB_READ_PATH_DEV }}
-          MONGODB_READ_PATH: ${{ secrets.MONGODB_READ_PATH_DEV }}
+        
     
   # Deploy: 
   #   needs: E2E_testing
