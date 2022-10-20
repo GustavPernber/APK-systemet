@@ -7,7 +7,7 @@ import {ProductModel } from './utils/models/Products'
 
 const main = async (event, context): Promise<MainHandlerResponse> => {
     const PAGINATION_LIMIT = 30
-
+    console.log(process.env);
     await mongoose.connect(process.env.MONGODB_READ_PATH || process.env.MONGODB_READ_PATH_DEV as string)
    
     let requestBody: any
