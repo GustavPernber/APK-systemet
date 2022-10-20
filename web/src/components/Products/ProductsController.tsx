@@ -2,7 +2,7 @@ import ProductList from './Products/ProductList'
 import api from '@/api'
 import { createContext, useCallback, useEffect, useMemo, useState } from "react"
 import ProductOptions from './ProductOptions'
-import { ProductsFilterOptions, SortByOptions, ProductType, Category, Categories, Metadata } from "@/utils/types"
+import { ProductsFilterOptions, SortByOptions, ProductType, Category, } from "@/utils/types"
 import Filters from './Filters/Filters'
 
 
@@ -20,7 +20,6 @@ type ProductContextType = {
     setCat1: Function
     showOrderStock: boolean
     setShowOrderStock: Function
-    metadata: Metadata
 }
 
 export const ProductContext = createContext<ProductContextType>({} as ProductContextType)
@@ -36,7 +35,6 @@ const ProductsController = () =>{
     const [sortBy, setSortBy] = useState<SortByOptions>("apk")
     const [showOrderStock, setShowOrderStock] = useState<boolean>(true)
     const [cat1, setCat1] = useState<Category>({value: "all"})
-    const [metadata, setMetadata] = useState<Metadata>({categories: {cat1:[]}} as Metadata)
 
     const filters: ProductsFilterOptions = useMemo(()=>{
         return{
@@ -58,12 +56,6 @@ const ProductsController = () =>{
         setIsLoading(false)
     }, [page, filters, products]) 
     
-    useEffect(() => {
-        api.getMetadata()
-        .then(response => {
-            setMetadata(response)
-        })
-    }, [])
 
     useEffect(()=>{
         setIsLoading(true)
@@ -90,7 +82,6 @@ const ProductsController = () =>{
         toggleShowFilters,
         cat1,
         setCat1,
-        metadata,
         showOrderStock,
         setShowOrderStock
     }

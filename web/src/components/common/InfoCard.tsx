@@ -1,8 +1,8 @@
 import { useContext } from "react"
-import { InfoCardContext } from "../Body"
+import { AppContext } from "../Body"
 
 function InfoCard(){
-    const { showInfoCard, toggleInfoCard } = useContext(InfoCardContext)
+    const { showInfoCard, setShowInfoCard } = useContext(AppContext)
 
     return(
         <>
@@ -13,9 +13,9 @@ function InfoCard(){
                     <h1>Vad är APK?</h1>
 
                     <span 
-                    onClick={()=> toggleInfoCard()}
+                    onClick={()=> setShowInfoCard((v: boolean) => !v)}
                     className="material-icons-outlined text-xl 
-                     bg-white w-8 h-8 rounded-full flex flex-col items-center justify-center text-gray-400 ">
+                     bg-white w-8 h-8 rounded-full flex flex-col items-center justify-center  cursor-pointer text-gray-400 ">
                         close
                     </span>
                 </div>
@@ -32,7 +32,7 @@ function InfoCard(){
             </div>
 
             <div 
-            onClick={()=>toggleInfoCard()}
+            onClick={()=> setShowInfoCard((v: boolean) => !v)}
             className={` ${showInfoCard ? "opacity-80" : "opacity-0" } transition bg-gray-600  w-full h-full absolute top-0 `}  />
             
         

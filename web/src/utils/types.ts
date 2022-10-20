@@ -16,6 +16,7 @@ export type Metadata = {
             cat2: any[]
         }[]
     }
+    lastUpdated: string
 }
 export type ProductsFilterOptions = {
     sortBy:SortByOptions

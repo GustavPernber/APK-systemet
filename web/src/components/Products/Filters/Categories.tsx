@@ -1,10 +1,12 @@
 import Accordion from '@/components/Utils/Accordion'
 import { ProductContext } from '@/components/Products/ProductsController'
 import { useContext } from 'react'
+import { AppContext } from '@/components/Body'
 
 
 function Categories() {
-    const {metadata, setCat1, cat1} = useContext(ProductContext)
+    const {setCat1, cat1} = useContext(ProductContext)
+    const {metadata} = useContext(AppContext)
 
     const CategoriesContent = () => {
         return(
