@@ -100,9 +100,9 @@ export async function main() {
         })
         console.log("Deduplicating done!");
 
-        filteredProducts.forEach(async product => {
+        for (const product of filteredProducts) {
           await addToDb(product)
-        })
+        }
 
       }
     
