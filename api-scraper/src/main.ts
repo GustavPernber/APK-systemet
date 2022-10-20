@@ -190,8 +190,8 @@ export async function main() {
   }
   
   await fetchNewProducts();
-  await updateMetadata()
   await transferCollections();
+  await updateMetadata()
   await mongoose.disconnect()
   console.timeEnd("Completed program in: ")
   console.log("UPDATE COMPLETED");
