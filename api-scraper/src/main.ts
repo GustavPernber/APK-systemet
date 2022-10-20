@@ -29,9 +29,7 @@ export async function main() {
  
   async function fetchNewProducts() {
     console.log("Fetching new products...");
-    const writeToDbPromises: Promise<void>[] = [];
     const consoleFetchStatus: any = {};
-    let allProducts: Product[] = []
 
     function addToDb(
       product: Product,
@@ -56,14 +54,19 @@ export async function main() {
         
       consoleFetchStatus[`${firstCategory.value}`] = {};
       for (const secondCategory of firstCategory.cat2) {
+        const writeToDbPromises: Promise<void>[] = [];
 
         consoleFetchStatus[`${firstCategory.value}`][
           `${secondCategory.value}`
         ] = 0;
         console.log(consoleFetchStatus);
+
         let maxPages = false;
-        allProducts = []
+        let allProducts: Product[] = []
+
         for (let i = 1; !maxPages; i++) {
+          console.log("Fetched: ", allProducts.length);
+
           let response = await axios({
             method: "get",
             url: `${
@@ -84,24 +87,27 @@ export async function main() {
           if (response.data.products < 1) {
             maxPages = true;
           }
-          
+
         }
 
-        console.log("Adding cat2 to db...");
+        console.log("Deduplicating...");
         const products = new Set()
-        allProducts.filter(product => {
+        const filteredProducts = allProducts.filter(product => {
           const duplicate = products.has(product.productId);
           products.add(product.productId);
           return !duplicate;
-        }).forEach(product => {
+        })
+        console.log("Deduplicating done!");
+
+        filteredProducts.forEach(product => {
           writeToDbPromises.push(addToDb(product))
         })
+        await Promise.all(writeToDbPromises)
 
       }
     
     }
 
-    await Promise.all(writeToDbPromises);
     return;
   }
 
