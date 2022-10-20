@@ -5,7 +5,7 @@
   "main": "App.js",
   "scripts": {
     "build": "npm ci && tsc --build",
-    "start": "node src/App.js",
+    "start": "node --max-old-space-size=4096 src/App.js",
     "dev": "npx ts-node src/App.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
