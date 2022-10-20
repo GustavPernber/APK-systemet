@@ -22,28 +22,28 @@ jobs:
         - run: npm ci
         - run: npm run build
 
-  E2E_testing:
-    needs: Build
-    name: "E2E tests"
-    runs-on: ubuntu-latest
-    defaults:
-        run:
-          working-directory: ./web
+  # E2E_testing:
+  #   needs: Build
+  #   name: "E2E tests"
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #       run:
+  #         working-directory: ./web
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
 
-      - name: Check env
-        run: env
-      - name: Serve and test.
-        uses: cypress-io/github-action@v4
-        with:
-          working-directory: ./web
-          browser: chrome
-          start: sudo netlify dev
-          wait-on: 'http://localhost:8888'
-          wait-on-timeout: 120
+  #     - name: Check env
+  #       run: env
+  #     - name: Serve and test.
+  #       uses: cypress-io/github-action@v4
+  #       with:
+  #         working-directory: ./web
+  #         browser: chrome
+  #         start: sudo netlify dev
+  #         wait-on: 'http://localhost:8888'
+  #         wait-on-timeout: 120
 
         
     
