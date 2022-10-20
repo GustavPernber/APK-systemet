@@ -5,7 +5,7 @@ import { useContext } from 'react';
 const SiteFooter = () => {
     const { metadata } = useContext(AppContext)
     return ( 
-    <footer className=" w-screen h-[10rem] bg-gray-200 px-4 py-6 grid grid-cols-2 grid-rows-[1fr_auto_1fr]">
+    <footer className=" w-screen h-[10rem]  bg-gradient-to-br from-gray-200 to-gray-300 px-4 py-6 grid grid-cols-2 grid-rows-[1fr_auto_1fr]">
         
         <a className=' col-start-1 self-start'
          target={"_blank"} 
@@ -16,8 +16,8 @@ const SiteFooter = () => {
 
         <span className='w-full h-[1px] bg-gray-300 col-span-2' />
 
-        <p className="text-gray-400 col-span-2  self-end">
-            {metadata.lastUpdated && 'Senast uppdaterad: Kl 13:44 Torsdag 13 Oktober 2022.'}
+        <p className="text-gray-400 col-span-2  text-sm self-end">
+            {metadata.lastUpdated && `Senast uppdaterad: ${metadata.lastUpdated}`}
         </p>
         
     </footer> 

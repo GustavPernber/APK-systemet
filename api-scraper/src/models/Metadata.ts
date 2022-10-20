@@ -29,7 +29,7 @@ const MetadataSchema = new Schema({
     },
     lastUpdated: {
         type: String,
-        required: true
+        required: true,
     }
 }, {collection: "metadata"})
 
