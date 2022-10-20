@@ -9,6 +9,16 @@ export interface TasteClock {
     value: number;
 }
 
+export type Cat1 = {
+    value: string,
+    friendlyUrl: string,
+    cat2: any[]
+}
+
+export type Categories = {
+    cat1: Cat1[]
+}
+
 export interface Product {
     productId: string;
     productNumber: string;

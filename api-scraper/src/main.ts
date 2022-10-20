@@ -1,22 +1,25 @@
 import config from "./config.json";
 import https from "https";
-import { Product } from "./utils/types";
+import { Cat1, Categories, Product } from "./utils/types";
 import mongoose from "mongoose";
 import { ProductModel } from "./models/Products";
 import { MetadataModel } from "./models/Metadata";
 import * as dotenv from "dotenv";
 import axios from "axios";
 import path from "path";
+import handleSecondCategory from "./worker";
+
+
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env") }); // Points to env in dev env
 const MONGO_DB_WRITE_PATH = process.env.MONGODB_WRITE_PATH_DEV || process.env.MONGODB_WRITE_PATH
 if (!MONGO_DB_WRITE_PATH) throw new Error("No path specified for mongo db")
 
 export async function main() {
-  console.time("Completed program in: ")
+  console.time("Completed program in")
+
   console.log("Connecting to database with: ");
   console.log(MONGO_DB_WRITE_PATH);
-
   await mongoose.connect(MONGO_DB_WRITE_PATH as string);
 
   console.log("Connected!");
@@ -25,14 +28,19 @@ export async function main() {
     mongoose.connection.dropCollection("products-tmp")
   }catch{}
   
-  
   let categories = await fetchCategories();
- 
+
+
   async function fetchNewProducts() {
     console.log("Fetching new products...");
     const consoleFetchStatus: any = {};
+    const dbPromises: Promise<any>[] = []
+    const cat2Promises: Promise<any>[] = []
+    let collectedProductsCount = 0
+    const totalProductsCount = await mongoose.connection.db.collection("products").count()
 
-    function addToDb(
+      
+    function addProductToDb(
       product: Product,
     ) {
       return new Promise<void>(async (resolve, reject) => {
@@ -41,8 +49,12 @@ export async function main() {
         try {
           const data = new ProductModel({ ...product, apk: apk });
           await data.save();
+
           consoleFetchStatus[`${product.categoryLevel1}`][`${product.categoryLevel2}`] += 1;
+          collectedProductsCount ++
+
           console.log(consoleFetchStatus)
+          console.log(`${((collectedProductsCount / totalProductsCount) * 100).toPrecision(3)}%`)
         } catch (error: any) {
           console.log(error)
           throw new Error()
@@ -51,64 +63,28 @@ export async function main() {
       });
     }
 
-    for (const firstCategory of categories.cat1) {
-        
-      consoleFetchStatus[`${firstCategory.value}`] = {};
-      for (const secondCategory of firstCategory.cat2) {
-        const writeToDbPromises: Promise<void>[] = [];
+    // CAT 1
+    categories.cat1.forEach((cat1) => {
 
-        consoleFetchStatus[`${firstCategory.value}`][
-          `${secondCategory.value}`
+      consoleFetchStatus[`${cat1.value}`] = {};
+
+      cat1.cat2.forEach((cat2: any)=>{
+
+        consoleFetchStatus[`${cat1.value}`][
+          `${cat2.value}`
         ] = 0;
         console.log(consoleFetchStatus);
 
-        let maxPages = false;
-        let allProducts: Product[] = []
+        cat2Promises.push(handleSecondCategory(cat1, cat2).then((products) => {
+          products.forEach((product) => {
+            dbPromises.push(addProductToDb(product))
+        })}))
 
-        for (let i = 1; !maxPages; i++) {
-          console.log("Fetched: ", allProducts.length);
+      })
 
-          let response = await axios({
-            method: "get",
-            url: `${
-              config.systembolaget_api_url
-            }page=${i}&categoryLevel1=${encodeURIComponent(
-              firstCategory.value
-            )}&categoryLevel2=${encodeURIComponent(secondCategory.value)}`,
-            headers: {
-              ...config.headers,
-            },
-            httpsAgent: new https.Agent({
-              rejectUnauthorized: false,
-            }),
-          });
+    })
 
-          allProducts = [...allProducts, ...response.data.products]
-          
-          if (response.data.products < 1) {
-            maxPages = true;
-          }
-
-        }
-
-        console.log("Deduplicating...");
-        const products = new Set()
-        const filteredProducts = allProducts.filter(product => {
-          const duplicate = products.has(product.productId);
-          products.add(product.productId);
-          return !duplicate;
-        })
-        
-        for (const product of filteredProducts) {
-          writeToDbPromises.push(addToDb(product))
-        }
-
-        await Promise.all(writeToDbPromises)
-      }
-    
-    }
-
-    return;
+    return Promise.all([Promise.all(dbPromises), Promise.all(cat2Promises)])
   }
 
   async function transferCollections() {
@@ -142,15 +118,15 @@ export async function main() {
       return filter.name === "CategoryLevel1";
     })[0].searchModifiers;
 
-    const categories: { cat1: any[] } = {
-      cat1: [],
-    };
+    const categories: Categories = {cat1: [],};
     cat1FilterObjects.forEach((filterObj: any) => {
       if (!nonDrinkProducts.includes(filterObj.value)) {
-        categories.cat1 = [
+        categories.cat1 = [ 
           ...categories.cat1,
-          { friendlyUrl: filterObj.friendlyUrl, value: filterObj.value },
-        ];
+          {
+           friendlyUrl: filterObj.friendlyUrl, value: filterObj.value 
+          } as Cat1
+        ] 
       }
     });
 
@@ -181,19 +157,18 @@ export async function main() {
   }
 
   async function updateMetadata() {
-    const data = new MetadataModel({ categories: categories, lastUpdated: (new Date).toISOString() });
-    try {
-      await mongoose.connection.dropCollection("metadata");
-    } finally{
-      await data.save();
-    }
+    const date =  new Date
+    const currentDate = date.toISOString()
+    const data = new MetadataModel({categories: categories, lastUpdated: currentDate});
+    await mongoose.connection.dropCollection("metadata");
+    await data.save();
   }
   
   await fetchNewProducts();
   await transferCollections();
   await updateMetadata()
   await mongoose.disconnect()
-  console.timeEnd("Completed program in: ")
+  console.timeEnd("Completed program in")
   console.log("UPDATE COMPLETED");
   return;
 }
