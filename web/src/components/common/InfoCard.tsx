@@ -6,9 +6,9 @@ function InfoCard(){
 
     return(
         <>
-       { showInfoCard && (<div className={`fixed w-full h-screen  grid place-content-center z-40 px-5 ` } >
+        <div className={`${showInfoCard ? "opacity-100" : "opacity-0 pointer-events-none" } transition fixed w-full h-screen  grid place-content-center z-40 px-5 ` } >
 
-            <div className={`transition-all bg-gray-100 min-h-[15rem] rounded-lg w-full pb-9 pt-7 px-9 z-40 `} >
+            <div className={`transition-all from-white to-gray-200  bg-gradient-to-br shadow-lg min-h-[15rem] rounded-lg w-full pb-9 pt-7 px-9 z-40 `} >
                 <div className={`flex flex-row justify-between pb-5`}>
                     <h1>Vad är APK?</h1>
 
@@ -34,9 +34,9 @@ function InfoCard(){
             <div 
             onClick={()=> setShowInfoCard((v: boolean) => !v)}
             className={` ${showInfoCard ? "opacity-80" : "opacity-0" } transition bg-gray-600  w-full h-full absolute top-0 `}  />
-            
         
-        </div>)}
+        
+        </div>
         </>
 
         
