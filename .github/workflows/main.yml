@@ -34,7 +34,8 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           working-directory: ./web
-          start: netlify dev
+          browser: chrome
+          start: sudo netlify dev
           wait-on: 'http://localhost:8888'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
