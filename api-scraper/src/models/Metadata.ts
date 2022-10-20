@@ -27,7 +27,7 @@ const MetadataSchema = new Schema({
         type: CategoriesSchema,
         required: true
     },
-    lasUpdated: {
+    lastUpdated: {
         type: String,
         required: true
     }
