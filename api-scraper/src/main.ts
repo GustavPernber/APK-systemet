@@ -100,10 +100,10 @@ export async function main() {
         })
         
         for (const product of filteredProducts) {
-          console.log("Adding to db...");
-          await addToDb(product)
+          writeToDbPromises.push(addToDb(product))
         }
 
+        await Promise.all(writeToDbPromises)
       }
     
     }
