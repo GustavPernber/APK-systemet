@@ -100,10 +100,9 @@ export async function main() {
         })
         console.log("Deduplicating done!");
 
-        filteredProducts.forEach(product => {
-          writeToDbPromises.push(addToDb(product))
+        filteredProducts.forEach(async product => {
+          await addToDb(product)
         })
-        await Promise.all(writeToDbPromises)
 
       }
     
