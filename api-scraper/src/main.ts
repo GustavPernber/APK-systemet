@@ -98,9 +98,9 @@ export async function main() {
           products.add(product.productId);
           return !duplicate;
         })
-        console.log("Deduplicating done!");
-
+        
         for (const product of filteredProducts) {
+          console.log("Adding to db...");
           await addToDb(product)
         }
 
