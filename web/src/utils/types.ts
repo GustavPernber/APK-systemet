@@ -1,26 +1,25 @@
 export type SortByOptions = "apk" | "price_asc" | "alc_desc" 
 
-export type Category = {
-    value: string | null
+export type Cat1 = {
+    value: string
+    friendlyUrl: string
+    cat2: any[]
+    
 }
 
+export type SelectedCat2 =  string[] | null
+
 export type Categories = {
-    cat1: Category[]
+    cat1: Cat1[]
 }
 
 export type Metadata = {
-    categories: {
-        cat1: {
-            value: string
-            friendlyUrl: string
-            cat2: any[]
-        }[]
-    }
+    categories: Categories
     lastUpdated: string
 }
 export type ProductsFilterOptions = {
     sortBy:SortByOptions
-    cat1: Category["value"]
+    cat1: Cat1["value"]
     showOrderStock:boolean
 }
 

@@ -2,7 +2,7 @@ import ProductList from './Products/ProductList'
 import api from '@/api'
 import { createContext, useCallback, useEffect, useMemo, useState } from "react"
 import ProductOptions from './ProductOptions'
-import { ProductsFilterOptions, SortByOptions, ProductType, Category, } from "@/utils/types"
+import { ProductsFilterOptions, SortByOptions, ProductType, Cat1, SelectedCat2, } from "@/utils/types"
 import Filters from './Filters/Filters'
 
 
@@ -16,10 +16,12 @@ type ProductContextType = {
     isLoading: boolean,
     showFilters: boolean,
     toggleShowFilters: Function
-    cat1: Category,
+    cat1: Cat1,
     setCat1: Function
     showOrderStock: boolean
     setShowOrderStock: Function
+    cat2: SelectedCat2
+    setCat2: Function
 }
 
 export const ProductContext = createContext<ProductContextType>({} as ProductContextType)
@@ -34,7 +36,8 @@ const ProductsController = () =>{
 
     const [sortBy, setSortBy] = useState<SortByOptions>("apk")
     const [showOrderStock, setShowOrderStock] = useState<boolean>(true)
-    const [cat1, setCat1] = useState<Category>({value: "all"})
+    const [cat1, setCat1] = useState<Cat1>({value: "all"} as Cat1)
+    const [cat2, setCat2] = useState<SelectedCat2>(null)
 
     const filters: ProductsFilterOptions = useMemo(()=>{
         return{
@@ -83,7 +86,9 @@ const ProductsController = () =>{
         cat1,
         setCat1,
         showOrderStock,
-        setShowOrderStock
+        setShowOrderStock,
+        cat2,
+        setCat2
     }
 
     return(

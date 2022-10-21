@@ -16,7 +16,7 @@ function Accordion({ contentComponent, title }: AccordionProps) {
         id="hs-basic-with-title-and-arrow-stretched-heading-one"
       >
         <button 
-          onClick={() => setShow(!show)}
+          onClick={() => setShow((v) => !v)}
           className="hs-accordion-toggle  group py-0 inline-flex items-center justify-between gap-x-3 w-full font-semibold text-left text-gray-800 transition hover:text-gray-500"
           aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-one"
         >
