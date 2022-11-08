@@ -7,7 +7,7 @@ import { MetadataModel } from "./models/Metadata";
 import * as dotenv from "dotenv";
 import axios from "axios";
 import path from "path";
-import handleSecondCategory from "./worker";
+import handleSecondCategory from "./handleSecondCategory";
 
 
 
@@ -34,12 +34,10 @@ export async function main() {
   async function fetchNewProducts() {
     console.log("Fetching new products...");
     const consoleFetchStatus: any = {};
-    const dbPromises: Promise<any>[] = []
-    const cat2Promises: Promise<any>[] = []
+    const writeToDbPromises: Promise<void>[] = []
     let collectedProductsCount = 0
     const totalProductsCount = await mongoose.connection.db.collection("products").count()
 
-      
     function addProductToDb(
       product: Product,
     ) {
@@ -63,28 +61,29 @@ export async function main() {
       });
     }
 
-    // CAT 1
-    categories.cat1.forEach((cat1) => {
 
-      consoleFetchStatus[`${cat1.value}`] = {};
+    for (const firstCategory of categories.cat1) {
+        
+      consoleFetchStatus[`${firstCategory.value}`] = {};
+      for (const secondCategory of firstCategory.cat2) {
 
-      cat1.cat2.forEach((cat2: any)=>{
-
-        consoleFetchStatus[`${cat1.value}`][
-          `${cat2.value}`
+        consoleFetchStatus[`${firstCategory.value}`][
+          `${secondCategory.value}`
         ] = 0;
+
         console.log(consoleFetchStatus);
 
-        cat2Promises.push(handleSecondCategory(cat1, cat2).then((products) => {
-          products.forEach((product) => {
-            dbPromises.push(addProductToDb(product))
-        })}))
+        const products = await handleSecondCategory(firstCategory, secondCategory)
 
-      })
+        console.log("Adding to db...");
+        for (const product of products) {
+          writeToDbPromises.push(addProductToDb(product))
+        }
+       
+      }
+    }
 
-    })
-
-    return Promise.all([Promise.all(dbPromises), Promise.all(cat2Promises)])
+    return await Promise.all(writeToDbPromises)
   }
 
   async function transferCollections() {
