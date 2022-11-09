@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AppContext } from "../Body";
 import Logo from "./Logo";
+import Icons from "@/components/Utils/Icons"
 
 export default function SiteHeader() {
 	const {showInfoCard, setShowInfoCard} = useContext(AppContext)
@@ -11,8 +12,10 @@ export default function SiteHeader() {
 			<button 
 			onClick={() => setShowInfoCard((v: boolean) => !v)}
 			className=" flex flex-row  items-center gap-1 ">
-				<span className=" text-gray-400  text-[1.2rem] mb-[0.1rem]  material-icons-outlined ">info</span>
-                <p className="text-[0.9rem] text-gray-400">Vad är APK?</p>
+                <Icons.info
+				className=" text-[1.2rem] mb-[0.1rem]"
+				/>
+				<p className="text-[0.9rem] text-gray-400">Vad är APK?</p>
 			</button>
 		</header>
 	);
