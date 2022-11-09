@@ -2,7 +2,7 @@ import ProductList from './Products/ProductList'
 import api from '@/api'
 import { createContext, useCallback, useEffect, useMemo, useState } from "react"
 import ProductOptions from './ProductOptions'
-import { ProductsFilterOptions, SortByOptions, ProductType, Category, } from "@/utils/types"
+import { ProductsFilterOptions, SortByOptions, ProductType, Cat1, SelectedCat2, } from "@/utils/types"
 import Filters from './Filters/Filters'
 
 
@@ -16,10 +16,12 @@ type ProductContextType = {
     isLoading: boolean,
     showFilters: boolean,
     toggleShowFilters: Function
-    cat1: Category,
+    cat1: Cat1,
     setCat1: Function
     showOrderStock: boolean
     setShowOrderStock: Function
+    cat2: SelectedCat2
+    setCat2: Function
 }
 
 export const ProductContext = createContext<ProductContextType>({} as ProductContextType)
@@ -34,15 +36,21 @@ const ProductsController = () =>{
 
     const [sortBy, setSortBy] = useState<SortByOptions>("apk")
     const [showOrderStock, setShowOrderStock] = useState<boolean>(true)
-    const [cat1, setCat1] = useState<Category>({value: "all"})
+    const [cat1, setCat1] = useState<Cat1>({value: "all"} as Cat1)
+    const [cat2, setCat2] = useState<SelectedCat2>(null)
 
     const filters: ProductsFilterOptions = useMemo(()=>{
         return{
             showOrderStock: showOrderStock,
             cat1: cat1.value,
-            sortBy: sortBy
+            cat2: cat2,
+            sortBy: sortBy,
         }
-    }, [sortBy, cat1, showOrderStock])
+    }, [sortBy, cat1, showOrderStock, cat2])
+
+    useEffect(() => {
+        setCat2(null)
+    }, [cat1])
 
     const toggleShowFilters = useCallback(() => setShowFilters(!showFilters), [showFilters])
     
@@ -61,7 +69,6 @@ const ProductsController = () =>{
         setIsLoading(true)
         setPage(1)
         setProducts([])
-        setShowFilters(false);
         api.getProducts(filters, 1)
         .then(res => {
             setProducts(res.data)
@@ -83,7 +90,9 @@ const ProductsController = () =>{
         cat1,
         setCat1,
         showOrderStock,
-        setShowOrderStock
+        setShowOrderStock,
+        cat2,
+        setCat2
     }
 
     return(
@@ -93,7 +102,7 @@ const ProductsController = () =>{
                 w-full
                 px-3 md:px-8  md:pt-4 flex flex-row justify-center items-start">
                     <Filters/>
-                    <section className=' flex flex-col justify-start md:max-w-screen lg:max-w-[55rem] lg:w-full lg:border-l-[1px] lg:border-gray-300 lg:pl-6 min-h-screen flex-auto'>
+                    <section className=' flex flex-col justify-start md:max-w-screen lg:max-w-[55rem] lg:w-full lg:border-l-[1px] lg:border-gray-300 lg:pl-6 min-h-screen flex-1'>
                         <ProductOptions/>
                         <ProductList/>   
                     </section>
