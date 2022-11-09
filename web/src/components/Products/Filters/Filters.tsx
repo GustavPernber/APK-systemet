@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ProductContext } from "../ProductsController";
 import Categories from "./Categories";
 import OrderStock from "./OrderStock";
+import Icons from "@/components/Utils/Icons";
 
 function Filters() {
   const { showFilters, toggleShowFilters } = useContext(ProductContext);
@@ -29,7 +30,7 @@ function Filters() {
           <span 
           onClick={() => toggleShowFilters()}
           className="material-icons-outlined text-2xl w-10 h-10 flex flex-col justify-center items-center lg:opacity-0 lg:pointer-events-none  cursor-pointer">
-            close
+            <Icons.x style={{color: "#00000"}}/>
           </span>
         </div>
 

@@ -1,7 +1,8 @@
 import Logo from './Logo'
 import { AppContext } from '../Body';
 import { useContext } from 'react';
- 
+import Icons from "@/components/Utils/Icons" 
+
 const SiteFooter = () => {
     const { metadata } = useContext(AppContext)
     
@@ -13,7 +14,9 @@ const SiteFooter = () => {
         <a className=' col-start-1 self-start   w-min'
         target={"_blank"} 
         href="https://github.com/GustavPernber/APK-systemet-remastered">
-            <i className="fa-brands fa-github fa-xl "></i>
+            <Icons.gitHub
+            className=" text-[1.5rem]"
+            />
         </a>
         <Logo className="  !text-gray-400 !text-sm !leading-3 col-start-2 self-start place-self-end" />
 

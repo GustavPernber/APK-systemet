@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { AppContext } from "../Body"
+import Icons from "../Utils/Icons"
 
 function InfoCard(){
     const { showInfoCard, setShowInfoCard } = useContext(AppContext)
@@ -12,12 +13,14 @@ function InfoCard(){
                 <div className={`flex flex-row justify-between pb-5`}>
                     <h1>Vad är APK?</h1>
 
-                    <span 
-                    onClick={()=> setShowInfoCard((v: boolean) => !v)}
-                    className="material-icons-outlined text-xl 
-                     bg-white w-8 h-8 rounded-full flex flex-col items-center justify-center  cursor-pointer text-gray-400 ">
-                        close
+                    <span
+                        className="bg-white w-8 h-8 rounded-full flex flex-col items-center justify-center  cursor-pointer text-gray-400 "
+                        onClick={()=> setShowInfoCard((v: boolean) => !v)}>
+                        <Icons.x
+                        className="text-[1.2rem]"
+                        />
                     </span>
+
                 </div>
 
                 <p className=" text-gray-400 leading-">
