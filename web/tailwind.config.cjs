@@ -5,9 +5,9 @@ module.exports = {
   media: false,
   theme: {
     fontFamily:{
-      'sans':['Roboto', ...defaultTheme.fontFamily.sans],
+      'sans':['Inter', ...defaultTheme.fontFamily.sans],
       'condensed':['Roboto condensed', ...defaultTheme.fontFamily.sans],
-      'serif':['Munson Regular', ...defaultTheme.fontFamily.serif]
+      'serif':['Playfair Display', ...defaultTheme.fontFamily.serif]
     },
     // borderRadius:{
     //   'app': '4px'

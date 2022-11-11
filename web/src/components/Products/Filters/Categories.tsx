@@ -24,8 +24,8 @@ function Categories() {
                             <button 
                             key={category.value}
                             onClick={() => setCat1(()=> cat1.value === category.value ? {value: "all"} : {value: category.value}) }
-                            className={`${cat1.value === category.value ? "bg-green-400 text-white font-semibold " : "hover:bg-gray-200"} 
-                            bg-white transition duration-75 text-sm py-3 pr-8 pl-4 w-full grid place-content-start text-left`}>
+                            className={`${cat1.value === category.value ? "bg-green-400 text-white font-semibold " : "hover:bg-gray-200 text-gray-700"} 
+                            bg-white transition duration-75 text-sm py-3 pr-8 pl-4 w-full grid place-content-start text-left `}>
 
                             {category.value === "all" ? "Visa alla" : category.value}
                             </button>
@@ -50,7 +50,7 @@ function Categories() {
                                             checked={cat2?.includes(category2.value)}
                                             type="checkbox" className="shrink-0  border-gray-200 cursor-pointer rounded text-green-400  p-1  focus:ring-0" id="hs-checked-checkbox" />
                                             <span                                            
-                                            className={` text-left  cursor-pointer text-sm py-3 pr-8 pl-4 w-full `}>
+                                            className={` text-left  cursor-pointer text-sm py-3 pr-8 pl-4 w-full text-gray-600 `}>
                                                 {category2.value}
                                             </span>
                                         </div>

@@ -26,7 +26,7 @@ function Filters() {
       lg:min-h-0 flex gap-5 flex-col lg:p-0 lg:pr-2  lg:pb-28">
 
         <div className=" flex flex-row justify-between">
-          <h1 className=" text-2xl  font-semibold ml-[-3px]">Filtrera</h1>
+          <h1 className=" text-2xl font-medium ml-[-3px]">Filtrera</h1>
           <span 
           onClick={() => toggleShowFilters()}
           className="material-icons-outlined text-2xl w-10 h-10 flex flex-col justify-center items-center lg:opacity-0 lg:pointer-events-none  cursor-pointer">

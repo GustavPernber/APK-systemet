@@ -14,7 +14,7 @@ function SortViewOptions() {
       <form>
         <label
           htmlFor="hs-select-label"
-          className="block text-sm font-medium ml-1 "
+          className="block text-sm font-medium ml-1 text-gray-700"
         >
           Sortera
         </label>

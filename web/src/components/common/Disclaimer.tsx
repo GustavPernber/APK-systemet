@@ -20,7 +20,7 @@ export default function Disclaimer(){
                         <Icons.x/>
                     </button>
 
-                    <h1 className="tracking-[-0.09rem]">Information</h1>
+                    <h1 className="font-medium">Information</h1>
                     <p className="text-[0.8rem] text-gray-400   leading-4 ">
                         Hemsidan är inte associerad med Systembolaget på något sätt. Beställning, köp och utlämning sker endast från/av/hos Systembolaget. Hemsidan uppmanar inte till missbruk av alkohol eller till underårig konsumption av alkohol.
                     </p>

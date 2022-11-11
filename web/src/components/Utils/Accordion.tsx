@@ -20,7 +20,7 @@ function Accordion({ contentComponent, title }: AccordionProps) {
           className="hs-accordion-toggle  group py-0 inline-flex items-center justify-between gap-x-3 w-full font-semibold text-left text-gray-800 transition hover:text-gray-500"
           aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-one"
         >
-          <h2 className={`font-normal ${ show && "font-semibold "}   text-base`}>
+          <h2 className={`font-normal  text-gray-700 ${ show && "font-semibold "}   text-base`}>
             {title}
           </h2>
           <svg

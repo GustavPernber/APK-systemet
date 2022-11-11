@@ -59,7 +59,7 @@ const Product = (props:ProductProps) => {
                                 {product.customCategoryTitle}
                             </p>
 
-                            <h1 className=" font-normal">{product.productNameBold}</h1>
+                            <h1 className=" font-normal mb-[-5px] ">{product.productNameBold}</h1>
                             <h1 className=" font-serif font-normal text-gray-400">{parsedNameVintage}</h1>
 
                         </div>
@@ -94,7 +94,7 @@ const Product = (props:ProductProps) => {
                 { `${product.taste} ${product.usage}` !== "null null" &&
                 (<div className={`${isCompact ? 'h-0' : 'h-[6rem]' } overflow-hidden `}>
                     <div className=" w-full py-3 h-full border-t-[1px] border-gray-300 ">
-                        <p className=" text-sm ">
+                        <p className=" text-sm text-gray-700">
                             {product.taste} {product.usage}
                         </p>
                     </div>

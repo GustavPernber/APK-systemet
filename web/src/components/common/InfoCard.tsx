@@ -11,7 +11,7 @@ function InfoCard(){
 
             <div className={`transition-all from-white to-gray-200  bg-gradient-to-br shadow-lg min-h-[15rem] rounded-lg w-full pb-9 pt-7 px-9 z-40 `} >
                 <div className={`flex flex-row justify-between pb-5`}>
-                    <h1>Vad är APK?</h1>
+                    <h1 className=" font-semibold">Vad är APK?</h1>
 
                     <span
                         className="bg-white w-8 h-8 rounded-full flex flex-col items-center justify-center  cursor-pointer text-gray-400 "

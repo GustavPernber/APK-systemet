@@ -28,42 +28,12 @@ body:has(.preventBodyScroll) {
 	animation: slideRightAndHide 0.6s forwards ease-out;
 }
 
-@font-face {
-	font-family: "Munson Regular";
-	font-style: normal;
-	font-weight: normal;
-	src: local("Munson Regular"), url("./assets/fonts/munson_roman.woff") format("woff");
-}
-
-@font-face {
-	font-family: "Munson Italic";
-	font-style: normal;
-	font-weight: normal;
-	src: local("Munson Italic"), url("./assets/fonts/munson_italic.woff") format("woff");
-}
-
-@font-face {
-	font-family: "Munson Bold";
-	font-style: normal;
-	font-weight: normal;
-	src: local("Munson Bold"), url("./assets/fonts/munson_bold.woff") format("woff");
-}
-
-@font-face {
-	font-family: "Munson Bold Italic";
-	font-style: normal;
-	font-weight: normal;
-	src: local("Munson Bold Italic"),
-		url("./assets/fonts/munson_bolditalic.woff") format("woff");
-}
-
-
 @layer base{
 	p, h1, h2,h3,h4,h5,h6, button, input{
 		@apply text-black
 	}
 	h1{
-		@apply text-black text-[1.2rem] tracking-tighter font-bold font-serif;
+		@apply text-black text-[1.2rem] font-serif;
 	}
 }
 
