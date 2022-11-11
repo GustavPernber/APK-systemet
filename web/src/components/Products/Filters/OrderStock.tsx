@@ -17,6 +17,7 @@ function OrderStock() {
 
             >
                 <input 
+                readOnly
                 checked={!showOrderStock}
                 type="checkbox" className="shrink-0  border-gray-200 cursor-pointer rounded text-green-400  p-3  focus:ring-0" id="hs-checked-checkbox" />
                 <label htmlFor="hs-checked-checkbox" className=" cursor-pointer text-base text-gray-700 ml-3 ">
