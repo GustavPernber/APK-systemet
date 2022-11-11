@@ -6,4 +6,4 @@ En applikation för att hämta data från Systembolaget och visa den på en hems
 
 ---
 
-Då systembolaget har tagit bort endpointen för att hämta data om produkter ur deras öppna API, hämtar denna applikationen data från APIn som systembolagets hemsida hämtar. Funktionaliteten kring detta återfinns under ` /api-scraper/ `. 
+Då systembolaget har tagit bort endpointen för att hämta data om produkter ur deras öppna API, hämtar denna applikationen data från APIn som systembolagets hemsida hämtar. Funktionaliteten kring detta återfinns under ` /api-scraper `. 
