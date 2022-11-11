@@ -7,7 +7,9 @@ const grey = {
     400:"#2D2926A6",
 }
 
-const icons = {
+
+
+const Icons = {
     x: (props: any) => (
         <Icon
         icon={"bi:x"}
@@ -28,8 +30,15 @@ const icons = {
         style={{ color: grey[400]}}
         {...props}
         />
+    ),
+    search: (props: any) => (
+        <Icon
+        icon={"material-symbols:search"}
+        style={{color: "white"}}
+        {...props}
+        />
     )
     
 }
 
-export default icons
+export default Icons
