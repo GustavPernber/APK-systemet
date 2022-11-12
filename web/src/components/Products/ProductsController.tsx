@@ -52,7 +52,12 @@ const ProductsController = () =>{
         setCat2(null)
     }, [cat1])
 
-    const toggleShowFilters = useCallback(() => setShowFilters(!showFilters), [showFilters])
+    const toggleShowFilters = useCallback(() => {
+        if(window.innerWidth <= 1023 ){
+            setShowFilters(!showFilters)
+        }
+
+    }, [showFilters] )
     
     const fetchMore = useCallback(async () => {
         setIsLoading(true)
