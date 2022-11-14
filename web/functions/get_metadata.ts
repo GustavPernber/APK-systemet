@@ -1,12 +1,16 @@
 import {MainHandlerResponse} from './utils/types'
-import mongoose from 'mongoose'
+import { getMetadataCollection } from './utils/db'
 
 
 const main = async (event, context): Promise<MainHandlerResponse> => {
-    await mongoose.connect(process.env.MONGODB_READ_PATH || process.env.MONGODB_READ_PATH_DEV as string)
-    const metadata =[...await mongoose.connection.db.collection("metadata").find({}).toArray()][0]
+
+    const collection = getMetadataCollection()
+
+    const metadata = await collection.collection.find().toArray()
+
+    collection.terminate()
     return {
-        body: metadata
+        body: metadata[0]
     }
 }
 
