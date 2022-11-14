@@ -8,26 +8,38 @@ import { Metadata } from '@/utils/types'
 import api from '@/api'
 
 type AppContextType = {
+    isLoading: boolean,
+    setIsLoading: Function
     showInfoCard: boolean,
     setShowInfoCard: Function
     metadata: Metadata
+    searchTerm: string
+    setSearchTerm: Function
+    loadingOnTop: boolean
+    setLoadingOnTop: Function
+
 }
 
-// export const InfoCardContext = createContext<InfoCardContextType>({} as InfoCardContextType)
 export const AppContext = createContext<AppContextType>({} as AppContextType)
 
 const Body = ()=>{
 
-    // const [showInfoCard, setShowInfoCard] = useState<boolean>(false)
+    const [loadingOnTop, setLoadingOnTop] = useState(false)
+    const [isLoading, setIsLoading] = useState<boolean>(true)
     const [showInfoCard, setShowInfoCard] = useState<boolean>(false)
     const [metadata, setMetadata] = useState<Metadata>({categories: {cat1:[]}, lastUpdated: ''} as Metadata)
+    const [searchTerm, setSearchTerm] = useState<string>("")
 
     const AppContextValues: AppContextType = {
+        isLoading,
+        setIsLoading,
         showInfoCard,
         setShowInfoCard,
         metadata,
-        // showInfoCard, 
-        // toggleInfoCard
+        searchTerm,
+        setSearchTerm,
+        loadingOnTop,
+        setLoadingOnTop
     }
 
     useEffect(() => {
@@ -48,8 +60,6 @@ const Body = ()=>{
             </div>
         </AppContext.Provider>
 
-
-        
     )
 }
 

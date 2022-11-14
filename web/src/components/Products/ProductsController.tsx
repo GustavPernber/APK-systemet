@@ -1,9 +1,10 @@
 import ProductList from './Products/ProductList'
 import api from '@/api'
-import { createContext, useCallback, useEffect, useMemo, useState } from "react"
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, useTransition } from "react"
 import ProductOptions from './ProductOptions'
 import { ProductsFilterOptions, SortByOptions, ProductType, Cat1, SelectedCat2, } from "@/utils/types"
 import Filters from './Filters/Filters'
+import { AppContext } from '../Body'
 
 
 type ProductContextType = {
@@ -22,14 +23,21 @@ type ProductContextType = {
     setShowOrderStock: Function
     cat2: SelectedCat2
     setCat2: Function
+    setIsLoading: Function
 }
 
 export const ProductContext = createContext<ProductContextType>({} as ProductContextType)
 
 const ProductsController = () =>{
 
+    const { isLoading, setIsLoading, setLoadingOnTop } = useContext(AppContext)
+
+    const [isPendingTransition, startTransition] = useTransition()
+
+    const {searchTerm} = useContext(AppContext)
+
     const [products, setProducts] = useState<ProductType[]>([])
-    const [isLoading, setIsLoading] = useState<boolean>(true)
+ 
     const [isCompactProducts, setIsCompactProducts] = useState<boolean>(false)
     const [page, setPage] = useState<number>(1)
     const [showFilters, setShowFilters] = useState<boolean>(false)
@@ -49,6 +57,19 @@ const ProductsController = () =>{
     }, [sortBy, cat1, showOrderStock, cat2])
 
     useEffect(() => {
+        setIsLoading(true)
+        setPage(1)
+        setProducts([])
+    
+        api.getProducts(filters, 1, searchTerm)
+        .then(res => {
+            setProducts(res.data)
+            setIsLoading(false)
+        })
+
+    }, [searchTerm])
+
+    useEffect(() => {
         setCat2(null)
     }, [cat1])
 
@@ -60,13 +81,15 @@ const ProductsController = () =>{
     }, [showFilters] )
     
     const fetchMore = useCallback(async () => {
+
         setIsLoading(true)
         const newPage = page + 1
         setPage(newPage)
-        const res = await api.getProducts(filters, newPage)
+        const res = await api.getProducts(filters, newPage, searchTerm)
         const newProducts = [...products, ...res.data]
         setProducts(newProducts)
         setIsLoading(false)
+
     }, [page, filters, products]) 
     
 
@@ -74,12 +97,13 @@ const ProductsController = () =>{
         setIsLoading(true)
         setPage(1)
         setProducts([])
-        api.getProducts(filters, 1)
+        api.getProducts(filters, 1, searchTerm)
         .then(res => {
-            setProducts(res.data)
+            startTransition(() => {setProducts(res.data)}) 
             setIsLoading(false)
+            setLoadingOnTop(false)
         })
-    }, [filters])
+    }, [filters, searchTerm])
 
 
     const productContextValues: ProductContextType = {
@@ -97,7 +121,8 @@ const ProductsController = () =>{
         showOrderStock,
         setShowOrderStock,
         cat2,
-        setCat2
+        setCat2,
+        setIsLoading
     }
 
     return(
