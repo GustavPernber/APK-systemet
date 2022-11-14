@@ -10,8 +10,6 @@ const ProductList = () => {
     const { loadingOnTop } = useContext(AppContext)
     const { products, isLoading, fetchMore } = useContext(ProductContext)
 
-    const [isLoadingProper, setIsLoadingProper] = useState<boolean>(true)
-
     const LoadMoreButton = ({fetchMore}: {fetchMore:Function} ) => {
         return(
             <button onClick={fetchMore as MouseEventHandler}
@@ -33,26 +31,15 @@ const ProductList = () => {
 
     }, [products])
 
-    useEffect(() => {
-        // The following ugly stuff is needed as the products take a while to render. If we unmount the loading list before that it looks ugly.
-        debounce(() => {
-             if (isLoading) {
-            setIsLoadingProper(true)
-            }else {
-                setTimeout(() => {
-                    setIsLoadingProper(false)
-                }, 300) 
-            }
-        }, 300)
-    }, [isLoading, products])
+   
 
     return(
         <div className=" flex flex-col justify-start items-center flex-auto ">
             <div className=" w-full gap-5 pb-10   grid-flow-row grid  md:grid-cols-2  md:col-start-2 " >
                 
-                {((isLoadingProper || isLoading ) && loadingOnTop) && (<SkeletonProductList/>)} 
+                {(isLoading && loadingOnTop) && (<SkeletonProductList/>)} 
                 {productElements}
-                {((isLoadingProper || isLoading ) && !loadingOnTop) && (<SkeletonProductList/>)} 
+                {(isLoading && !loadingOnTop) && (<SkeletonProductList/>)} 
 
             </div>
             <LoadMoreButton fetchMore={fetchMore}/>

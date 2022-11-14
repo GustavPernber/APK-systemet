@@ -30,7 +30,7 @@ export const ProductContext = createContext<ProductContextType>({} as ProductCon
 
 const ProductsController = () =>{
 
-    const { isLoading, setIsLoading, setLoadingOnTop } = useContext(AppContext)
+    const { isLoading, setIsLoading, setLoadingOnTop, currentSearchTerm } = useContext(AppContext)
 
     const [isPendingTransition, startTransition] = useTransition()
 
@@ -89,14 +89,20 @@ const ProductsController = () =>{
     
 
     useEffect(()=>{
+
         setIsLoading(true)
         setPage(1)
         setProducts([])
         api.getProducts(filters, 1, searchTerm)
         .then(res => {
-            startTransition(() => {setProducts(res.data)}) 
-            setIsLoading(false)
-            setLoadingOnTop(false)
+            startTransition(() => {
+                if (res.searchTerm === currentSearchTerm.current) {
+                    setProducts(res.data)
+                    setIsLoading(false)
+                    setLoadingOnTop(false)
+                }
+            }) 
+            
         })
     }, [filters, searchTerm])
 

@@ -2,7 +2,7 @@ import Disclaimer from './common/Disclaimer'
 import SiteHeader from './common/SiteHeader'
 import ProductsController from './Products/ProductsController'
 import InfoCard from './common/InfoCard'
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState, useEffect, useRef } from 'react'
 import SiteFooter from './common/SiteFooter'
 import { Metadata } from '@/utils/types'
 import api from '@/api'
@@ -17,7 +17,7 @@ type AppContextType = {
     setSearchTerm: Function
     loadingOnTop: boolean
     setLoadingOnTop: Function
-
+    currentSearchTerm: React.MutableRefObject<string>
 }
 
 export const AppContext = createContext<AppContextType>({} as AppContextType)
@@ -29,6 +29,7 @@ const Body = ()=>{
     const [showInfoCard, setShowInfoCard] = useState<boolean>(false)
     const [metadata, setMetadata] = useState<Metadata>({categories: {cat1:[]}, lastUpdated: ''} as Metadata)
     const [searchTerm, setSearchTerm] = useState<string>("")
+    const currentSearchTerm = useRef("")
 
     const AppContextValues: AppContextType = {
         isLoading,
@@ -39,7 +40,8 @@ const Body = ()=>{
         searchTerm,
         setSearchTerm,
         loadingOnTop,
-        setLoadingOnTop
+        setLoadingOnTop,
+        currentSearchTerm
     }
 
     useEffect(() => {

@@ -100,8 +100,6 @@ const main = async (event, context): Promise<MainHandlerResponse> => {
     requestBody?.searchTerm
   );
 
-    /// U LEFT OF HERE IDIOOOOOOOOOOT
-  // Have to change lib to native mongdb away from mongoose. Mongodb shell has better support for atlas search and stuff
   const paginationOffset =
     PAGINATION_LIMIT * validRequest.page - PAGINATION_LIMIT;
   
@@ -121,7 +119,7 @@ const main = async (event, context): Promise<MainHandlerResponse> => {
   productConnection.terminate()
 
   return {
-    body: { data: result },
+    body: { data: result, searchTerm: validRequest.searchTerm?.$search.text.query  },
   };
 };
 

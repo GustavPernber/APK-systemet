@@ -46,6 +46,7 @@ export type ProductType = {
 }
 
 export type ProductTypeResponse = {
-    data : ProductType[]
+    data: ProductType[]
+    searchTerm: string
     req: any
 }

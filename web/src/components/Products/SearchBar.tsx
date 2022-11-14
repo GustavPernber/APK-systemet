@@ -1,15 +1,15 @@
-import { useContext } from "react"
+import { useContext, useTransition } from "react"
 import { AppContext } from "../Body"
 import Icons from "../Utils/Icons"
 import debounce  from "lodash.debounce"
 
-
 const SearchBar = () => {
 
-    const { setSearchTerm, setIsLoading, setLoadingOnTop } = useContext(AppContext)
+    const { setSearchTerm, setIsLoading, setLoadingOnTop, currentSearchTerm } = useContext(AppContext)
+    const [isPending, startTransition] = useTransition()
 
     const debouncedChangeHandler = debounce((text: string) => {
-        setSearchTerm(text)
+        startTransition(() => {setSearchTerm(text)}) 
     }, 3000)
 
     return(
@@ -20,9 +20,12 @@ const SearchBar = () => {
 
         <input 
         onChange={(e)=> {
-            setIsLoading(true)
-            setLoadingOnTop(true)
-            debouncedChangeHandler(e.target.value)
+            currentSearchTerm.current = e.target.value
+            startTransition(() => {
+                setIsLoading(true)
+                setLoadingOnTop(true)
+                debouncedChangeHandler(e.target.value)
+            })
         }}
         type="text"
         placeholder="Sök efter en produkt..."
