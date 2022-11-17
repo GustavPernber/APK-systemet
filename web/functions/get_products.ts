@@ -115,7 +115,7 @@ const main = async (event, context): Promise<MainHandlerResponse> => {
   productConnection.terminate()
 
   return {
-    body: { data: result, searchTerm: validRequest.searchTerm?.$search.text.query  },
+    body: { data: result, searchTerm: validRequest.searchTerm?.$search.text.query || ""  },
   };
 };
 

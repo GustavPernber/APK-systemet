@@ -4,13 +4,14 @@ import Icons from "../Utils/Icons"
 
 const SearchBar = () => {
 
-    const { setSearchTerm, setIsLoading, setLoadingOnTop, currentSearchTerm } = useContext(AppContext)
+    const { setSearchTerm, setIsLoading, setLoadingOnTop, currentSearchTerm, searchTerm } = useContext(AppContext)
     const [isPending, startTransition] = useTransition()
 
     useEffect(() => {
         const delayDebounce = setTimeout(() => {
             setSearchTerm(currentSearchTerm.current)
-        }, 200);
+        }, 300);
+
         return () => clearTimeout(delayDebounce)
     }, [currentSearchTerm.current])
 
@@ -22,12 +23,13 @@ const SearchBar = () => {
 
         <input 
         onChange={(e)=> {
-            currentSearchTerm.current = e.target.value
-            // debouncedChangeHandler(e.target.value)
-            startTransition(() => {
-                setIsLoading(true)
-                setLoadingOnTop(true)
-            })
+            if( !(/^\s*$/.test(e.target.value) && /^\s*$/.test(searchTerm))) {
+                currentSearchTerm.current = e.target.value
+                startTransition(() => {
+                    setIsLoading(true)
+                    setLoadingOnTop(true)
+                })             
+            }
         }}
         type="text"
         placeholder="Sök efter en produkt..."

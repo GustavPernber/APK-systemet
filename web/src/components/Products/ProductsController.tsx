@@ -103,12 +103,22 @@ const ProductsController = () =>{
             setProducts([])
             api.getProducts(filters, 1, searchTerm)
             .then(res => {
+                
                 startTransition(() => {
-                    if (res.searchTerm === currentSearchTerm.current) {
+
+                    if( !(/^\s*$/.test(currentSearchTerm.current))) {
+
+                        if (res.searchTerm === currentSearchTerm.current) {
+                            setProducts(res.data)
+                            setIsLoading(false)
+                            setLoadingOnTop(false)
+                        }
+                    }else {
                         setProducts(res.data)
                         setIsLoading(false)
                         setLoadingOnTop(false)
                     }
+
                 }) 
                 
             })
