@@ -3,8 +3,6 @@ import SkeletonProductList from '@/components/Products/Products/SkeletonProductL
 import { MouseEventHandler, useContext, useEffect, useMemo, useState } from "react"
 import { ProductContext } from "../ProductsController"
 import { AppContext } from "@/components/Body"
-import debounce  from "lodash.debounce"
-
 
 const ProductList = () => {
     const { loadingOnTop } = useContext(AppContext)
@@ -37,9 +35,9 @@ const ProductList = () => {
         <div className=" flex flex-col justify-start items-center flex-auto ">
             <div className=" w-full gap-5 pb-10   grid-flow-row grid  md:grid-cols-2  md:col-start-2 " >
                 
-                {(isLoading && loadingOnTop) && (<SkeletonProductList/>)} 
+                {isLoading && (<SkeletonProductList/>)} 
                 {productElements}
-                {(isLoading && !loadingOnTop) && (<SkeletonProductList/>)} 
+                {/* {(isLoading && !loadingOnTop) && (<SkeletonProductList/>)}  */}
 
             </div>
             <LoadMoreButton fetchMore={fetchMore}/>

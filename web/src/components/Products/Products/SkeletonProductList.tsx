@@ -1,4 +1,6 @@
 import  Skeleton  from '@/components/Utils/Skeleton'
+import { v4 as uuid } from 'uuid';
+
 
 function SkeletonProductList(){
 
@@ -45,7 +47,7 @@ function SkeletonProductList(){
         <>
             {[...Array(8)].map((e) => {
                 return(
-                    <SkeletonProduct key={e}/>
+                    <SkeletonProduct key={uuid()}/>
                     )
                 })}
         </>

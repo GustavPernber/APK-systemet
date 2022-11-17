@@ -50,9 +50,6 @@ const validateRequest = async (filters, page, searchTerm) => {
       break;
   }
 
-  console.log(validSearchTerm);
-
-  // const indexName = `systembolaget-products${(process.env.MONGODB_READ_PATH || process.env.MONGODB_READ_PATH_DEV )?.includes("dev") ? "-dev" : ""}`
 
   return {
     page: validPage,
@@ -113,7 +110,6 @@ const main = async (event, context): Promise<MainHandlerResponse> => {
   {$sort: validRequest.sortBy},
   {$skip: paginationOffset},
   {$limit: PAGINATION_LIMIT},]
-  console.log(agg);
 
   const result =  await productConnection.collection.aggregate(agg).toArray()
   productConnection.terminate()
