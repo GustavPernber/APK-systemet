@@ -1,6 +1,6 @@
 import ProductList from './Products/ProductList'
 import api from '@/api'
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, useTransition } from "react"
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, useTransition, useRef } from "react"
 import ProductOptions from './ProductOptions'
 import { ProductsFilterOptions, SortByOptions, ProductType, Cat1, SelectedCat2, } from "@/utils/types"
 import Filters from './Filters/Filters'
@@ -47,6 +47,8 @@ const ProductsController = () =>{
     const [cat1, setCat1] = useState<Cat1>({value: "all"} as Cat1)
     const [cat2, setCat2] = useState<SelectedCat2>(null)
 
+    const isMounted = useRef(false)
+
     const filters: ProductsFilterOptions = useMemo(()=>{
         return{
             showOrderStock: showOrderStock,
@@ -67,7 +69,7 @@ const ProductsController = () =>{
             setIsLoading(false)
         })
 
-    }, [searchTerm])
+    }, [filters])
 
     useEffect(() => {
         setCat2(null)
@@ -90,21 +92,25 @@ const ProductsController = () =>{
 
     useEffect(()=>{
 
-        setIsLoading(true)
-        setPage(1)
-        setProducts([])
-        api.getProducts(filters, 1, searchTerm)
-        .then(res => {
-            startTransition(() => {
-                if (res.searchTerm === currentSearchTerm.current) {
-                    setProducts(res.data)
-                    setIsLoading(false)
-                    setLoadingOnTop(false)
-                }
-            }) 
-            
-        })
-    }, [filters, searchTerm])
+        if (isMounted.current) {
+            setIsLoading(true)
+            setPage(1)
+            setProducts([])
+            api.getProducts(filters, 1, searchTerm)
+            .then(res => {
+                startTransition(() => {
+                    if (res.searchTerm === currentSearchTerm.current) {
+                        setProducts(res.data)
+                        setIsLoading(false)
+                        setLoadingOnTop(false)
+                    }
+                }) 
+                
+            })
+        }
+
+        isMounted.current = true
+    }, [searchTerm])
 
 
     const productContextValues: ProductContextType = {

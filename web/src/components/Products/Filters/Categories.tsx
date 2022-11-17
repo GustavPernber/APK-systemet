@@ -19,10 +19,9 @@ function Categories() {
                 '>
                 {categoriesWithAll.map((category) =>{
                     return(
-                    <>
-                        <div className=' bg-gray-200 '>
+                    
+                        <div key={category.value} className=' bg-gray-200 '>
                             <button 
-                            key={category.value}
                             onClick={() => setCat1(()=> cat1.value === category.value ? {value: "all"} : {value: category.value}) }
                             className={`${cat1.value === category.value ? "bg-green-400 text-white font-semibold " : "hover:bg-gray-200 text-gray-700"} 
                             bg-white transition duration-75 text-sm py-3 pr-8 pl-4 w-full grid place-content-start text-left `}>
@@ -63,7 +62,7 @@ function Categories() {
                             }
                             
                         </div> 
-                    </>
+                    
                     )
                 })}
                 </div>

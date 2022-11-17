@@ -1,16 +1,18 @@
-import { useContext, useTransition } from "react"
+import { useContext, useEffect, useTransition } from "react"
 import { AppContext } from "../Body"
 import Icons from "../Utils/Icons"
-import debounce  from "lodash.debounce"
 
 const SearchBar = () => {
 
     const { setSearchTerm, setIsLoading, setLoadingOnTop, currentSearchTerm } = useContext(AppContext)
     const [isPending, startTransition] = useTransition()
 
-    const debouncedChangeHandler = debounce((text: string) => {
-        startTransition(() => {setSearchTerm(text)}) 
-    }, 3000)
+    useEffect(() => {
+        const delayDebounce = setTimeout(() => {
+            setSearchTerm(currentSearchTerm.current)
+        }, 200);
+        return () => clearTimeout(delayDebounce)
+    }, [currentSearchTerm.current])
 
     return(
     <div className="rounded-full pl-6 pr-2 py-0 text-sm font-sans outline-none border-none 
@@ -21,10 +23,10 @@ const SearchBar = () => {
         <input 
         onChange={(e)=> {
             currentSearchTerm.current = e.target.value
+            // debouncedChangeHandler(e.target.value)
             startTransition(() => {
                 setIsLoading(true)
                 setLoadingOnTop(true)
-                debouncedChangeHandler(e.target.value)
             })
         }}
         type="text"
