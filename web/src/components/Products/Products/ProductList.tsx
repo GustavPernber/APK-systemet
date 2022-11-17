@@ -35,9 +35,9 @@ const ProductList = () => {
         <div className=" flex flex-col justify-start items-center flex-auto ">
             <div className=" w-full gap-5 pb-10   grid-flow-row grid  md:grid-cols-2  md:col-start-2 " >
                 
-                {isLoading && (<SkeletonProductList/>)} 
+                {(isLoading && loadingOnTop ) && (<SkeletonProductList/>)} 
                 {productElements}
-                {/* {(isLoading && !loadingOnTop) && (<SkeletonProductList/>)}  */}
+                {(isLoading && !loadingOnTop) && (<SkeletonProductList/>)} 
 
             </div>
             <LoadMoreButton fetchMore={fetchMore}/>
