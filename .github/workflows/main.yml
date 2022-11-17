@@ -19,6 +19,7 @@ jobs:
       steps: 
         - name: Checkout code
           uses: actions/checkout@v2
+        - run: node -v 
         - run: npm ci
         - run: npm run build
 
