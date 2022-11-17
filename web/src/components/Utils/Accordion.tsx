@@ -10,7 +10,7 @@ function Accordion({ contentComponent, title }: AccordionProps) {
   const [show, setShow] = useState<boolean>(false) 
 
   return (
-    <div className="hs-accordion-group w-full">
+    <div className="hs-accordion-group w-full min-h-[2rem]">
       <div
         className="hs-accordion"
         id="hs-basic-with-title-and-arrow-stretched-heading-one"
