@@ -1,5 +1,6 @@
 # APK-systemet 🍾
 [Deploy](https://apk-systemet.netlify.app)
+[Dev-deploy](https://apk-systemet-dev.netlify.app)
 
 En applikation för att hämta data från Systembolaget och visa den på en hemsida rankad efter APK, alkohol per krona. 🍷
 
