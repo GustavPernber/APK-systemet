@@ -29,7 +29,7 @@ export async function main() {
   }catch{}
   
   let categories = await fetchCategories();
-
+  
 
   async function fetchNewProducts() {
     console.log("Fetching new products...");
@@ -87,14 +87,16 @@ export async function main() {
   }
 
   async function transferCollections() {
-    console.log("Dropping old collection...");
+    console.log("Dropping old documents...");
     const db = mongoose.connection.db;
-    try {
-      await db.dropCollection("products");
-    } finally{
-      await db.collection("products-tmp").rename("products");
-      return;
-    }
+    
+    await db.collection("products").deleteMany({})
+  
+    const allTmpDocuments = await db.collection("products-tmp").find({}).toArray()
+    await db.collection("products").insertMany(allTmpDocuments)
+    await db.dropCollection("products-tmp")
+    return;
+    
   }
 
   async function fetchCategories() {

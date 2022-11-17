@@ -1,0 +1,41 @@
+{
+    "mappings": {
+      "dynamic": true,
+      "fields": {
+        "productNameBold": [
+          {
+            "type": "document",
+            "dynamic": true
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "productNameThin": [
+          {
+            "type": "document",
+            "dynamic": true
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "customCategoryTitle": [
+          {
+            "type": "document",
+            "dynamic": true
+          },
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "storedSource": {
+      "include": [
+        "productNameBold",
+        "productNameThin",
+        "customCategoryTitle"
+      ]
+    }
+  }
