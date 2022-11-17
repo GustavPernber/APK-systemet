@@ -3,6 +3,7 @@ import { ProductContext } from "../ProductsController";
 import Categories from "./Categories";
 import OrderStock from "./OrderStock";
 import Icons from "@/components/Utils/Icons";
+import Divider from "@/components/Utils/Divider";
 
 function Filters() {
   const { showFilters, toggleShowFilters } = useContext(ProductContext);
@@ -34,8 +35,11 @@ function Filters() {
           </span>
         </div>
 
-        <div className=" flex flex-col gap-4">
+        <div className="grid grid-flow-row  gap-3">
           <Categories/>
+
+          <Divider/>
+
           <OrderStock/>
 
         </div>
