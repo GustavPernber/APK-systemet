@@ -3,7 +3,7 @@ import bigArticles from "@/assets/icons/bigArticles.svg";
 import { useContext } from "react";
 import { ProductContext } from "@/components/Products/ProductsController";
 import filterIcon from "@/assets/icons/filter-settings.svg";
-import DropdownOption from "../Utils/DropdownOption";
+import DropdownOption from "@/components/Utils/DropdownOption";
 import Divider from "../Utils/Divider";
 import { AppContext } from "../Body";
 import { SortByOptions } from "@/utils/types";
@@ -27,13 +27,11 @@ function SortViewOptions() {
   const Sort = () => {
 
     return (
-      <div className="hs-dropdown relative inline-flex">
+      <div className="relative inline-flex hs-dropdown">
         <button
           id="hs-dropdown-slideup-animation"
           type="button"
-          className="hs-dropdown-toggle py-3 px-4 inline-flex justify-center items-center 
-          gap-2 rounded-md border font-bold
-          bg-white text-green-400 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-green-400 transition-all text-sm "
+          className="inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold text-green-400 align-middle transition-all bg-white border rounded-md shadow-sm hs-dropdown-toggle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-green-400 "
         >
           Sortera
           <svg
@@ -99,12 +97,10 @@ function SortViewOptions() {
       <button
         type="button"
         onClick={() => setIsCompactProducts(!isCompactProducts)}
-        className="py-3 px-4 h-12 inline-flex 
-     font-bold text-green-400
-    justify-center items-center gap-2 rounded-md border bg-white shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-green-300 transition-all text-sm "
+        className="inline-flex items-center justify-center h-12 gap-2 px-4 py-3 text-sm font-bold text-green-400 align-middle transition-all bg-white border rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-green-300 "
       >
         Byt vy:
-        <div className=" relative h-6 w-6">
+        <div className="relative w-6 h-6 ">
           <img
             src={smallArticles}
             alt="Small articles icon"
@@ -121,17 +117,17 @@ function SortViewOptions() {
   };
 
   return (
-    <section className="  md:row-span-1 md:col-start-2 ">
+    <section className=" md:row-span-1 md:col-start-2">
         <button
         onClick={() => toggleShowFilters()}
         type="button"
-        className="   lg:hidden w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-green-400 shadow-xs align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-offset-white focus:ring-green-200 transition-all text-md "
+        className="inline-flex items-center justify-center w-full gap-2 px-4 py-3 font-medium text-green-400 align-middle transition-all bg-white border rounded-md shadow-xs  lg:hidden hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-offset-white focus:ring-green-200 text-md"
       >
         Filtrera
         <img src={filterIcon} alt="" />
       </button>
 
-      <div className="pb-4 pt-3 flex flex-row justify-between items-end ">
+      <div className="flex flex-row items-end justify-between pt-3 pb-4 ">
         <Sort />
         <CompactToggle
           isCompactProducts={isCompactProducts}

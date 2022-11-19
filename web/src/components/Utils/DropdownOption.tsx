@@ -11,10 +11,10 @@ const DropdownOption = ({title, selectedValue, clickHandler, value}: DropdownOpt
         <span
             onClick={() => {clickHandler(value)}}
             className={`
-            ${selectedValue === value ? "bg-green-200 text-white font-bold" : "hover:bg-gray-100"}
+            ${selectedValue === value ? "bg-green-200 text-white font-bold" : "text-gray-700  hover:bg-gray-100"}
             flex items-center gap-x-3.5 py-2 px-3 rounded-md
             font-medium cursor-pointer
-            text-sm text-gray-700  focus:ring-2 focus:ring-green-400 `}
+            text-sm  focus:ring-2 focus:ring-green-400 `}
           >
             {title}
         </span>
