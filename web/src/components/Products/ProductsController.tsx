@@ -5,6 +5,7 @@ import ProductOptions from './ProductOptions'
 import { ProductsFilterOptions, SortByOptions, ProductType, Cat1, SelectedCat2, } from "@/utils/types"
 import Filters from './Filters/Filters'
 import { AppContext } from '../Body'
+import { defaultFilters } from '@/utils/defaultFilters'
 
 
 type ProductContextType = {
@@ -25,11 +26,11 @@ type ProductContextType = {
 
 export const ProductContext = createContext<ProductContextType>({} as ProductContextType)
 
+
+
 const ProductsController = () =>{
 
-    const { setIsLoading, setLoadingOnTop, currentSearchTerm, sortBy } = useContext(AppContext)
-
-    const {searchTerm} = useContext(AppContext)
+    const { setIsLoading, setLoadingOnTop, currentSearchTerm, sortBy, searchTerm } = useContext(AppContext)
 
     const [products, setProducts] = useState<ProductType[]>([])
  
@@ -37,14 +38,14 @@ const ProductsController = () =>{
     const [page, setPage] = useState<number>(1)
     const [showFilters, setShowFilters] = useState<boolean>(false)
 
-    const [showOrderStock, setShowOrderStock] = useState<boolean>(true)
-    const [cat1, setCat1] = useState<Cat1>({value: "all"} as Cat1)
-    const [cat2, setCat2] = useState<SelectedCat2>(null)
+    const [showOrderStock, setShowOrderStock] = useState<boolean>(defaultFilters.showOrderStock)
+    const [cat1, setCat1] = useState<Cat1>(defaultFilters.cat1)
+    const [cat2, setCat2] = useState<SelectedCat2>(defaultFilters.cat2)
 
     const filters = useMemo(() => {
         const filtersOpts: ProductsFilterOptions = {
             showOrderStock: showOrderStock,
-            cat1: cat1.value,
+            cat1: cat1,
             cat2: cat2,
             sortBy: sortBy,
             searchTerm: searchTerm

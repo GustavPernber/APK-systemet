@@ -19,7 +19,7 @@ export type Metadata = {
 }
 export type ProductsFilterOptions = {
     sortBy:SortByOptions
-    cat1: Cat1["value"]
+    cat1: Cat1
     showOrderStock:boolean
     cat2: SelectedCat2
     searchTerm: string

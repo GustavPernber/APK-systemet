@@ -6,6 +6,7 @@ import { createContext, useState, useEffect, useRef } from 'react'
 import SiteFooter from './common/SiteFooter'
 import { Metadata, SortByOptions } from '@/utils/types'
 import api from '@/api'
+import { defaultFilters } from '@/utils/defaultFilters'
 
 type AppContextType = {
     isLoading: boolean,
@@ -31,9 +32,9 @@ const Body = ()=>{
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [showInfoCard, setShowInfoCard] = useState<boolean>(false)
     const [metadata, setMetadata] = useState<Metadata>({categories: {cat1:[]}, lastUpdated: ''} as Metadata)
-    const [searchTerm, setSearchTerm] = useState<string>("")
+    const [searchTerm, setSearchTerm] = useState<string>(defaultFilters.searchTerm)
     const currentSearchTerm = useRef("")
-    const [sortBy, setSortBy] = useState<SortByOptions>("apk")
+    const [sortBy, setSortBy] = useState<SortByOptions>(defaultFilters.sortBy)
 
     const AppContextValues: AppContextType = {
         isLoading,

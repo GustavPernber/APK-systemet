@@ -11,7 +11,7 @@ async function getProducts(filters: ProductsFilterOptions = {} as ProductsFilter
         headers:{
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({filters: filters, page: page}) 
+        body: JSON.stringify({filters: {...filters, cat1: filters.cat1["value"]}, page: page}) 
     })
 
     let products = await response.json()
