@@ -3,7 +3,7 @@ import Joi from "joi";
 import { getMetadataCollection, getProductCollection } from "./utils/db";
 import { SortDirection } from "mongodb";
 
-const validateRequest = async (filters, page, searchTerm) => {
+const validateRequest = async (filters, page) => {
   const metadataConnection = getMetadataCollection()
   const metadata = await metadataConnection.collection.findOne({}) as any
   metadataConnection.terminate()
@@ -19,7 +19,7 @@ const validateRequest = async (filters, page, searchTerm) => {
       .keys({
         sortBy: Joi.string()
           .required()
-          .valid("apk", "alc_desc", "price_asc")
+          .valid("apk", "alc_desc", "price_asc", "")
           .failover("apk"),
         cat1: Joi.string()
           .required()
@@ -27,17 +27,17 @@ const validateRequest = async (filters, page, searchTerm) => {
           .failover("all"),
         cat2: Joi.array().items(Joi.string()).required().failover([]),
         showOrderStock: Joi.boolean().required().failover(true),
+        searchTerm: Joi.string().required().failover(""),
       }),
-    searchTermSchema: Joi.string().required().failover(""),
   };
 
   const validFilters = schemas.filterSchema.validate(filters).value;
   const validPage = schemas.pageSchema.validate(page).value;
-  const validSearchTerm: string = /^\s*$/.test(searchTerm)
+  const validSearchTerm: string = /^\s*$/.test(filters.searchTerm)
     ? ""
-    : schemas.searchTermSchema.validate(searchTerm).value;
+    : validFilters.searchTerm
 
-  let sortBy: { [key: string]: SortDirection } | undefined = undefined;
+  let sortBy: { [key: string]: SortDirection } | null = null;
   switch (validFilters.sortBy) {
     case "apk":
       sortBy = { apk: -1 };
@@ -48,6 +48,10 @@ const validateRequest = async (filters, page, searchTerm) => {
     case "price_asc":
       sortBy = { price: 1 };
       break;
+    case "":
+      sortBy = null
+      break;
+    
   }
 
 
@@ -94,7 +98,6 @@ const main = async (event, context): Promise<MainHandlerResponse> => {
   const validRequest = await validateRequest(
     requestBody?.filters ? requestBody?.filters : {},
     requestBody?.page,
-    requestBody?.searchTerm
   );
 
   const paginationOffset =
@@ -106,10 +109,15 @@ const main = async (event, context): Promise<MainHandlerResponse> => {
     ...validRequest.categoryLevel1,
     ...validRequest.categoryLevel2,
     ...validRequest.showOrderStock,
-  }},
-  {$sort: validRequest.sortBy},
-  {$skip: paginationOffset},
-  {$limit: PAGINATION_LIMIT},]
+  }}]
+
+  if (validRequest.sortBy) {
+    agg.push({$sort: validRequest.sortBy})
+  }
+  agg.push({$skip: paginationOffset})
+  agg.push({$limit: PAGINATION_LIMIT})
+
+  console.log(agg);
 
   const result =  await productConnection.collection.aggregate(agg).toArray()
   productConnection.terminate()
