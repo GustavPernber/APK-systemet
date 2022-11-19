@@ -9,12 +9,9 @@ import { AppContext } from '../Body'
 
 type ProductContextType = {
     fetchMore: Function
-    sortBy: SortByOptions
-    setSortBy: Function
     isCompactProducts: boolean,
     setIsCompactProducts: Function,
     products: ProductType[]
-    isLoading: boolean,
     showFilters: boolean,
     toggleShowFilters: Function
     cat1: Cat1,
@@ -23,16 +20,14 @@ type ProductContextType = {
     setShowOrderStock: Function
     cat2: SelectedCat2
     setCat2: Function
-    setIsLoading: Function
+    fetchInitial: Function
 }
 
 export const ProductContext = createContext<ProductContextType>({} as ProductContextType)
 
 const ProductsController = () =>{
 
-    const { isLoading, setIsLoading, setLoadingOnTop, currentSearchTerm } = useContext(AppContext)
-
-    const [isPendingTransition, startTransition] = useTransition()
+    const { setIsLoading, setLoadingOnTop, currentSearchTerm, sortBy } = useContext(AppContext)
 
     const {searchTerm} = useContext(AppContext)
 
@@ -42,38 +37,55 @@ const ProductsController = () =>{
     const [page, setPage] = useState<number>(1)
     const [showFilters, setShowFilters] = useState<boolean>(false)
 
-    const [sortBy, setSortBy] = useState<SortByOptions>("apk")
     const [showOrderStock, setShowOrderStock] = useState<boolean>(true)
     const [cat1, setCat1] = useState<Cat1>({value: "all"} as Cat1)
     const [cat2, setCat2] = useState<SelectedCat2>(null)
 
-    const isMounted = useRef(false)
-
-    const filters: ProductsFilterOptions = useMemo(()=>{
-        return{
+    const filters = useMemo(() => {
+        const filtersOpts: ProductsFilterOptions = {
             showOrderStock: showOrderStock,
             cat1: cat1.value,
             cat2: cat2,
             sortBy: sortBy,
+            searchTerm: searchTerm
         }
-    }, [sortBy, cat1, showOrderStock, cat2])
+        return filtersOpts
+    }, [sortBy, cat1, showOrderStock, cat2, searchTerm])
+
+    const fetchMore = useCallback(async () => {
+
+        setIsLoading(true)
+        const newPage = page + 1
+        setPage(newPage)
+        const res = await api.getProducts(filters, newPage)
+        const newProducts = [...products, ...res.data]
+        setProducts(newProducts)
+        setIsLoading(false)
+
+    }, [page, filters, products]) 
+
+    const fetchInitial = useCallback(async () => {
+        
+        setIsLoading(true)
+        setProducts([])
+        const response = await api.getProducts(filters, 1)
+        if (response.searchTerm === currentSearchTerm.current) {
+            setProducts(response.data)
+            setIsLoading(false)
+            setLoadingOnTop(false) 
+        }
+        
+    }, [filters, searchTerm])
+
 
     useEffect(() => {
-        setIsLoading(true)
-        setPage(1)
-        setProducts([])
-    
-        api.getProducts(filters, 1, searchTerm)
-        .then(res => {
-            setProducts(res.data)
-            setIsLoading(false)
-        })
-
+        fetchInitial()
     }, [filters])
 
     useEffect(() => {
         setCat2(null)
     }, [cat1])
+
 
     const toggleShowFilters = useCallback(() => {
         if(window.innerWidth <= 1023 ){
@@ -82,60 +94,13 @@ const ProductsController = () =>{
 
     }, [showFilters] )
     
-    const fetchMore = useCallback(async () => {
-
-        setIsLoading(true)
-        const newPage = page + 1
-        setPage(newPage)
-        const res = await api.getProducts(filters, newPage, searchTerm)
-        const newProducts = [...products, ...res.data]
-        setProducts(newProducts)
-        setIsLoading(false)
-
-    }, [page, filters, products]) 
-    
-
-    useEffect(()=>{
-
-        if (isMounted.current) {
-            setIsLoading(true)
-            setPage(1)
-            setProducts([])
-            api.getProducts(filters, 1, searchTerm)
-            .then(res => {
-                
-                startTransition(() => {
-
-                    if( !(/^\s*$/.test(currentSearchTerm.current))) {
-
-                        if (res.searchTerm === currentSearchTerm.current) {
-                            setProducts(res.data)
-                            setIsLoading(false)
-                            setLoadingOnTop(false)
-                        }
-                    }else {
-                        setProducts(res.data)
-                        setIsLoading(false)
-                        setLoadingOnTop(false)
-                    }
-
-                }) 
-                
-            })
-        }
-
-        isMounted.current = true
-    }, [searchTerm])
-
 
     const productContextValues: ProductContextType = {
+        fetchInitial,
         fetchMore,
-        sortBy,
-        setSortBy,
         isCompactProducts,
         setIsCompactProducts,
         products,
-        isLoading,
         showFilters,
         toggleShowFilters,
         cat1,
@@ -144,7 +109,6 @@ const ProductsController = () =>{
         setShowOrderStock,
         cat2,
         setCat2,
-        setIsLoading
     }
 
     return(

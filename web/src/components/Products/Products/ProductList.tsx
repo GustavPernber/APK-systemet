@@ -5,12 +5,12 @@ import { ProductContext } from "../ProductsController"
 import { AppContext } from "@/components/Body"
 
 const ProductList = () => {
-    const { loadingOnTop } = useContext(AppContext)
-    const { products, isLoading, fetchMore } = useContext(ProductContext)
+    const { loadingOnTop, isLoading } = useContext(AppContext)
+    const { products, fetchMore } = useContext(ProductContext)
 
-    const LoadMoreButton = ({fetchMore}: {fetchMore:Function} ) => {
+    const LoadMoreButton = () => {
         return(
-            <button onClick={fetchMore as MouseEventHandler}
+            <button onClick={() => {fetchMore()}}
             className=" bg-green-400 rounded-full w-40 h-12 font-sans font-bold text-white">
                 Visa fler
             </button>
@@ -19,6 +19,9 @@ const ProductList = () => {
 
     const productElements = useMemo(() => {
        
+        if (!products) {
+            return 
+        }
         const list = products.map((product)=>{
             return (
                 <Product product={product} key={product.productId}></Product>
@@ -40,7 +43,7 @@ const ProductList = () => {
                 {(isLoading && !loadingOnTop) && (<SkeletonProductList/>)} 
 
             </div>
-            <LoadMoreButton fetchMore={fetchMore}/>
+            <LoadMoreButton/>
         </div>
     )
 }

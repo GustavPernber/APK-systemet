@@ -1,19 +1,34 @@
-import { useContext, useEffect, useTransition } from "react"
+import { useContext, useTransition, useState } from "react"
 import { AppContext } from "../Body"
 import Icons from "../Utils/Icons"
 
 const SearchBar = () => {
 
-    const { setSearchTerm, setIsLoading, setLoadingOnTop, currentSearchTerm, searchTerm } = useContext(AppContext)
+    const { setSearchTerm, setIsLoading, setLoadingOnTop, currentSearchTerm, searchTerm, setSortBy } = useContext(AppContext)
     const [isPending, startTransition] = useTransition()
+    const [debounceTimer, setDebounceTimer] = useState<NodeJS.Timeout | null>(null)
 
-    useEffect(() => {
-        const delayDebounce = setTimeout(() => {
-            setSearchTerm(currentSearchTerm.current)
-        }, 300);
 
-        return () => clearTimeout(delayDebounce)
-    }, [currentSearchTerm.current])
+    const inputChanged = () => {
+
+        if (debounceTimer) {
+            clearTimeout(debounceTimer)
+        }
+    
+        const newTimer = setTimeout(() => {
+            if (/^\s*$/.test(currentSearchTerm.current)) { // Its only spaces
+                setSortBy("apk")
+            } else {
+                setSortBy("")
+            }
+            startTransition(() => {
+                setSearchTerm(currentSearchTerm.current)
+            })
+        }, 500)
+    
+        setDebounceTimer(newTimer)
+    }
+
 
     return(
     <div className="rounded-full pl-6 pr-2 py-0 text-sm font-sans outline-none border-none 
@@ -25,6 +40,7 @@ const SearchBar = () => {
         onChange={(e)=> {
             if( !(/^\s*$/.test(e.target.value) && /^\s*$/.test(searchTerm))) {
                 currentSearchTerm.current = e.target.value
+                inputChanged()
                 startTransition(() => {
                     setIsLoading(true)
                     setLoadingOnTop(true)

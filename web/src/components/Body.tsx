@@ -4,7 +4,7 @@ import ProductsController from './Products/ProductsController'
 import InfoCard from './common/InfoCard'
 import { createContext, useState, useEffect, useRef } from 'react'
 import SiteFooter from './common/SiteFooter'
-import { Metadata } from '@/utils/types'
+import { Metadata, SortByOptions } from '@/utils/types'
 import api from '@/api'
 
 type AppContextType = {
@@ -18,6 +18,9 @@ type AppContextType = {
     loadingOnTop: boolean
     setLoadingOnTop: Function
     currentSearchTerm: React.MutableRefObject<string>
+    sortBy: SortByOptions
+    setSortBy: (prop: SortByOptions) => void
+
 }
 
 export const AppContext = createContext<AppContextType>({} as AppContextType)
@@ -30,6 +33,7 @@ const Body = ()=>{
     const [metadata, setMetadata] = useState<Metadata>({categories: {cat1:[]}, lastUpdated: ''} as Metadata)
     const [searchTerm, setSearchTerm] = useState<string>("")
     const currentSearchTerm = useRef("")
+    const [sortBy, setSortBy] = useState<SortByOptions>("apk")
 
     const AppContextValues: AppContextType = {
         isLoading,
@@ -41,7 +45,9 @@ const Body = ()=>{
         setSearchTerm,
         loadingOnTop,
         setLoadingOnTop,
-        currentSearchTerm
+        currentSearchTerm,
+        sortBy,
+        setSortBy
     }
 
     useEffect(() => {

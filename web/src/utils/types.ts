@@ -1,4 +1,4 @@
-export type SortByOptions = "apk" | "price_asc" | "alc_desc" 
+export type SortByOptions = "apk" | "price_asc" | "alc_desc" | ""
 
 export type Cat1 = {
     value: string
@@ -21,6 +21,9 @@ export type ProductsFilterOptions = {
     sortBy:SortByOptions
     cat1: Cat1["value"]
     showOrderStock:boolean
+    cat2: SelectedCat2
+    searchTerm: string
+
 }
 
 export type ProductType = {
