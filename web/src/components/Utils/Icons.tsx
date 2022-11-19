@@ -34,7 +34,6 @@ const Icons = {
     search: (props: any) => (
         <Icon
         icon={"material-symbols:search"}
-        style={{color: "white"}}
         {...props}
         />
     )

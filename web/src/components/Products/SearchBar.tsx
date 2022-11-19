@@ -53,7 +53,7 @@ const SearchBar = () => {
         
         <div className=" bg-green-400 grid place-items-center w-[2rem] h-[2rem] rounded-full my-2">
             <Icons.search
-            className=""
+            className=" text-white"
             />
         </div>
     </div>)
