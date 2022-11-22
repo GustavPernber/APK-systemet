@@ -4,7 +4,6 @@ import { useContext } from "react";
 import { ProductContext } from "@/components/Products/ProductsController";
 import filterIcon from "@/assets/icons/filter-settings.svg";
 import DropdownOption from "@/components/Utils/DropdownOption";
-import Divider from "../Utils/Divider";
 import { AppContext } from "../Body";
 import { SortByOptions } from "@/utils/types";
 
@@ -45,8 +44,8 @@ function SortViewOptions() {
             <path
               d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
+              strokeWidth="2"
+              strokeLinecap="round"
             />
           </svg>
         </button>
