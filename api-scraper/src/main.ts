@@ -87,13 +87,13 @@ export async function main() {
   }
 
   async function transferCollections() {
-    console.log("Dropping old documents...");
+    console.log("Staring document transfer process.");
     const db = mongoose.connection.db;
+    console.log("Fetching new docs...");
+    const allTmpDocuments = await db.collection("products-tmp").find({}).toArray()
     console.log("Deleting old docs...");
     await db.collection("products").deleteMany({})
     
-    console.log("Fetching new docs...");
-    const allTmpDocuments = await db.collection("products-tmp").find({}).toArray()
     console.log("Inserting new docs...");
     await db.collection("products").insertMany(allTmpDocuments)
     console.log("Dropping tmp");
