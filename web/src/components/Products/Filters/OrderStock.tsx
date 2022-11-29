@@ -1,5 +1,6 @@
 import { ProductContext } from "@/components/Products/ProductsController"
 import { useContext } from "react"
+import Accordion from "../../Utils/Accordion"
 
 function OrderStock() {
 
@@ -16,7 +17,6 @@ function OrderStock() {
 
             <div className=" py-1">  
                 <input type="checkbox" id="hs-basic-usage"
-                readOnly
                 checked={!showOrderStock}
                 onClick={() => {
                     toggleShowFilters()
