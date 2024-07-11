@@ -18,32 +18,32 @@ function Filters() {
       lg:sticky lg:pt-10 lg:overflow-y-scroll 
       `}
     >
-      <div className=" bg-gray-100  pt-10 
+      <div
+        className=" bg-gray-100  pt-10 
       overflow-y-scroll
       max-w-[30rem] w-full
       max-h-screen
       pb-14 px-10 
 
-      lg:min-h-0 flex gap-5 flex-col lg:p-0 lg:pr-2  lg:pb-28">
-
+      lg:min-h-0 flex gap-5 flex-col lg:p-0 lg:pr-2  lg:pb-28"
+      >
         <div className=" flex flex-row justify-between">
           <h1 className=" text-2xl font-medium ml-[-3px]">Filtrera</h1>
-          <span 
-          onClick={() => toggleShowFilters()}
-          className="material-icons-outlined text-2xl w-10 h-10 flex flex-col justify-center items-center lg:opacity-0 lg:pointer-events-none  cursor-pointer">
-            <Icons.x style={{color: "#00000"}}/>
+          <span
+            onClick={() => toggleShowFilters()}
+            className="material-icons-outlined text-2xl w-10 h-10 flex flex-col justify-center items-center lg:opacity-0 lg:pointer-events-none  cursor-pointer"
+          >
+            <Icons.x style={{ color: "#00000" }} />
           </span>
         </div>
 
         <div className="grid grid-flow-row  gap-3">
-          <Categories/>
+          <Categories />
 
-          <Divider/>
+          <Divider />
 
-          <OrderStock/>
-
+          <OrderStock />
         </div>
-
       </div>
     </section>
   );

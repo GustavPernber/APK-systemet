@@ -4,12 +4,12 @@ import { getMetadataCollection, getProductCollection } from "./utils/db";
 import { SortDirection } from "mongodb";
 
 const validateRequest = async (filters, page) => {
-  const metadataConnection = getMetadataCollection()
-  const metadata = await metadataConnection.collection.findOne({}) as any
-  metadataConnection.terminate()
+  const metadataConnection = getMetadataCollection();
+  const metadata = (await metadataConnection.collection.findOne({})) as any;
+  metadataConnection.terminate();
 
   const allCat1Names: string[] = metadata.categories.cat1.map(
-    (element: { value: string }) => element.value
+    (element: { value: string }) => element.value,
   );
 
   const schemas = {
@@ -35,7 +35,7 @@ const validateRequest = async (filters, page) => {
   const validPage = schemas.pageSchema.validate(page).value;
   const validSearchTerm: string = /^\s*$/.test(filters.searchTerm)
     ? ""
-    : validFilters.searchTerm
+    : validFilters.searchTerm;
 
   let sortBy: { [key: string]: SortDirection } | null = null;
   switch (validFilters.sortBy) {
@@ -49,11 +49,9 @@ const validateRequest = async (filters, page) => {
       sortBy = { price: 1 };
       break;
     case "":
-      sortBy = null
+      sortBy = null;
       break;
-    
   }
-
 
   return {
     page: validPage,
@@ -73,20 +71,26 @@ const validateRequest = async (filters, page) => {
       validFilters.showOrderStock === false
         ? { assortmentText: { $ne: "Ordervaror" } }
         : null,
-    searchTerm: validSearchTerm !== "" ?  {$search: { 
-    text:{
-      query:validSearchTerm,
-      path: {
-        'wildcard': '*'
-      }
-    }}} : null,
+    searchTerm:
+      validSearchTerm !== ""
+        ? {
+            $search: {
+              text: {
+                query: validSearchTerm,
+                path: {
+                  wildcard: "*",
+                },
+              },
+            },
+          }
+        : null,
     sortBy,
   };
 };
 
 const main = async (event, context): Promise<MainHandlerResponse> => {
   const PAGINATION_LIMIT = 30;
-  const productConnection = getProductCollection()
+  const productConnection = getProductCollection();
 
   let requestBody: any;
   try {
@@ -102,28 +106,35 @@ const main = async (event, context): Promise<MainHandlerResponse> => {
 
   const paginationOffset =
     PAGINATION_LIMIT * validRequest.page - PAGINATION_LIMIT;
-  
-  let agg: any[] = validRequest.searchTerm ? [validRequest.searchTerm] : []
-  agg = [...agg,  
-    { $match: {
-    ...validRequest.categoryLevel1,
-    ...validRequest.categoryLevel2,
-    ...validRequest.showOrderStock,
-  }}]
+
+  let agg: any[] = validRequest.searchTerm ? [validRequest.searchTerm] : [];
+  agg = [
+    ...agg,
+    {
+      $match: {
+        ...validRequest.categoryLevel1,
+        ...validRequest.categoryLevel2,
+        ...validRequest.showOrderStock,
+      },
+    },
+  ];
 
   if (validRequest.sortBy) {
-    agg.push({$sort: validRequest.sortBy})
+    agg.push({ $sort: validRequest.sortBy });
   }
-  agg.push({$skip: paginationOffset})
-  agg.push({$limit: PAGINATION_LIMIT})
+  agg.push({ $skip: paginationOffset });
+  agg.push({ $limit: PAGINATION_LIMIT });
 
   console.log(agg);
 
-  const result =  await productConnection.collection.aggregate(agg).toArray()
-  productConnection.terminate()
+  const result = await productConnection.collection.aggregate(agg).toArray();
+  productConnection.terminate();
 
   return {
-    body: { data: result, searchTerm: validRequest.searchTerm?.$search.text.query || ""  },
+    body: {
+      data: result,
+      searchTerm: validRequest.searchTerm?.$search.text.query || "",
+    },
   };
 };
 

@@ -1,27 +1,27 @@
-name: 'FE Build and test'
+name: "FE Build and test"
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   MONGODB_READ_PATH_DEV: ${{ secrets.MONGODB_READ_PATH_DEV }}
   MONGODB_READ_PATH: ${{ secrets.MONGODB_READ_PATH_DEV }}
 on:
-  push: 
-    branches: 
+  push:
+    branches:
       - main
 
 jobs:
-
   Build:
-      runs-on: ubuntu-latest
-      defaults:
-        run:
-          working-directory: ./web
-      steps: 
-        - name: Checkout code
-          uses: actions/checkout@v2
-        - run: node -v 
-        - run: npm ci
-        - run: npm run build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./web
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - run: node -v
+      - run: npm ci
+      - run: npm run ts
+      - run: npm run prettier
 
   # E2E_testing:
   #   needs: Build
@@ -46,9 +46,7 @@ jobs:
   #         wait-on: 'http://localhost:8888'
   #         wait-on-timeout: 120
 
-        
-    
-  # Deploy: 
+  # Deploy:
   #   needs: E2E_testing
   #   name: "Deploy to Netlify"
   #   runs-on: ubuntu-latest
@@ -71,10 +69,3 @@ jobs:
   #       with:
   #         args: deploy --dir=build --prod
   #         secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
-
-  
-
-
-
-
-

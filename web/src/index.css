@@ -2,39 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
-	background: #F9F9F9;
+  background: #f9f9f9;
 }
 
 body:has(.preventBodyScroll) {
-	position: fixed;
+  position: fixed;
 }
 
 @keyframes slideRightAndHide {
-	from{
-		transform: translateX(0);
-	}
-	70%{
-		transform: translateX(110vw);
-	}
-	to{
-		max-height: 0;
-		transform: translateX(110vw);	
-	}
+  from {
+    transform: translateX(0);
+  }
+  70% {
+    transform: translateX(110vw);
+  }
+  to {
+    max-height: 0;
+    transform: translateX(110vw);
+  }
 }
 
-.hiddenDisclaimer {	
-	animation: slideRightAndHide 0.6s forwards ease-out;
+.hiddenDisclaimer {
+  animation: slideRightAndHide 0.6s forwards ease-out;
 }
 
-@layer base{
-	p, h1, h2,h3,h4,h5,h6, button, input{
-		@apply text-black
-	}
-	h1{
-		@apply text-black text-[1.2rem] font-serif;
-	}
+@layer base {
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  button,
+  input {
+    @apply text-black;
+  }
+  h1 {
+    @apply text-black text-[1.2rem] font-serif;
+  }
 }
-
-

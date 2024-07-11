@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "vite build",
+    "preview": "vite preview",
+    "ts": "tsc",
+    "prettier": "prettier ./src ./functions -c",
+    "prettier:fix": "prettier ./src ./functions -w"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -16,6 +19,7 @@
     "mongodb": "^4.11.0",
     "path": "^0.12.7",
     "preline": "^1.2.1",
+    "prettier": "^3.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.3.0",

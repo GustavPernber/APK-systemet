@@ -1,4 +1,4 @@
 export type MainHandlerResponse = {
-    statusCode?: number
-    body: any
-}
+  statusCode?: number;
+  body: any;
+};
