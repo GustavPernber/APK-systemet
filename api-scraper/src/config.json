@@ -1,8 +1,9 @@
 {
-    "systembolaget_api_url": "https://www.systembolaget.se/api/gateway/productsearch/search/?size=30&sortBy=Score&sortDirection=Ascending&",
+  "systembolaget_api_url": "https://api-extern.systembolaget.se/sb-api-ecommerce/v1/productsearch/search?",
 
-    "headers": {
-        "user-agent": "Mozilla",
-        "baseurl": "https://api-systembolaget.azure-api.net/sb-api-ecommerce/v1"
-    }
+  "headers": {
+    "Ocp-Apim-Subscription-Key": "cfc702aed3094c86b92d6d4ff7a54c84",
+    "user-agent": "Mozilla",
+    "baseurl": "https://api-systembolaget.azure-api.net/sb-api-ecommerce/v1"
+  }
 }
