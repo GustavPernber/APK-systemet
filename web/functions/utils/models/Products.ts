@@ -1,6 +1,5 @@
 // import {Schema, model} from "mongoose";
 
-
 // const ImageSchema = new Schema({
 //     imageUrl: {
 //         type: String,
@@ -83,22 +82,22 @@
 //   isClimateSmartPackaging: {
 //     type: Boolean,
 //     required: true,
- 
+
 //   },
 //   isEthical:{
 //     type: Boolean,
 //     required: false,
- 
+
 //   },
 //   ethicalLabel: {
 //     type: String,
 //     required: false,
- 
+
 //   },
 //   isWebLaunch: {
 //     type: Boolean,
 //     required: true,
- 
+
 //   },
 //   productLaunchDate: {
 //     type: Date,
@@ -243,7 +242,7 @@
 //     type: [ImageSchema],
 //     required: false
 //   },
-  
+
 //   isDiscontinued: {
 //     type: Boolean,
 //     required: true,
@@ -293,6 +292,5 @@
 //     required: true
 //   }
 // }, {collection: "products"});
-
 
 // export const ProductModel = model("Product", ProductSchema);

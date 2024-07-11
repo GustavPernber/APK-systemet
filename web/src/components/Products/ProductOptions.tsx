@@ -9,23 +9,16 @@ import { AppContext } from "../Body";
 import { SortByOptions } from "@/utils/types";
 
 function SortViewOptions() {
-  const {
-    sortBy,
-    setSortBy,
-  } = useContext(AppContext)
+  const { sortBy, setSortBy } = useContext(AppContext);
 
-  const {
-    toggleShowFilters,
-    isCompactProducts,
-    setIsCompactProducts,
-  } = useContext(ProductContext);
+  const { toggleShowFilters, isCompactProducts, setIsCompactProducts } =
+    useContext(ProductContext);
 
   const handleSort = (value: string) => {
-    setSortBy(value as SortByOptions)
-  }
+    setSortBy(value as SortByOptions);
+  };
 
   const Sort = () => {
-
     return (
       <div className="relative inline-flex hs-dropdown">
         <button
@@ -57,32 +50,28 @@ function SortViewOptions() {
            z-10 opacity-0 duration-300 mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2 "
           aria-labelledby="hs-dropdown-slideup-animation"
         >
-
           <DropdownOption
-          clickHandler={handleSort}
-          selectedValue={sortBy}
-          title="APK"
-          value="apk"
+            clickHandler={handleSort}
+            selectedValue={sortBy}
+            title="APK"
+            value="apk"
           />
 
           <DropdownOption
-          clickHandler={handleSort}
-          selectedValue={sortBy}
-          title="Högst alkoholhalt"
-          value="alc_desc"
+            clickHandler={handleSort}
+            selectedValue={sortBy}
+            title="Högst alkoholhalt"
+            value="alc_desc"
           />
 
           <DropdownOption
-          clickHandler={handleSort}
-          selectedValue={sortBy}
-          title="Lägst pris"
-          value="price_asc"
+            clickHandler={handleSort}
+            selectedValue={sortBy}
+            title="Lägst pris"
+            value="price_asc"
           />
-
-  
         </div>
       </div>
-
     );
   };
 
@@ -118,7 +107,7 @@ function SortViewOptions() {
 
   return (
     <section className=" md:row-span-1 md:col-start-2">
-        <button
+      <button
         onClick={() => toggleShowFilters()}
         type="button"
         className="inline-flex items-center justify-center w-full gap-2 px-4 py-3 font-medium text-green-400 align-middle transition-all bg-white border rounded-md shadow-xs  lg:hidden hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-offset-white focus:ring-green-200 text-md"
