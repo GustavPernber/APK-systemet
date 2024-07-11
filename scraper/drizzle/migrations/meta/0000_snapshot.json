@@ -1,7 +1,7 @@
 {
-  "version": "5",
+  "version": "6",
   "dialect": "sqlite",
-  "id": "b9c10a26-f518-4754-a1be-bb2dab7b22cc",
+  "id": "1459c048-b940-4c1d-8e40-f5ff45ae5b9e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "metadata": {
@@ -513,5 +513,8 @@
     "schemas": {},
     "tables": {},
     "columns": {}
+  },
+  "internal": {
+    "indexes": {}
   }
 }
