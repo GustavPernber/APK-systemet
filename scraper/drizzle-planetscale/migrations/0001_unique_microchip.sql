@@ -1,0 +1,1 @@
+ALTER TABLE `products` ADD CONSTRAINT `products_productId_unique` UNIQUE(`productId`);
