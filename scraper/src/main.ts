@@ -15,6 +15,7 @@ interface TasteClock {
   value: number;
 }
 
+// TODO: Convert to zod?
 interface BaseProduct {
   sellStartTime: string | null;
   productId: string;
