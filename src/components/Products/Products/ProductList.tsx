@@ -12,8 +12,7 @@ import { AppContext } from "@/components/Body";
 import Icons from "@/components/Utils/Icons";
 
 const ProductList = () => {
-  const { loadingOnTop, isLoading, currentSearchTerm, searchTerm } =
-    useContext(AppContext);
+  const { loadingOnTop, isLoading, currentSearchTerm } = useContext(AppContext);
   const { products, fetchMore } = useContext(ProductContext);
 
   const LoadMoreButton = () => {
@@ -51,7 +50,7 @@ const ProductList = () => {
       {!isLoading && productElements.length < 1 && (
         <div className="flex flex-col items-center justify-center gap-4">
           <Icons.search className="text-gray-300 h-[6rem] w-[6rem]" />
-          <p className="font-serif text-xl text-gray-700">{`Inga sökträffar för "${searchTerm}"`}</p>
+          <p className="font-serif text-xl text-gray-700">{`Inga sökträffar`}</p>
         </div>
       )}
       {productElements.length % 30 === 0 && productElements.length > 0 && (

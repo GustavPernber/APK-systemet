@@ -4,11 +4,11 @@ import Icons from "../Utils/Icons";
 
 const SearchBar = () => {
   const {
-    setSearchTerm,
+    // setSearchTerm,
     setIsLoading,
     setLoadingOnTop,
     currentSearchTerm,
-    searchTerm,
+    // searchTerm,
     setSortBy,
   } = useContext(AppContext);
   const [isPending, startTransition] = useTransition();
@@ -29,7 +29,7 @@ const SearchBar = () => {
         setSortBy("");
       }
       startTransition(() => {
-        setSearchTerm(currentSearchTerm.current);
+        // setSearchTerm(currentSearchTerm.current);
       });
     }, 500);
 
@@ -45,14 +45,14 @@ const SearchBar = () => {
     >
       <input
         onChange={(e) => {
-          if (!(/^\s*$/.test(e.target.value) && /^\s*$/.test(searchTerm))) {
-            currentSearchTerm.current = e.target.value;
-            inputChanged();
-            startTransition(() => {
-              setIsLoading(true);
-              setLoadingOnTop(true);
-            });
-          }
+          // if (!(/^\s*$/.test(e.target.value) && /^\s*$/.test(searchTerm))) {
+          //   currentSearchTerm.current = e.target.value;
+          //   inputChanged();
+          //   startTransition(() => {
+          //     setIsLoading(true);
+          //     setLoadingOnTop(true);
+          //   });
+          // }
         }}
         type="text"
         placeholder="Sök efter en produkt..."

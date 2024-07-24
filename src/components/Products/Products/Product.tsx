@@ -1,12 +1,12 @@
-import { ProductType } from "@/utils/types";
 import { getImgPath } from "@/utils/imgPath";
 import { useContext, useEffect, useState } from "react";
 import TasteClock from "./TasteClock";
 import PlaceHolderWineBottle from "../../../assets/img/placeholder-wine-bottle.png";
 import { ProductContext } from "../ProductsController";
+import { Product as TProduct } from "@/api/api";
 
 type ProductProps = {
-  product: ProductType;
+  product: TProduct;
 };
 
 const Product = (props: ProductProps) => {

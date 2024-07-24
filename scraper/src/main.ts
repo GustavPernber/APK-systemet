@@ -1,7 +1,12 @@
 import axios from "axios";
 import https from "https";
 import { config } from "./config";
-import { Cat1, ProductInsert, metadata, products } from "../db/schema";
+import {
+  Cat1,
+  ProductInsert,
+  metadata,
+  products,
+} from "../../functions/db/schema";
 import { db } from "./db";
 import { count } from "drizzle-orm";
 
@@ -209,7 +214,11 @@ async function fetchCategories() {
     }
   });
 
-  const newCat1 = [];
+  const newCat1: {
+    cat2: any[];
+    value: string;
+    friendlyUrl: string;
+  }[] = [];
   for await (const cat1Filter of categories.cat1) {
     const response = await axios({
       method: "get",
@@ -227,6 +236,7 @@ async function fetchCategories() {
     const cat2FilterObjects = response.data.filters.filter((filter: any) => {
       return filter.name === "CategoryLevel1";
     })[0].child.searchModifiers;
+
     newCat1.push({ ...cat1Filter, cat2: [...cat2FilterObjects] });
   }
   categories.cat1 = newCat1;

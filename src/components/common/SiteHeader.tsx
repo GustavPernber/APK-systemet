@@ -23,9 +23,7 @@ export default function SiteHeader() {
         <p className="text-[0.9rem] text-gray-400">Vad är APK?</p>
       </button>
 
-      <div className=" col-span-2 md:col-span-1 ">
-        <SearchBar />
-      </div>
+      <div className=" col-span-2 md:col-span-1 ">{/* <SearchBar /> */}</div>
     </header>
   );
 }

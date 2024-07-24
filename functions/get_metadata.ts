@@ -1,34 +1,14 @@
-import { MainHandlerResponse } from "./utils/types";
-import { getMetadataCollection } from "./utils/db";
+import { db } from "./db/db";
+import { metadata } from "./db/schema";
+import { Handler } from "@netlify/functions";
 
-const main = async (event, context): Promise<MainHandlerResponse> => {
-  const collection = getMetadataCollection();
+const handler: Handler = async (event, context) => {
+  const data = await db.select().from(metadata);
 
-  const metadata = await collection.collection.find().toArray();
-
-  collection.terminate();
   return {
-    body: metadata[0],
+    statusCode: 200,
+    body: JSON.stringify(data[0]),
   };
-};
-
-const handler = async (event, context) => {
-  try {
-    const response: MainHandlerResponse = await main(event, context);
-
-    return {
-      statusCode: response?.statusCode || 200,
-      body: JSON.stringify(response.body),
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({
-        message: "Internal server error. See logs or contact site owner.",
-      }),
-    };
-  }
 };
 
 export { handler };

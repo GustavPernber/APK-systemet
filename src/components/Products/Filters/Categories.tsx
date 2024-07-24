@@ -2,15 +2,15 @@ import Accordion from "@/components/Utils/Accordion";
 import { ProductContext } from "@/components/Products/ProductsController";
 import { useCallback, useContext, useMemo } from "react";
 import { AppContext } from "@/components/Body";
-import { Cat1, SelectedCat2 } from "@/utils/types";
+import { Cat1 } from "@/api/api";
 
 function Categories() {
   const { setCat1, cat1, cat2, setCat2 } = useContext(ProductContext);
   const { metadata } = useContext(AppContext);
 
   const CategoriesContent = useCallback(() => {
-    const categoriesWithAll = [
-      { value: "all" } as Cat1,
+    const categoriesWithAll: Cat1[] = [
+      { value: "all", friendlyUrl: "", cat2: [] },
       ...metadata.categories.cat1,
     ];
 
@@ -47,11 +47,11 @@ function Categories() {
                         <div
                           onClick={() => {
                             if (cat2?.includes(category2.value)) {
-                              setCat2((v: SelectedCat2) => [
+                              setCat2((v) => [
                                 ...v!.filter((el) => el !== category2.value),
                               ]);
                             } else {
-                              setCat2((v: SelectedCat2) =>
+                              setCat2((v) =>
                                 v ? [...v, category2.value] : [category2.value],
                               );
                             }
