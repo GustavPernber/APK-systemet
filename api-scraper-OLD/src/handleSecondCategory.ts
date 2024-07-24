@@ -10,7 +10,7 @@ export default async function handleSecondCategory(cat1: any, cat2: any) {
     const url = `${
       config.systembolaget_api_url
     }page=${i}&categoryLevel1=${encodeURIComponent(
-      cat1.value
+      cat1.value,
     )}&categoryLevel2=${encodeURIComponent(cat2.value)}`;
     const result = await axios({
       url,

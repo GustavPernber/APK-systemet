@@ -114,7 +114,7 @@ export const products = sqliteTable(
     isDiscontinued: integer("isDiscontinued", { mode: "boolean" }),
     isSupplierTemporaryNotAvailable: integer(
       "isSupplierTemporaryNotAvailable",
-      { mode: "boolean" }
+      { mode: "boolean" },
     ),
     sugarContent: int("sugarContent"),
     sugarContentGramPer100ml: real("sugarContentGramPer100ml"),
@@ -134,7 +134,7 @@ export const products = sqliteTable(
     return {
       unique_productId_for_date: unique().on(table.productId, table.scrapedAt),
     };
-  }
+  },
 );
 
 export type ProductInsert = Omit<typeof products.$inferSelect, "dbId">;

@@ -496,10 +496,7 @@
       "indexes": {
         "products_productId_scrapedAt_unique": {
           "name": "products_productId_scrapedAt_unique",
-          "columns": [
-            "productId",
-            "scrapedAt"
-          ],
+          "columns": ["productId", "scrapedAt"],
           "isUnique": true
         }
       },

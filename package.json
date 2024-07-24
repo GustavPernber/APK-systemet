@@ -8,8 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "ts": "tsc",
-    "prettier": "prettier ./src ./functions -c",
-    "prettier:fix": "prettier ./src ./functions -w"
+    "prettier": "prettier . -c",
+    "prettier:fix": "prettier . -w"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",

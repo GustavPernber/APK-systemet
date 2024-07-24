@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "rootDir": "./",                                  /* Specify the root folder within your source files. */
+    "rootDir": "./" /* Specify the root folder within your source files. */,
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
@@ -18,7 +18,7 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@/*" : ["./src/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"],
