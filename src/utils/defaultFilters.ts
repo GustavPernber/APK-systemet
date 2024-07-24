@@ -1,9 +1,8 @@
-import { ProductsFilterOptions, Cat1 } from "./types";
+import { ProductOptions } from "@/api/api";
 
-export const defaultFilters: ProductsFilterOptions = {
-  cat1: { value: "all" } as Cat1,
+export const defaultFilters: ProductOptions = {
+  cat1: { value: "all", cat2: [], friendlyUrl: "" },
   cat2: null,
   showOrderStock: true,
   sortBy: "apk",
-  searchTerm: "",
 };

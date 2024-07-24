@@ -2,22 +2,29 @@ import Disclaimer from "./common/Disclaimer";
 import SiteHeader from "./common/SiteHeader";
 import ProductsController from "./Products/ProductsController";
 import InfoCard from "./common/InfoCard";
-import { createContext, useState, useEffect, useRef } from "react";
+import {
+  createContext,
+  useState,
+  useEffect,
+  useRef,
+  SetStateAction,
+  Dispatch,
+} from "react";
 import SiteFooter from "./common/SiteFooter";
-import { Metadata, SortByOptions } from "@/utils/types";
-import api from "@/api";
+import { SortByOptions } from "@/utils/types";
+import api, { MetadataResponse } from "@/api/api";
 import { defaultFilters } from "@/utils/defaultFilters";
 
 type AppContextType = {
   isLoading: boolean;
-  setIsLoading: Function;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
   showInfoCard: boolean;
-  setShowInfoCard: Function;
-  metadata: Metadata;
-  searchTerm: string;
-  setSearchTerm: Function;
+  setShowInfoCard: Dispatch<SetStateAction<boolean>>;
+  metadata: MetadataResponse;
+  // searchTerm: string;
+  // setSearchTerm: Dispatch<SetStateAction<boolean>>;
   loadingOnTop: boolean;
-  setLoadingOnTop: Function;
+  setLoadingOnTop: Dispatch<SetStateAction<boolean>>;
   currentSearchTerm: React.MutableRefObject<string>;
   sortBy: SortByOptions;
   setSortBy: (prop: SortByOptions) => void;
@@ -29,13 +36,13 @@ const Body = () => {
   const [loadingOnTop, setLoadingOnTop] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [showInfoCard, setShowInfoCard] = useState<boolean>(false);
-  const [metadata, setMetadata] = useState<Metadata>({
+  const [metadata, setMetadata] = useState<MetadataResponse>({
     categories: { cat1: [] },
     lastUpdated: "",
-  } as Metadata);
-  const [searchTerm, setSearchTerm] = useState<string>(
-    defaultFilters.searchTerm,
-  );
+  });
+  // const [searchTerm, setSearchTerm] = useState<string>(
+  //   defaultFilters.searchTerm,
+  // );
   const currentSearchTerm = useRef("");
   const [sortBy, setSortBy] = useState<SortByOptions>(defaultFilters.sortBy);
 
@@ -45,8 +52,9 @@ const Body = () => {
     showInfoCard,
     setShowInfoCard,
     metadata,
-    searchTerm,
-    setSearchTerm,
+    // searchTerm,
+    // setSearchTerm,
+
     loadingOnTop,
     setLoadingOnTop,
     currentSearchTerm,
