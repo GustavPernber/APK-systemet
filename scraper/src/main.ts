@@ -85,7 +85,7 @@ interface BaseProduct {
 
 const baseProductToProduct = (
   baseProduct: BaseProduct,
-  scrapedAt: Date
+  scrapedAt: Date,
 ): ProductInsert => {
   const apk =
     (baseProduct.alcoholPercentage * 0.01 * baseProduct.volume) /
@@ -109,7 +109,7 @@ let collectedProductsCount = 0;
 
 async function handleSecondCategory(
   cat1: Record<"value", any>,
-  cat2: Record<"value", any>
+  cat2: Record<"value", any>,
 ) {
   let maxPages = false;
   let allProducts: BaseProduct[] = [];
@@ -118,7 +118,7 @@ async function handleSecondCategory(
     const url = `${
       config.systembolaget_api_url
     }page=${i}&categoryLevel1=${encodeURIComponent(
-      cat1.value
+      cat1.value,
     )}&categoryLevel2=${encodeURIComponent(cat2.value)}`;
     const result = await axios<{ products: BaseProduct[] }>({
       url,
@@ -152,7 +152,7 @@ type Categories = {
 
 async function fetchNewProducts(
   categories: Categories,
-  onProductFetched: (product: BaseProduct) => Promise<void>
+  onProductFetched: (product: BaseProduct) => Promise<void>,
 ) {
   for (const firstCategory of categories.cat1) {
     console.log(`Beginning fetch for '${firstCategory.value}'`);
@@ -164,7 +164,7 @@ async function fetchNewProducts(
 
       const products = await handleSecondCategory(
         firstCategory,
-        secondCategory
+        secondCategory,
       );
 
       for (const product of products) {
@@ -311,7 +311,7 @@ export async function scrapeSystemBolaget() {
 
     console.log(consoleFetchStatus);
     console.log(
-      `${((collectedProductsCount / totalProductsCount) * 100).toFixed(2)}%`
+      `${((collectedProductsCount / totalProductsCount) * 100).toFixed(2)}%`,
     );
     return;
   });
