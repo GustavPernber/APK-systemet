@@ -16,15 +16,15 @@ import api, { MetadataResponse } from "@/api/api";
 import { defaultFilters } from "@/utils/defaultFilters";
 
 type AppContextType = {
-  isLoading: boolean;
-  setIsLoading: Dispatch<SetStateAction<boolean>>;
+  // isLoading: boolean;
+  // setIsLoading: Dispatch<SetStateAction<boolean>>;
   showInfoCard: boolean;
   setShowInfoCard: Dispatch<SetStateAction<boolean>>;
   metadata: MetadataResponse;
   // searchTerm: string;
   // setSearchTerm: Dispatch<SetStateAction<boolean>>;
-  loadingOnTop: boolean;
-  setLoadingOnTop: Dispatch<SetStateAction<boolean>>;
+  // loadingOnTop: boolean;
+  // setLoadingOnTop: Dispatch<SetStateAction<boolean>>;
   currentSearchTerm: React.MutableRefObject<string>;
   sortBy: SortByOptions;
   setSortBy: (prop: SortByOptions) => void;
@@ -33,11 +33,11 @@ type AppContextType = {
 export const AppContext = createContext<AppContextType>({} as AppContextType);
 
 const Body = () => {
-  const [loadingOnTop, setLoadingOnTop] = useState(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  // const [loadingOnTop, setLoadingOnTop] = useState(false);
+  // const [isLoading, setIsLoading] = useState<boolean>(true);
   const [showInfoCard, setShowInfoCard] = useState<boolean>(false);
   const [metadata, setMetadata] = useState<MetadataResponse>({
-    categories: { cat1: [] },
+    categories: { categories: [] },
     lastUpdated: "",
   });
   // const [searchTerm, setSearchTerm] = useState<string>(
@@ -47,16 +47,16 @@ const Body = () => {
   const [sortBy, setSortBy] = useState<SortByOptions>(defaultFilters.sortBy);
 
   const AppContextValues: AppContextType = {
-    isLoading,
-    setIsLoading,
+    // isLoading,
+    // setIsLoading,
     showInfoCard,
     setShowInfoCard,
     metadata,
     // searchTerm,
     // setSearchTerm,
 
-    loadingOnTop,
-    setLoadingOnTop,
+    // loadingOnTop,
+    // setLoadingOnTop,
     currentSearchTerm,
     sortBy,
     setSortBy,

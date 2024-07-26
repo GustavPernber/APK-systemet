@@ -12,8 +12,8 @@ import { AppContext } from "@/components/Body";
 import Icons from "@/components/Utils/Icons";
 
 const ProductList = () => {
-  const { loadingOnTop, isLoading, currentSearchTerm } = useContext(AppContext);
-  const { products, fetchMore } = useContext(ProductContext);
+  const { currentSearchTerm } = useContext(AppContext);
+  const { products, fetchMore, isLoading } = useContext(ProductContext);
 
   const LoadMoreButton = () => {
     return (
@@ -27,6 +27,8 @@ const ProductList = () => {
       </button>
     );
   };
+
+  const loadingOnTop = products.length > 0;
 
   const productElements = useMemo(() => {
     if (!products) {

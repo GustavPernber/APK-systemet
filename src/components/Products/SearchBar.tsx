@@ -5,8 +5,8 @@ import Icons from "../Utils/Icons";
 const SearchBar = () => {
   const {
     // setSearchTerm,
-    setIsLoading,
-    setLoadingOnTop,
+    // setIsLoading,
+    // setLoadingOnTop,
     currentSearchTerm,
     // searchTerm,
     setSortBy,

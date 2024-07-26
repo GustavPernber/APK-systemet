@@ -20,6 +20,7 @@ import ProductOptions from "./ProductOptions";
 import Filters from "./Filters/Filters";
 import { AppContext } from "../Body";
 import { defaultFilters } from "@/utils/defaultFilters";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 type ProductContextType = {
   fetchMore: Function;
@@ -34,7 +35,7 @@ type ProductContextType = {
   setShowOrderStock: Function;
   cat2: string[] | null;
   setCat2: Dispatch<SetStateAction<string[] | null>>;
-  fetchInitial: Function;
+  isLoading: boolean;
 };
 
 export const ProductContext = createContext<ProductContextType>(
@@ -42,13 +43,12 @@ export const ProductContext = createContext<ProductContextType>(
 );
 
 const ProductsController = () => {
-  const { setIsLoading, setLoadingOnTop, currentSearchTerm, sortBy } =
-    useContext(AppContext);
+  const { currentSearchTerm, sortBy } = useContext(AppContext);
 
-  const [products, setProducts] = useState<Product[]>([]);
+  // // const [products, setProducts] = useState<Product[]>([]);
 
   const [isCompactProducts, setIsCompactProducts] = useState<boolean>(false);
-  const [page, setPage] = useState<number>(1);
+  // // const [page, setPage] = useState<number>(1);
   const [showFilters, setShowFilters] = useState<boolean>(false);
 
   const [showOrderStock, setShowOrderStock] = useState<boolean>(
@@ -57,56 +57,72 @@ const ProductsController = () => {
   const [cat1, setCat1] = useState<Cat1>(defaultFilters.cat1);
   const [cat2, setCat2] = useState<string[] | null>(defaultFilters.cat2);
 
-  const filters = useMemo(() => {
-    const filtersOpts: TProductOptions = {
-      showOrderStock: showOrderStock,
-      cat1: cat1,
-      cat2: cat2,
-      sortBy: sortBy,
-    };
-    return filtersOpts;
-  }, [sortBy, cat1, showOrderStock, cat2]);
+  // const filters = useMemo(() => {
+  //   const filtersOpts: TProductOptions = {
+  //     showOrderStock: showOrderStock,
+  //     cat1: cat1,
+  //     cat2: cat2,
+  //     sortBy: sortBy,
+  //   };
+  //   return filtersOpts;
+  // }, [sortBy, cat1, showOrderStock, cat2]);
 
-  const fetchMore = useCallback(async () => {
-    setIsLoading(true);
-    const newPage = page + 1;
-    setPage(newPage);
-    const res = await api.getProducts({
-      cat1: cat1,
-      cat2: cat2,
-      page: newPage,
-      showOrderStock: showOrderStock,
-      sortBy: sortBy,
-    });
-    const newProducts = [...products, ...res.data];
-    setProducts(newProducts);
-    setIsLoading(false);
-  }, [page, filters, products]);
+  const { data, isLoading, isError, fetchNextPage } = useInfiniteQuery({
+    queryKey: ["products", cat1.value, cat2, showOrderStock, sortBy],
+    initialPageParam: 1,
+    queryFn: async ({ pageParam }) =>
+      api.getProducts({
+        cat1: cat1,
+        cat2: cat2,
+        page: pageParam,
+        showOrderStock: showOrderStock,
+        sortBy: sortBy,
+      }),
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.data.length === 0 ? undefined : pages.length + 1;
+    },
+  });
 
-  const fetchInitial = useCallback(async () => {
-    setIsLoading(true);
-    setProducts([]);
-    const response = await api.getProducts({
-      cat1: cat1,
-      cat2: cat2,
-      page: 1,
-      showOrderStock: showOrderStock,
-      sortBy: sortBy,
-    });
-    // if (response.searchTerm === currentSearchTerm.current) {
-    setProducts(response.data);
-    setIsLoading(false);
-    setLoadingOnTop(false);
-    // }
-  }, [filters]);
+  // const fetchMore = useCallback(async () => {
+  //   setIsLoading(true);
+  //   const newPage = page + 1;
+  //   setPage(newPage);
+  //   const res = await api.getProducts({
+  //     cat1: cat1,
+  //     cat2: cat2,
+  //     page: newPage,
+  //     showOrderStock: showOrderStock,
+  //     sortBy: sortBy,
+  //   });
+  //   const newProducts = [...products, ...res.data];
+  //   setProducts(newProducts);
+  //   setIsLoading(false);
+  // }, [page, filters, products]);
 
-  useEffect(() => {
-    fetchInitial();
-  }, [filters]);
+  // const fetchInitial = useCallback(async () => {
+  //   setIsLoading(true);
+  //   setProducts([]);
+  //   const response = await api.getProducts({
+  //     cat1: cat1,
+  //     cat2: cat2,
+  //     page: 1,
+  //     showOrderStock: showOrderStock,
+  //     sortBy: sortBy,
+  //   });
+  //   // if (response.searchTerm === currentSearchTerm.current) {
+  //   setProducts(response.data);
+  //   setIsLoading(false);
+  //   setLoadingOnTop(false);
+  //   // }
+  // }, [filters]);
 
-  useEffect(() => {
-    setCat2(null);
-  }, [cat1]);
+  // useEffect(() => {
+  //   fetchInitial();
+  // }, [filters]);
+
+  // useEffect(() => {
+  //   setCat2(null);
+  // }, [cat1]);
 
   const toggleShowFilters = useCallback(() => {
     if (window.innerWidth <= 1023) {
@@ -115,11 +131,8 @@ const ProductsController = () => {
   }, [showFilters]);
 
   const productContextValues: ProductContextType = {
-    fetchInitial,
-    fetchMore,
     isCompactProducts,
     setIsCompactProducts,
-    products,
     showFilters,
     toggleShowFilters,
     cat1,
@@ -128,13 +141,16 @@ const ProductsController = () => {
     setShowOrderStock,
     cat2,
     setCat2,
+    fetchMore: fetchNextPage,
+    products: data?.pages.flatMap((page) => page.data) || [],
+    isLoading,
   };
 
   return (
     <ProductContext.Provider value={productContextValues}>
       <div className=" md:w-full grid  place-items-start min-h-screen md:border-t-[1px] md:border-t-gray-300 pb-[10rem]">
         <main
-          className=" 
+          className="
                 w-full
                 px-3 md:px-8  md:pt-4 flex flex-row justify-center items-start"
         >

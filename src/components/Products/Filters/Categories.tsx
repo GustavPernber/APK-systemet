@@ -11,7 +11,7 @@ function Categories() {
   const CategoriesContent = useCallback(() => {
     const categoriesWithAll: Cat1[] = [
       { value: "all", friendlyUrl: "", cat2: [] },
-      ...metadata.categories.cat1,
+      ...metadata.categories.categories,
     ];
 
     return (
