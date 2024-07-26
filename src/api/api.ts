@@ -43,16 +43,19 @@ async function getProducts({
   showOrderStock,
   sortBy,
 }: ProductOptions & { page: number }): Promise<GetProductsResponse> {
-  const query = qs.stringify({
-    sortBy,
-    cat1: cat1.value,
-    showOrderStock,
-    cat2,
-    page,
-  });
+  const query = qs.stringify(
+    {
+      sortBy,
+      cat1: cat1.value,
+      showOrderStock,
+      cat2,
+      page,
+    },
+    { arrayFormat: "repeat" },
+  );
 
   let response = await fetch(`${BASE_URL}get_products?${query}`, {
-    method: "POST",
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
@@ -70,7 +73,7 @@ export type Cat1 = {
 
 export type MetadataResponse = {
   categories: {
-    cat1: Cat1[];
+    categories: Cat1[];
   };
   lastUpdated: string;
 };
