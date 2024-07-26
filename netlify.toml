@@ -5,6 +5,6 @@
   directory = "functions/"
   node_bundler = "esbuild"
 
-  external_node_modules = ["@libsql/client"]
+  external_node_modules = ["better-sqlite3"]
 
   # package = "netlify-plugin-cypress"
