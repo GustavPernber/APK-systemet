@@ -38,7 +38,7 @@ const Body = () => {
   const [showInfoCard, setShowInfoCard] = useState<boolean>(false);
   const [metadata, setMetadata] = useState<MetadataResponse>({
     categories: { categories: [] },
-    lastUpdated: "",
+    lastScraped: "",
   });
   // const [searchTerm, setSearchTerm] = useState<string>(
   //   defaultFilters.searchTerm,

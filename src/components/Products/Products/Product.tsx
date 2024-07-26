@@ -12,9 +12,9 @@ type ProductProps = {
 const Product = (props: ProductProps) => {
   const isCompact = useContext(ProductContext).isCompactProducts;
 
-  const product: any = { ...props.product };
+  const product: TProduct = { ...props.product };
   const [imagePath, setImagePath] = useState<string>(
-    getImgPath(product.productId),
+    getImgPath(product.productId!),
   );
 
   const parsedNameVintage = [product.productNameThin, product.vintage]
@@ -22,21 +22,21 @@ const Product = (props: ProductProps) => {
     .join(", ");
 
   const parsedProductPath = () => {
-    const productUrlName = `${product.productNameBold
-      .replace(/\s+/g, "-")
+    const productUrlName = `${product
+      .productNameBold!.replace(/\s+/g, "-")
       .toLowerCase()}-${props.product.productNumber}`;
-    const productUrl = `https://www.systembolaget.se/produkt/${encodeURIComponent(product.categoryLevel1)}/${productUrlName}`;
+    const productUrl = `https://www.systembolaget.se/produkt/${encodeURIComponent(product.categoryLevel1!)}/${productUrlName}`;
     return productUrl;
   };
 
   const parsedPriceString = () => {
     // TODO: Clean up maybe? Export to utils
     let priceString;
-    if (product.price % 1 != 0) {
-      let numbers = product.price.toFixed(2).split(".");
+    if (product.price! % 1 != 0) {
+      let numbers = product.price!.toFixed(2).split(".");
       priceString = `${numbers[0]}:${numbers[1]}`;
     } else {
-      priceString = `${product.price.toFixed(0)}:-`;
+      priceString = `${product.price!.toFixed(0)}:-`;
     }
     return priceString;
   };
@@ -82,7 +82,7 @@ const Product = (props: ProductProps) => {
                             justify-start   gap-x-3 text-sm whitespace-nowrap"
               >
                 <p className=" font-semibold">
-                  APK: {parseFloat(product.apk).toPrecision(3)}
+                  APK: {product.apk!.toPrecision(3)}
                 </p>
                 <p>{product.volumeText} </p>
                 <p>{product.alcoholPercentage} %</p>
@@ -94,12 +94,12 @@ const Product = (props: ProductProps) => {
           </div>
         </div>
 
-        {product.tasteClocks.length > 0 && (
+        {(product.tasteClocks?.tasteClocks.length ?? 0) > 0 && (
           <div className={`${isCompact && "h-0"} overflow-hidden `}>
             <div
               className={`w-full flex flex-row justify-around items-center py-3  `}
             >
-              {product.tasteClocks.map(
+              {product.tasteClocks?.tasteClocks.map(
                 (clock: { key: string; value: number }) => {
                   return (
                     <TasteClock

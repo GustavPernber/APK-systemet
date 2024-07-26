@@ -8,7 +8,7 @@ const FiltersSchema = z.object({
   sortBy: z.enum(["apk", "price_asc", "alc_desc"]).optional().default("apk"),
   cat1: z.string().optional(),
   page: z.coerce.number().optional().default(1),
-  cat2: z.array(z.string()).optional(),
+  cat2: z.array(z.string().min(1)).min(1).optional().catch(undefined),
   showOrderStock: z
     .enum(["true", "false"])
     .transform((value) => value === "true")
@@ -78,7 +78,6 @@ const getProducts = async (filters: Filters) => {
 };
 
 const handler: Handler = async (event, context) => {
-  // const productConnection = getProductCollection();
   const request = event.multiValueQueryStringParameters;
 
   const validFilters = FiltersSchema.parse({
@@ -90,8 +89,6 @@ const handler: Handler = async (event, context) => {
     // searchTerm: request.searchTerm
   });
 
-  console.log(request);
-  console.log(event);
   const products = await getProducts(validFilters);
 
   return {
