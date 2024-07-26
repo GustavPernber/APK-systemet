@@ -1,29 +1,10 @@
 import { SortByOptions } from "@/utils/types";
 import * as qs from "neoqs";
+import { products } from "../../functions/db/schema";
 
 const BASE_URL = ".netlify/functions/";
 
-export type Product = {
-  _id: string;
-  productId: number;
-  productNumber: number;
-  nameBold: string;
-  nameThin: string;
-  vintage: null;
-  cat1: string;
-  cat2: string;
-  cat3: string;
-  cat4: string | null;
-  usage: string;
-  taste: string;
-  tasteClocks: { key: string; value: number }[];
-  volume: number;
-  price: number;
-  alcPercentage: number;
-  assortmentText: string;
-  apk: number;
-  bpk: number;
-};
+export type Product = typeof products.$inferSelect;
 
 type GetProductsResponse = {
   data: Product[];
@@ -51,7 +32,7 @@ async function getProducts({
       cat2,
       page,
     },
-    { arrayFormat: "repeat" },
+    { arrayFormat: "repeat", allowEmptyArrays: false },
   );
 
   let response = await fetch(`${BASE_URL}get_products?${query}`, {
@@ -75,7 +56,7 @@ export type MetadataResponse = {
   categories: {
     categories: Cat1[];
   };
-  lastUpdated: string;
+  lastScraped: string;
 };
 
 async function getMetadata(): Promise<MetadataResponse> {

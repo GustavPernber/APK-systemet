@@ -6,7 +6,7 @@ import Icons from "@/components/Utils/Icons";
 const SiteFooter = () => {
   const { metadata } = useContext(AppContext);
 
-  const parsedDate = new Date(metadata.lastUpdated);
+  const parsedDate = new Date(metadata.lastScraped);
 
   return (
     <footer className=" w-screen h-[10rem]  bg-gradient-to-br from-gray-200 to-gray-300 px-4 py-6 grid grid-cols-2 grid-rows-[1fr_auto_1fr]">
@@ -22,7 +22,7 @@ const SiteFooter = () => {
       <span className="w-full h-[1px] bg-gray-300 col-span-2" />
 
       <p className="text-gray-400 col-span-2  text-sm self-end">
-        {metadata.lastUpdated &&
+        {metadata.lastScraped &&
           `Senast uppdaterad: ${parsedDate.toLocaleString(undefined, { hour12: false, dateStyle: "full", timeStyle: "short" }).replace("at", " Kl")}`}
       </p>
     </footer>
