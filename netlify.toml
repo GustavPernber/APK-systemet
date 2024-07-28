@@ -1,6 +1,9 @@
 [dev]
   targetPort = 3000
 
+[build]
+  base = ""
+
 [functions]
   directory = "functions/"
   node_bundler = "esbuild"
