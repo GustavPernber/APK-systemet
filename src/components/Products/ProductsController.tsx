@@ -164,7 +164,6 @@ const ProductsController = () => {
           <section className=" flex flex-col justify-start md:max-w-screen lg:max-w-[55rem] lg:w-full lg:border-l-[1px] lg:border-gray-300 lg:pl-6 min-h-screen flex-1">
             <ProductOptions />
             <ProductList />
-            {isFetchingNextPage}
           </section>
         </main>
       </div>

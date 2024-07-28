@@ -55,10 +55,6 @@ const ProductList = () => {
           <p className="font-serif text-xl text-gray-700">{`Inga sökträffar`}</p>
         </div>
       )}
-      <p>
-        {`${isLoading}`}
-        {`${loadingOnTop}`}
-      </p>
 
       {productElements.length % 30 === 0 && productElements.length > 0 && (
         <LoadMoreButton />
