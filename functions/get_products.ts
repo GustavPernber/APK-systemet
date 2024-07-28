@@ -72,7 +72,7 @@ const getProducts = async (filters: Filters) => {
         : desc(sortByColumn.column),
     )
     .limit(PAGINATION_LIMIT)
-    .offset(filters.page);
+    .offset(filters.page * PAGINATION_LIMIT - PAGINATION_LIMIT);
 
   return data;
 };

@@ -1,11 +1,13 @@
-import Database from "better-sqlite3";
-import { drizzle } from "drizzle-orm/better-sqlite3";
-import path from "path";
-import * as schema from "./schema";
+import { drizzle } from "drizzle-orm/libsql";
+import { createClient } from "@libsql/client";
+import { config } from "dotenv";
 
-const dbPath = "functions/db/sqlite.db";
+config();
 
-console.log("DB opened with path:", dbPath);
+const dbPath = process.env.DB_PATH;
 
-const sqlite = new Database(dbPath, { fileMustExist: true, readonly: true });
-export const db = drizzle(sqlite, { schema });
+console.log(`Connecting to database at ${dbPath}`);
+
+const client = createClient({ url: `file:${dbPath}` });
+
+export const db = drizzle(client);
