@@ -10,7 +10,7 @@
     "ts": "tsc",
     "prettier": "prettier . -c",
     "prettier:fix": "prettier . -w",
-    "scraper:run": "npx tsx scraper/src/main"
+    "scraper": "npx tsx scraper/src/main"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
