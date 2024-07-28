@@ -73,7 +73,7 @@ const Body = () => {
       <div className="App  gap-y-3 md:gap-y-2  grid grid-rows-main  bg-gray-100 w-full  min-h-screen ">
         <SiteHeader />
         <InfoCard />
-        <Disclaimer />
+        {/* <Disclaimer /> */}
         <ProductsController />
         <SiteFooter />
       </div>
