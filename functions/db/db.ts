@@ -4,7 +4,7 @@ import { config } from "dotenv";
 
 config();
 
-const dbPath = process.env.DB_PATH;
+const dbPath = "db/sqlite.db";
 
 console.log(`Connecting to database at ${dbPath}`);
 
