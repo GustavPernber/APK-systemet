@@ -67,21 +67,22 @@ const ProductsController = () => {
   //   return filtersOpts;
   // }, [sortBy, cat1, showOrderStock, cat2]);
 
-  const { data, isLoading, isError, fetchNextPage } = useInfiniteQuery({
-    queryKey: ["products", cat1.value, cat2, showOrderStock, sortBy],
-    initialPageParam: 1,
-    queryFn: async ({ pageParam }) =>
-      api.getProducts({
-        cat1: cat1,
-        cat2: cat2,
-        page: pageParam,
-        showOrderStock: showOrderStock,
-        sortBy: sortBy,
-      }),
-    getNextPageParam: (lastPage, pages) => {
-      return lastPage.data.length === 0 ? undefined : pages.length + 1;
-    },
-  });
+  const { data, isLoading, isError, fetchNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ["products", cat1.value, cat2, showOrderStock, sortBy],
+      initialPageParam: 1,
+      queryFn: async ({ pageParam }) =>
+        api.getProducts({
+          cat1: cat1,
+          cat2: cat2,
+          page: pageParam,
+          showOrderStock: showOrderStock,
+          sortBy: sortBy,
+        }),
+      getNextPageParam: (lastPage, pages) => {
+        return lastPage.data.length === 0 ? undefined : pages.length + 1;
+      },
+    });
 
   // const fetchMore = useCallback(async () => {
   //   setIsLoading(true);
@@ -148,10 +149,9 @@ const ProductsController = () => {
     setCat2,
     fetchMore: fetchNextPage,
     products,
-    isLoading,
+    isLoading: isLoading || isFetchingNextPage,
   };
 
-  console.log(products);
   return (
     <ProductContext.Provider value={productContextValues}>
       <div className=" md:w-full grid  place-items-start min-h-screen md:border-t-[1px] md:border-t-gray-300 pb-[10rem]">
@@ -164,6 +164,7 @@ const ProductsController = () => {
           <section className=" flex flex-col justify-start md:max-w-screen lg:max-w-[55rem] lg:w-full lg:border-l-[1px] lg:border-gray-300 lg:pl-6 min-h-screen flex-1">
             <ProductOptions />
             <ProductList />
+            {isFetchingNextPage}
           </section>
         </main>
       </div>
