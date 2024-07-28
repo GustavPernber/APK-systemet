@@ -35,7 +35,7 @@ const ProductList = () => {
       return [];
     }
     const list = products.map((product) => {
-      return <Product product={product} key={product.productId}></Product>;
+      return <Product product={product} key={product.dbId}></Product>;
     });
 
     return list;

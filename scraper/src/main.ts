@@ -9,6 +9,7 @@ import {
 } from "../../functions/db/schema";
 import { db } from "./db";
 import { count } from "drizzle-orm";
+import { rmSync, renameSync } from "node:fs";
 
 interface Image {
   imageUrl: string;
@@ -332,6 +333,9 @@ export async function scrapeSystemBolaget() {
     categories: { categories: categories.cat1 },
     lastScraped: scrapedAt,
   });
+
+  rmSync("db/sqlite.db");
+  renameSync("db/sqlite-tmp.db", "db/sqlite.db");
 
   return;
 }

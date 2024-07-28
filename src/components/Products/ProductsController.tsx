@@ -130,6 +130,11 @@ const ProductsController = () => {
     }
   }, [showFilters]);
 
+  const products = useMemo(
+    () => data?.pages.flatMap((page) => page.data) || [],
+    [data],
+  );
+
   const productContextValues: ProductContextType = {
     isCompactProducts,
     setIsCompactProducts,
@@ -142,10 +147,11 @@ const ProductsController = () => {
     cat2,
     setCat2,
     fetchMore: fetchNextPage,
-    products: data?.pages.flatMap((page) => page.data) || [],
+    products,
     isLoading,
   };
 
+  console.log(products);
   return (
     <ProductContext.Provider value={productContextValues}>
       <div className=" md:w-full grid  place-items-start min-h-screen md:border-t-[1px] md:border-t-gray-300 pb-[10rem]">

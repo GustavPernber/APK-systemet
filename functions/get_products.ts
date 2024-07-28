@@ -50,6 +50,7 @@ const getProducts = async (filters: Filters) => {
       break;
   }
 
+  const offset = filters.page * PAGINATION_LIMIT - PAGINATION_LIMIT;
   const data = await db
     .select()
     .from(products)
@@ -72,7 +73,7 @@ const getProducts = async (filters: Filters) => {
         : desc(sortByColumn.column),
     )
     .limit(PAGINATION_LIMIT)
-    .offset(filters.page * PAGINATION_LIMIT - PAGINATION_LIMIT);
+    .offset(offset);
 
   return data;
 };
