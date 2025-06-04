@@ -18,7 +18,7 @@ jobs:
       - run: node -v
       - run: npm ci
       - run: npm run ts
-      - run: npm run prettier
+      - run: npm run format
 
   # E2E_testing:
   #   needs: Build
