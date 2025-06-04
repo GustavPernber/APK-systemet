@@ -20,7 +20,12 @@ import ProductOptions from "./ProductOptions";
 import Filters from "./Filters/Filters";
 import { AppContext } from "../Body";
 import { defaultFilters } from "@/utils/defaultFilters";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
+
+type CatFilters = {
+  cat1: string;
+  cat2: string[] | null;
+};
 
 type ProductContextType = {
   fetchMore: Function;
@@ -29,12 +34,14 @@ type ProductContextType = {
   products: Product[];
   showFilters: boolean;
   toggleShowFilters: Function;
-  cat1: Cat1;
-  setCat1: Function;
+  // cat1: Cat1;
+  // setCat1: Function;
   showOrderStock: boolean;
   setShowOrderStock: Function;
-  cat2: string[] | null;
-  setCat2: Dispatch<SetStateAction<string[] | null>>;
+  catFilters: CatFilters;
+  setCatFilters: Dispatch<SetStateAction<CatFilters>>;
+  // cat2: string[] | null;
+  // setCat2: Dispatch<SetStateAction<string[] | null>>;
   isLoading: boolean;
 };
 
@@ -54,8 +61,11 @@ const ProductsController = () => {
   const [showOrderStock, setShowOrderStock] = useState<boolean>(
     defaultFilters.showOrderStock,
   );
-  const [cat1, setCat1] = useState<Cat1>(defaultFilters.cat1);
-  const [cat2, setCat2] = useState<string[] | null>(defaultFilters.cat2);
+
+  const [catFilters, setCatFilters] = useState<CatFilters>({
+    cat1: defaultFilters.cat1,
+    cat2: defaultFilters.cat2,
+  });
 
   // const filters = useMemo(() => {
   //   const filtersOpts: TProductOptions = {
@@ -69,12 +79,18 @@ const ProductsController = () => {
 
   const { data, isLoading, isError, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery({
-      queryKey: ["products", cat1.value, cat2, showOrderStock, sortBy],
+      queryKey: [
+        "products",
+        catFilters.cat1,
+        catFilters.cat2,
+        showOrderStock,
+        sortBy,
+      ],
       initialPageParam: 1,
       queryFn: async ({ pageParam }) =>
         api.getProducts({
-          cat1: cat1,
-          cat2: cat2,
+          cat1: catFilters.cat1,
+          cat2: catFilters.cat2,
           page: pageParam,
           showOrderStock: showOrderStock,
           sortBy: sortBy,
@@ -141,12 +157,14 @@ const ProductsController = () => {
     setIsCompactProducts,
     showFilters,
     toggleShowFilters,
-    cat1,
-    setCat1,
+    catFilters,
+    setCatFilters,
+    // cat1,
+    // setCat1,
     showOrderStock,
     setShowOrderStock,
-    cat2,
-    setCat2,
+    // cat2,
+    // setCat2,
     fetchMore: fetchNextPage,
     products,
     isLoading: isLoading || isFetchingNextPage,

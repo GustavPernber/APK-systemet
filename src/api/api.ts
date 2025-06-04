@@ -11,7 +11,7 @@ type GetProductsResponse = {
 };
 
 export type ProductOptions = {
-  cat1: Cat1;
+  cat1: string;
   cat2: string[] | null;
   showOrderStock: boolean;
   sortBy: SortByOptions;
@@ -27,7 +27,7 @@ async function getProducts({
   const query = qs.stringify(
     {
       sortBy,
-      cat1: cat1.value,
+      cat1,
       showOrderStock,
       cat2,
       page,
