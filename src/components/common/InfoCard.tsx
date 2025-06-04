@@ -11,7 +11,9 @@ function InfoCard() {
         className={`${showInfoCard ? "opacity-100" : "opacity-0 pointer-events-none"} transition fixed w-full h-screen  grid place-content-center z-40 px-5 `}
       >
         <div
-          className={"transition-all from-white to-gray-200  bg-gradient-to-br shadow-lg min-h-[15rem] rounded-lg max-w-2xl w-full p-5  z-40 "}
+          className={
+            "transition-all from-white to-gray-200  bg-gradient-to-br shadow-lg min-h-[15rem] rounded-lg max-w-2xl w-full p-5  z-40 "
+          }
         >
           <div className={"flex flex-row justify-between pb-5"}>
             <h1 className=" font-semibold">Vad är APK?</h1>

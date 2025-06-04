@@ -1,9 +1,6 @@
 import Product from "./Product";
 import SkeletonProductList from "@/components/Products/Products/SkeletonProductList";
-import {
-  useContext,
-  useMemo,
-} from "react";
+import { useContext, useMemo } from "react";
 import { ProductContext } from "../ProductsController";
 import { AppContext } from "@/components/Body";
 import Icons from "@/components/Utils/Icons";

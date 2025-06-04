@@ -19,6 +19,8 @@ jobs:
       - run: npm ci
       - run: npm run ts
       - run: npm run format
+      - run: npm run lint
+
 
   # E2E_testing:
   #   needs: Build

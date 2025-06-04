@@ -1,7 +1,5 @@
 import ProductList from "./Products/ProductList";
-import api, {
-  type Product,
-} from "@/api/api";
+import api, { type Product } from "@/api/api";
 import {
   createContext,
   useCallback,
