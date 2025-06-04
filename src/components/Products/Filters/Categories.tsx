@@ -25,6 +25,7 @@ function Categories() {
             return (
               <div key={category.value} className=" bg-gray-200 ">
                 <button
+                  type="button"
                   onClick={() => {
                     if (catFilters.cat1 === category.value) {
                       setCatFilters({
@@ -62,12 +63,12 @@ function Categories() {
                               }));
                               return;
                             }
-                              setCatFilters((prev) => ({
-                                ...prev,
-                                cat2: prev.cat2
-                                  ? [...prev.cat2, category2.value]
-                                  : [category2.value],
-                              }));
+                            setCatFilters((prev) => ({
+                              ...prev,
+                              cat2: prev.cat2
+                                ? [...prev.cat2, category2.value]
+                                : [category2.value],
+                            }));
                           }}
                           className="hover:bg-gray-200  pl-5 border-b-[1px] border-gray-100 bg-white transition duration-75 flex flex-row justify-start items-center"
                           key={category2.value}
@@ -80,7 +81,9 @@ function Categories() {
                             id="hs-checked-checkbox"
                           />
                           <span
-                            className={" text-left  cursor-pointer text-sm py-3 pr-8 pl-4 w-full text-gray-600 "}
+                            className={
+                              " text-left  cursor-pointer text-sm py-3 pr-8 pl-4 w-full text-gray-600 "
+                            }
                           >
                             {category2.value}
                           </span>
@@ -98,10 +101,7 @@ function Categories() {
   }, [metadata, catFilters, setCatFilters]);
 
   return (
-    <Accordion
-      contentComponent={<CategoriesContent />}
-      title="Kategorier"
-    />
+    <Accordion contentComponent={<CategoriesContent />} title="Kategorier" />
   );
 }
 

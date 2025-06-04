@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { AppContext } from "../Body";
 import Logo from "./Logo";
 import Icons from "@/components/Utils/Icons";
-import SearchBar from "../Products/SearchBar";
 
 export default function SiteHeader() {
   const { showInfoCard, setShowInfoCard } = useContext(AppContext);
@@ -16,6 +15,7 @@ export default function SiteHeader() {
       <Logo />
 
       <button
+        type="button"
         onClick={() => setShowInfoCard((v: boolean) => !v)}
         className=" flex flex-row  items-center gap-1  col-start-2  md:col-start-3  justify-self-end"
       >

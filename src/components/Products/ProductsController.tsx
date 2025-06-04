@@ -1,18 +1,13 @@
 import ProductList from "./Products/ProductList";
 import api, {
-  Cat1,
   type Product,
-  ProductOptions as TProductOptions,
 } from "@/api/api";
 import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useState,
-  useTransition,
-  useRef,
   type Dispatch,
   type SetStateAction,
 } from "react";

@@ -15,6 +15,7 @@ function Accordion({ contentComponent, title }: AccordionProps) {
         id="hs-basic-with-title-and-arrow-stretched-heading-one"
       >
         <button
+          type="button"
           onClick={() => setShow((v) => !v)}
           className="hs-accordion-toggle  group py-0 inline-flex items-center justify-between gap-x-3 w-full font-semibold text-left text-gray-800 transition hover:text-gray-500"
           aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-one"
@@ -32,6 +33,7 @@ function Accordion({ contentComponent, title }: AccordionProps) {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
+            <title>Arrow</title>
             <path
               d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
               stroke="black"

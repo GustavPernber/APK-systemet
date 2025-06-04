@@ -10,7 +10,7 @@
     "ignore": []
   },
   "formatter": {
-    "include": ["**/*.js", "**/*.ts", "**/*.jsx", "**/*.tsx"],
+    "include": ["**/*.ts", "**/*.tsx"],
     "enabled": true,
     "indentStyle": "space"
   },
@@ -18,10 +18,24 @@
     "enabled": true
   },
   "linter": {
-    "include": ["**/*.js", "**/*.ts", "**/*.jsx", "**/*.tsx"],
+    "include": ["**/*.ts", "**/*.tsx"],
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "a11y": {
+        "useKeyWithClickEvents": "warn"
+      },
+      "suspicious": {
+        "noExplicitAny": "warn"
+      },
+      "correctness": {
+        "noUnusedImports": "error",
+        "noUnusedVariables": "warn"
+      },
+      "complexity": {
+        "noBannedTypes": "warn",
+        "noForEach": "off"
+      }
     }
   },
   "javascript": {

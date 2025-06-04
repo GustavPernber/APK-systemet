@@ -1,11 +1,8 @@
 import Product from "./Product";
 import SkeletonProductList from "@/components/Products/Products/SkeletonProductList";
 import {
-  MouseEventHandler,
   useContext,
-  useEffect,
   useMemo,
-  useState,
 } from "react";
 import { ProductContext } from "../ProductsController";
 import { AppContext } from "@/components/Body";
@@ -18,6 +15,7 @@ const ProductList = () => {
   const LoadMoreButton = () => {
     return (
       <button
+        type="button"
         onClick={() => {
           fetchMore();
         }}
@@ -52,7 +50,9 @@ const ProductList = () => {
       {!isLoading && productElements.length < 1 && (
         <div className="flex flex-col items-center justify-center gap-4">
           <Icons.search className="text-gray-300 h-[6rem] w-[6rem]" />
-          <p className="font-serif text-xl text-gray-700">{"Inga sökträffar"}</p>
+          <p className="font-serif text-xl text-gray-700">
+            {"Inga sökträffar"}
+          </p>
         </div>
       )}
 

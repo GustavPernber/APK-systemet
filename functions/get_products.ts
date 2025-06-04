@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { type Handler, HandlerEvent } from "@netlify/functions";
+import type { Handler, } from "@netlify/functions";
 import { db } from "./db/db";
 import { products } from "./db/schema";
 import { and, asc, desc, eq, inArray, ne } from "drizzle-orm";
@@ -78,7 +78,7 @@ const getProducts = async (filters: Filters) => {
   return data;
 };
 
-const handler: Handler = async (event, context) => {
+const handler: Handler = async (event, _context) => {
   const request = event.multiValueQueryStringParameters;
 
   const validFilters = FiltersSchema.parse({

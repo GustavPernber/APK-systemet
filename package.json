@@ -11,8 +11,9 @@
     "format": "npx @biomejs/biome format",
     "format:fix": "npx @biomejs/biome format --write",
     "scraper": "npx tsx scraper/src/main",
-    "lint": "npx @biomejs/biome lint",
-    "lint:fix": "npx @biomejs/biome lint --write"
+    "lint": "npx @biomejs/biome lint --diagnostic-level=error",
+    "lint:fix": "npx @biomejs/biome lint --diagnostic-level=error --write",
+    "lint:fix:unsafe": "npx @biomejs/biome lint --diagnostic-level=error --write --unsafe"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
