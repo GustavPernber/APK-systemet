@@ -1,6 +1,5 @@
 import { ProductContext } from "@/components/Products/ProductsController";
 import { useContext } from "react";
-import Accordion from "../../Utils/Accordion";
 
 function OrderStock() {
   const { showOrderStock, setShowOrderStock, toggleShowFilters } =

@@ -164,7 +164,8 @@ async function fetchNewProducts(
     console.log(`Beginning fetch for '${firstCategory.value}'`);
     consoleFetchStatus[`${firstCategory.value}`] = {};
     for (const secondCategory of firstCategory.cat2) {
-      consoleFetchStatus?.[`${firstCategory.value}`]![
+      // biome-ignore lint/style/noNonNullAssertion: <explanation>
+      consoleFetchStatus![`${firstCategory.value}`]![
         `${secondCategory.value}`
       ] = 0;
 
@@ -304,6 +305,7 @@ export async function scrapeSystemBolaget() {
   const scrapedAt = new Date();
   const countResult = await db.select({ value: count() }).from(products);
 
+  // biome-ignore lint/style/noNonNullAssertion: <explanation>
   const { value: totalProductsCount } = countResult[0]!;
 
   const productInserter = new ProductInserter();
@@ -315,7 +317,8 @@ export async function scrapeSystemBolaget() {
 
     await productInserter.push(value);
 
-    consoleFetchStatus?.[`${product.categoryLevel1}`]![
+    // biome-ignore lint/style/noNonNullAssertion: <explanation>
+    consoleFetchStatus![`${product.categoryLevel1}`]![
       `${product.categoryLevel2}`
     ]! += 1;
     collectedProductsCount++;

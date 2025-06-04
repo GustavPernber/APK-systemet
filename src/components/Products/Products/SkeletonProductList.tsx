@@ -41,7 +41,7 @@ function SkeletonProductList() {
   return (
     // <div className=" w-full gap-5 pb-10 grid-flow-row grid  md:grid-cols-2  md:col-start-2 ">
     <>
-      {[...Array(8)].map((e) => {
+      {[...Array(8)].map((_e) => {
         return <SkeletonProduct key={uuid()} />;
       })}
     </>

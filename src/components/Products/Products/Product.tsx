@@ -1,5 +1,5 @@
 import { getImgPath } from "@/utils/imgPath";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import TasteClock from "./TasteClock";
 import PlaceHolderWineBottle from "../../../assets/img/placeholder-wine-bottle.png";
 import { ProductContext } from "../ProductsController";
@@ -14,6 +14,7 @@ const Product = (props: ProductProps) => {
 
   const product: TProduct = { ...props.product };
   const [imagePath, setImagePath] = useState<string>(
+    // biome-ignore lint/style/noNonNullAssertion: <explanation>
     getImgPath(product.productId!),
   );
 
@@ -22,17 +23,20 @@ const Product = (props: ProductProps) => {
     .join(", ");
 
   const parsedProductPath = () => {
-    const productUrlName = `${product
-      .productNameBold?.replace(/\s+/g, "-")
+    const productUrlName = `${product.productNameBold
+      ?.replace(/\s+/g, "-")
       .toLowerCase()}-${props.product.productNumber}`;
-    const productUrl = `https://www.systembolaget.se/produkt/${encodeURIComponent(product.categoryLevel1!)}/${productUrlName}`;
+    const productUrl = `https://www.systembolaget.se/produkt/${
+      // biome-ignore lint/style/noNonNullAssertion: <explanation>
+      encodeURIComponent(product.categoryLevel1!)
+    }/${productUrlName}`;
     return productUrl;
   };
 
   const parsedPriceString = () => {
     // TODO: Clean up maybe? Export to utils
-    let priceString;
-    if (product.price! % 1 !== 0) {
+    let priceString = "";
+    if (product.price && product.price % 1 !== 0) {
       const numbers = product.price?.toFixed(2).split(".");
       priceString = `${numbers[0]}:${numbers[1]}`;
     } else {
@@ -56,7 +60,7 @@ const Product = (props: ProductProps) => {
           <div className="   h-24  w-16 ">
             <img
               src={imagePath}
-              onError={(e) => setImagePath(PlaceHolderWineBottle)}
+              onError={(_e) => setImagePath(PlaceHolderWineBottle)}
               alt="Produktbild"
               className="  min-h-full min-w-full object-contain max-w-full max-h-full"
             />
@@ -97,7 +101,9 @@ const Product = (props: ProductProps) => {
         {(product.tasteClocks?.tasteClocks.length ?? 0) > 0 && (
           <div className={`${isCompact && "h-0"} overflow-hidden `}>
             <div
-              className={"w-full flex flex-row justify-around items-center py-3  "}
+              className={
+                "w-full flex flex-row justify-around items-center py-3  "
+              }
             >
               {product.tasteClocks?.tasteClocks.map(
                 (clock: { key: string; value: number }) => {

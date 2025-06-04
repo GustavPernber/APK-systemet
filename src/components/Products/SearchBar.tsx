@@ -11,12 +11,12 @@ const SearchBar = () => {
     // searchTerm,
     setSortBy,
   } = useContext(AppContext);
-  const [isPending, startTransition] = useTransition();
+  const [_isPending, startTransition] = useTransition();
   const [debounceTimer, setDebounceTimer] = useState<NodeJS.Timeout | null>(
     null,
   );
 
-  const inputChanged = () => {
+  const _inputChanged = () => {
     if (debounceTimer) {
       clearTimeout(debounceTimer);
     }
@@ -44,7 +44,7 @@ const SearchBar = () => {
     bg-gray-200"
     >
       <input
-        onChange={(e) => {
+        onChange={(_e) => {
           // if (!(/^\s*$/.test(e.target.value) && /^\s*$/.test(searchTerm))) {
           //   currentSearchTerm.current = e.target.value;
           //   inputChanged();

@@ -1,4 +1,4 @@
-import Disclaimer from "./common/Disclaimer";
+
 import SiteHeader from "./common/SiteHeader";
 import ProductsController from "./Products/ProductsController";
 import InfoCard from "./common/InfoCard";
