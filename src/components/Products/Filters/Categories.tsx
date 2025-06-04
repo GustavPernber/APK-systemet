@@ -61,14 +61,13 @@ function Categories() {
                                   ) ?? [],
                               }));
                               return;
-                            } else {
+                            }
                               setCatFilters((prev) => ({
                                 ...prev,
                                 cat2: prev.cat2
                                   ? [...prev.cat2, category2.value]
                                   : [category2.value],
                               }));
-                            }
                           }}
                           className="hover:bg-gray-200  pl-5 border-b-[1px] border-gray-100 bg-white transition duration-75 flex flex-row justify-start items-center"
                           key={category2.value}
@@ -81,7 +80,7 @@ function Categories() {
                             id="hs-checked-checkbox"
                           />
                           <span
-                            className={` text-left  cursor-pointer text-sm py-3 pr-8 pl-4 w-full text-gray-600 `}
+                            className={" text-left  cursor-pointer text-sm py-3 pr-8 pl-4 w-full text-gray-600 "}
                           >
                             {category2.value}
                           </span>
@@ -102,7 +101,7 @@ function Categories() {
     <Accordion
       contentComponent={<CategoriesContent />}
       title="Kategorier"
-    ></Accordion>
+    />
   );
 }
 

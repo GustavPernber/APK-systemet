@@ -13,7 +13,7 @@ function Skeleton({
     <p
       style={{ width: width, height: height }}
       className={`bg-gray-200 rounded-md text-md my-2 ${className} `}
-    ></p>
+    />
   );
 }
 

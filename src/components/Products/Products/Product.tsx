@@ -23,7 +23,7 @@ const Product = (props: ProductProps) => {
 
   const parsedProductPath = () => {
     const productUrlName = `${product
-      .productNameBold!.replace(/\s+/g, "-")
+      .productNameBold?.replace(/\s+/g, "-")
       .toLowerCase()}-${props.product.productNumber}`;
     const productUrl = `https://www.systembolaget.se/produkt/${encodeURIComponent(product.categoryLevel1!)}/${productUrlName}`;
     return productUrl;
@@ -32,11 +32,11 @@ const Product = (props: ProductProps) => {
   const parsedPriceString = () => {
     // TODO: Clean up maybe? Export to utils
     let priceString;
-    if (product.price! % 1 != 0) {
-      const numbers = product.price!.toFixed(2).split(".");
+    if (product.price! % 1 !== 0) {
+      const numbers = product.price?.toFixed(2).split(".");
       priceString = `${numbers[0]}:${numbers[1]}`;
     } else {
-      priceString = `${product.price!.toFixed(0)}:-`;
+      priceString = `${product.price?.toFixed(0)}:-`;
     }
     return priceString;
   };
@@ -82,7 +82,7 @@ const Product = (props: ProductProps) => {
                             justify-start   gap-x-3 text-sm whitespace-nowrap"
               >
                 <p className=" font-semibold">
-                  APK: {product.apk!.toPrecision(3)}
+                  APK: {product.apk?.toPrecision(3)}
                 </p>
                 <p>{product.volumeText} </p>
                 <p>{product.alcoholPercentage} %</p>
@@ -97,7 +97,7 @@ const Product = (props: ProductProps) => {
         {(product.tasteClocks?.tasteClocks.length ?? 0) > 0 && (
           <div className={`${isCompact && "h-0"} overflow-hidden `}>
             <div
-              className={`w-full flex flex-row justify-around items-center py-3  `}
+              className={"w-full flex flex-row justify-around items-center py-3  "}
             >
               {product.tasteClocks?.tasteClocks.map(
                 (clock: { key: string; value: number }) => {
@@ -106,7 +106,7 @@ const Product = (props: ProductProps) => {
                       key={clock.key}
                       name={clock.key}
                       value={clock.value}
-                    ></TasteClock>
+                    />
                   );
                 },
               )}
