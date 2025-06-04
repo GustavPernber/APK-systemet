@@ -1,4 +1,4 @@
-import { ProductOptions } from "@/api/api";
+import type { ProductOptions } from "@/api/api";
 
 export const defaultFilters: ProductOptions = {
   cat1: "all",

@@ -2,7 +2,7 @@ import { useState } from "react";
 
 type AccordionProps = {
   contentComponent: JSX.Element;
-  title: String;
+  title: string;
 };
 
 function Accordion({ contentComponent, title }: AccordionProps) {

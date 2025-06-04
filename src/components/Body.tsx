@@ -7,12 +7,12 @@ import {
   useState,
   useEffect,
   useRef,
-  SetStateAction,
-  Dispatch,
+  type SetStateAction,
+  type Dispatch,
 } from "react";
 import SiteFooter from "./common/SiteFooter";
-import { SortByOptions } from "@/utils/types";
-import api, { MetadataResponse } from "@/api/api";
+import type { SortByOptions } from "@/utils/types";
+import api, { type MetadataResponse } from "@/api/api";
 import { defaultFilters } from "@/utils/defaultFilters";
 
 type AppContextType = {

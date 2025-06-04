@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import TasteClock from "./TasteClock";
 import PlaceHolderWineBottle from "../../../assets/img/placeholder-wine-bottle.png";
 import { ProductContext } from "../ProductsController";
-import { Product as TProduct } from "@/api/api";
+import type { Product as TProduct } from "@/api/api";
 
 type ProductProps = {
   product: TProduct;
@@ -33,7 +33,7 @@ const Product = (props: ProductProps) => {
     // TODO: Clean up maybe? Export to utils
     let priceString;
     if (product.price! % 1 != 0) {
-      let numbers = product.price!.toFixed(2).split(".");
+      const numbers = product.price!.toFixed(2).split(".");
       priceString = `${numbers[0]}:${numbers[1]}`;
     } else {
       priceString = `${product.price!.toFixed(0)}:-`;

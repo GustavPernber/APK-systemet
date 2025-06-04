@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Handler, HandlerEvent } from "@netlify/functions";
+import { type Handler, HandlerEvent } from "@netlify/functions";
 import { db } from "./db/db";
 import { products } from "./db/schema";
 import { and, asc, desc, eq, inArray, ne } from "drizzle-orm";

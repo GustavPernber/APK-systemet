@@ -18,6 +18,7 @@
     "enabled": true
   },
   "linter": {
+    "include": ["**/*.js", "**/*.ts", "**/*.jsx", "**/*.tsx"],
     "enabled": true,
     "rules": {
       "recommended": true

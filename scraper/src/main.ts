@@ -1,9 +1,9 @@
 import axios from "axios";
-import https from "https";
+import https from "node:https";
 import { config } from "./config";
 import {
-  Cat1,
-  ProductInsert,
+  type Cat1,
+  type ProductInsert,
   metadata,
   products,
 } from "../../functions/db/schema";
@@ -187,7 +187,7 @@ async function fetchCategories() {
 
   const nonDrinkProducts = ["Alkoholfritt", "Presentartiklar"]; // TODO: remove some from exclusion rule
 
-  let response = await axios({
+  const response = await axios({
     method: "get",
     url: `${config.systembolaget_api_url}page=1`,
     headers: {
