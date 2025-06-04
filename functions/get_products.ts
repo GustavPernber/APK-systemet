@@ -2,7 +2,7 @@ import { z } from "zod";
 import type { Handler } from "@netlify/functions";
 import { db } from "./db/db";
 import { products } from "./db/schema";
-import { and, asc, desc, eq, inArray, ne } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, ne, or, like } from "drizzle-orm";
 
 const FiltersSchema = z.object({
   sortBy: z.enum(["apk", "price_asc", "alc_desc"]).optional().default("apk"),
@@ -14,7 +14,7 @@ const FiltersSchema = z.object({
     .transform((value) => value === "true")
     .optional()
     .default("true"),
-  // searchTerm: z.string().optional()
+  searchTerm: z.string().optional(),
 });
 
 const PAGINATION_LIMIT = 30;
@@ -51,22 +51,28 @@ const getProducts = async (filters: Filters) => {
   }
 
   const offset = filters.page * PAGINATION_LIMIT - PAGINATION_LIMIT;
+  const whereClauses = [
+    filters.cat1 && filters.cat1 !== "all"
+      ? eq(products.categoryLevel1, filters.cat1)
+      : undefined,
+    filters.cat2 ? inArray(products.categoryLevel2, filters.cat2) : undefined,
+    filters.showOrderStock === false
+      ? ne(products.assortmentText, "Ordervaror")
+      : undefined,
+  ];
+  if (filters.searchTerm && filters.searchTerm.trim() !== "") {
+    const term = `%${filters.searchTerm.trim().toLowerCase()}%`;
+    whereClauses.push(
+      or(
+        like(products.productNameBold, term),
+        like(products.productNameThin, term),
+      ),
+    );
+  }
   const data = await db
     .select()
     .from(products)
-    .where(
-      and(
-        filters.cat1 && filters.cat1 !== "all"
-          ? eq(products.categoryLevel1, filters.cat1)
-          : undefined,
-        filters.cat2
-          ? inArray(products.categoryLevel2, filters.cat2)
-          : undefined,
-        filters.showOrderStock === false
-          ? ne(products.assortmentText, "Ordervaror")
-          : undefined,
-      ),
-    )
+    .where(and(...whereClauses))
     .orderBy(
       sortByColumn.direction === "asc"
         ? asc(sortByColumn.column)
@@ -87,7 +93,7 @@ const handler: Handler = async (event, _context) => {
     page: request?.page?.[0],
     cat2: request?.cat2,
     showOrderStock: request?.showOrderStock?.[0],
-    // searchTerm: request.searchTerm
+    searchTerm: request?.searchTerm?.[0],
   });
 
   const products = await getProducts(validFilters);

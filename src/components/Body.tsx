@@ -5,7 +5,6 @@ import {
   createContext,
   useState,
   useEffect,
-  useRef,
   type SetStateAction,
   type Dispatch,
 } from "react";
@@ -20,11 +19,8 @@ type AppContextType = {
   showInfoCard: boolean;
   setShowInfoCard: Dispatch<SetStateAction<boolean>>;
   metadata: MetadataResponse;
-  // searchTerm: string;
-  // setSearchTerm: Dispatch<SetStateAction<boolean>>;
-  // loadingOnTop: boolean;
-  // setLoadingOnTop: Dispatch<SetStateAction<boolean>>;
-  currentSearchTerm: React.MutableRefObject<string>;
+  searchTerm: string;
+  setSearchTerm: (term: string) => void;
   sortBy: SortByOptions;
   setSortBy: (prop: SortByOptions) => void;
 };
@@ -42,7 +38,7 @@ const Body = () => {
   // const [searchTerm, setSearchTerm] = useState<string>(
   //   defaultFilters.searchTerm,
   // );
-  const currentSearchTerm = useRef("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [sortBy, setSortBy] = useState<SortByOptions>(defaultFilters.sortBy);
 
   const AppContextValues: AppContextType = {
@@ -51,12 +47,10 @@ const Body = () => {
     showInfoCard,
     setShowInfoCard,
     metadata,
-    // searchTerm,
-    // setSearchTerm,
-
+    searchTerm,
+    setSearchTerm,
     // loadingOnTop,
     // setLoadingOnTop,
-    currentSearchTerm,
     sortBy,
     setSortBy,
   };

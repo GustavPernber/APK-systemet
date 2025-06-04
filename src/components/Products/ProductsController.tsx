@@ -21,20 +21,16 @@ type CatFilters = {
 };
 
 type ProductContextType = {
-  fetchMore: Function;
+  fetchMore: () => void;
   isCompactProducts: boolean;
-  setIsCompactProducts: Function;
+  setIsCompactProducts: React.Dispatch<React.SetStateAction<boolean>>;
   products: Product[];
   showFilters: boolean;
-  toggleShowFilters: Function;
-  // cat1: Cat1;
-  // setCat1: Function;
+  toggleShowFilters: () => void;
   showOrderStock: boolean;
-  setShowOrderStock: Function;
+  setShowOrderStock: React.Dispatch<React.SetStateAction<boolean>>;
   catFilters: CatFilters;
   setCatFilters: Dispatch<SetStateAction<CatFilters>>;
-  // cat2: string[] | null;
-  // setCat2: Dispatch<SetStateAction<string[] | null>>;
   isLoading: boolean;
 };
 
@@ -43,12 +39,9 @@ export const ProductContext = createContext<ProductContextType>(
 );
 
 const ProductsController = () => {
-  const { currentSearchTerm, sortBy } = useContext(AppContext);
-
-  // // const [products, setProducts] = useState<Product[]>([]);
+  const { searchTerm, sortBy } = useContext(AppContext);
 
   const [isCompactProducts, setIsCompactProducts] = useState<boolean>(false);
-  // // const [page, setPage] = useState<number>(1);
   const [showFilters, setShowFilters] = useState<boolean>(false);
 
   const [showOrderStock, setShowOrderStock] = useState<boolean>(
@@ -60,17 +53,7 @@ const ProductsController = () => {
     cat2: defaultFilters.cat2,
   });
 
-  // const filters = useMemo(() => {
-  //   const filtersOpts: TProductOptions = {
-  //     showOrderStock: showOrderStock,
-  //     cat1: cat1,
-  //     cat2: cat2,
-  //     sortBy: sortBy,
-  //   };
-  //   return filtersOpts;
-  // }, [sortBy, cat1, showOrderStock, cat2]);
-
-  const { data, isLoading, isError, fetchNextPage, isFetchingNextPage } =
+  const { data, isLoading, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery({
       queryKey: [
         "products",
@@ -78,6 +61,7 @@ const ProductsController = () => {
         catFilters.cat2,
         showOrderStock,
         sortBy,
+        searchTerm.trim(), // Only use trimmed value for search
       ],
       initialPageParam: 1,
       queryFn: async ({ pageParam }) =>
@@ -87,52 +71,12 @@ const ProductsController = () => {
           page: pageParam,
           showOrderStock: showOrderStock,
           sortBy: sortBy,
+          searchTerm: searchTerm.trim() === "" ? undefined : searchTerm.trim(),
         }),
       getNextPageParam: (lastPage, pages) => {
         return lastPage.data.length === 0 ? undefined : pages.length + 1;
       },
     });
-
-  // const fetchMore = useCallback(async () => {
-  //   setIsLoading(true);
-  //   const newPage = page + 1;
-  //   setPage(newPage);
-  //   const res = await api.getProducts({
-  //     cat1: cat1,
-  //     cat2: cat2,
-  //     page: newPage,
-  //     showOrderStock: showOrderStock,
-  //     sortBy: sortBy,
-  //   });
-  //   const newProducts = [...products, ...res.data];
-  //   setProducts(newProducts);
-  //   setIsLoading(false);
-  // }, [page, filters, products]);
-
-  // const fetchInitial = useCallback(async () => {
-  //   setIsLoading(true);
-  //   setProducts([]);
-  //   const response = await api.getProducts({
-  //     cat1: cat1,
-  //     cat2: cat2,
-  //     page: 1,
-  //     showOrderStock: showOrderStock,
-  //     sortBy: sortBy,
-  //   });
-  //   // if (response.searchTerm === currentSearchTerm.current) {
-  //   setProducts(response.data);
-  //   setIsLoading(false);
-  //   setLoadingOnTop(false);
-  //   // }
-  // }, [filters]);
-
-  // useEffect(() => {
-  //   fetchInitial();
-  // }, [filters]);
-
-  // useEffect(() => {
-  //   setCat2(null);
-  // }, [cat1]);
 
   const toggleShowFilters = useCallback(() => {
     if (window.innerWidth <= 1023) {
@@ -152,12 +96,8 @@ const ProductsController = () => {
     toggleShowFilters,
     catFilters,
     setCatFilters,
-    // cat1,
-    // setCat1,
     showOrderStock,
     setShowOrderStock,
-    // cat2,
-    // setCat2,
     fetchMore: fetchNextPage,
     products,
     isLoading: isLoading || isFetchingNextPage,
