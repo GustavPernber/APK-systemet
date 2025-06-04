@@ -2,7 +2,7 @@ import Accordion from "@/components/Utils/Accordion";
 import { ProductContext } from "@/components/Products/ProductsController";
 import { useCallback, useContext } from "react";
 import { AppContext } from "@/components/Body";
-import { Cat1 } from "@/api/api";
+import type { Cat1 } from "@/api/api";
 
 function Categories() {
   const { catFilters, setCatFilters } = useContext(ProductContext);

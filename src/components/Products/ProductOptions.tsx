@@ -6,7 +6,7 @@ import filterIcon from "@/assets/icons/filter-settings.svg";
 import DropdownOption from "@/components/Utils/DropdownOption";
 import Divider from "../Utils/Divider";
 import { AppContext } from "../Body";
-import { SortByOptions } from "@/utils/types";
+import type { SortByOptions } from "@/utils/types";
 
 function SortViewOptions() {
   const { sortBy, setSortBy } = useContext(AppContext);

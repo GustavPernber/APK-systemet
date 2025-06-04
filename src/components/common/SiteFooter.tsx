@@ -16,7 +16,7 @@ const SiteFooter = () => {
       <a
         className=" col-start-1 self-start   w-min"
         target={"_blank"}
-        href="https://github.com/GustavPernber/APK-systemet-remastered"
+        href="https://github.com/GustavPernber/APK-systemet-remastered" rel="noreferrer"
       >
         <Icons.gitHub className=" text-[1.5rem]" />
       </a>

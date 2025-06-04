@@ -1,6 +1,6 @@
-import { SortByOptions } from "@/utils/types";
+import type { SortByOptions } from "@/utils/types";
 import * as qs from "neoqs";
-import { products } from "../../functions/db/schema";
+import type { products } from "../../functions/db/schema";
 
 const BASE_URL = ".netlify/functions/";
 
@@ -35,14 +35,14 @@ async function getProducts({
     { arrayFormat: "repeat", allowEmptyArrays: false },
   );
 
-  let response = await fetch(`${BASE_URL}get_products?${query}`, {
+  const response = await fetch(`${BASE_URL}get_products?${query}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   });
 
-  let products = await response.json();
+  const products = await response.json();
   return products;
 }
 
@@ -60,7 +60,7 @@ export type MetadataResponse = {
 };
 
 async function getMetadata(): Promise<MetadataResponse> {
-  let response = await fetch(`${BASE_URL}get_metadata`, {
+  const response = await fetch(`${BASE_URL}get_metadata`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

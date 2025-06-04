@@ -1,7 +1,7 @@
 import ProductList from "./Products/ProductList";
 import api, {
   Cat1,
-  Product,
+  type Product,
   ProductOptions as TProductOptions,
 } from "@/api/api";
 import {
@@ -13,8 +13,8 @@ import {
   useState,
   useTransition,
   useRef,
-  Dispatch,
-  SetStateAction,
+  type Dispatch,
+  type SetStateAction,
 } from "react";
 import ProductOptions from "./ProductOptions";
 import Filters from "./Filters/Filters";
