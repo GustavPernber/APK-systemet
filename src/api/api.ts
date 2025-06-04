@@ -15,6 +15,7 @@ export type ProductOptions = {
   cat2: string[] | null;
   showOrderStock: boolean;
   sortBy: SortByOptions;
+  searchTerm?: string;
 };
 
 async function getProducts({
@@ -23,6 +24,7 @@ async function getProducts({
   page,
   showOrderStock,
   sortBy,
+  searchTerm,
 }: ProductOptions & { page: number }): Promise<GetProductsResponse> {
   const query = qs.stringify(
     {
@@ -31,6 +33,7 @@ async function getProducts({
       showOrderStock,
       cat2,
       page,
+      searchTerm,
     },
     { arrayFormat: "repeat", allowEmptyArrays: false },
   );
@@ -49,7 +52,13 @@ async function getProducts({
 export type Cat1 = {
   value: string;
   friendlyUrl: string;
-  cat2: any[];
+  cat2: {
+    value: string;
+    count: number | null;
+    isActive: boolean | null;
+    friendlyUrl: string | null;
+    subtitleText: string | null;
+  }[];
 };
 
 export type MetadataResponse = {

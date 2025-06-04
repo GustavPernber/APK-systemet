@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { AppContext } from "../Body";
 import Logo from "./Logo";
 import Icons from "@/components/Utils/Icons";
+import SearchBar from "../Products/SearchBar";
 
 export default function SiteHeader() {
   const { showInfoCard, setShowInfoCard } = useContext(AppContext);
@@ -23,7 +24,9 @@ export default function SiteHeader() {
         <p className="text-[0.9rem] text-gray-400">Vad är APK?</p>
       </button>
 
-      <div className=" col-span-2 md:col-span-1 ">{/* <SearchBar /> */}</div>
+      <div className=" col-span-2 md:col-span-1 ">
+        <SearchBar />
+      </div>
     </header>
   );
 }

@@ -2,11 +2,9 @@ import Product from "./Product";
 import SkeletonProductList from "@/components/Products/Products/SkeletonProductList";
 import { useContext, useMemo } from "react";
 import { ProductContext } from "../ProductsController";
-import { AppContext } from "@/components/Body";
 import Icons from "@/components/Utils/Icons";
 
 const ProductList = () => {
-  const { currentSearchTerm } = useContext(AppContext);
   const { products, fetchMore, isLoading } = useContext(ProductContext);
 
   const LoadMoreButton = () => {
