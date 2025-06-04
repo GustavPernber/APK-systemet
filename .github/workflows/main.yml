@@ -4,10 +4,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   MONGODB_READ_PATH_DEV: ${{ secrets.MONGODB_READ_PATH_DEV }}
   MONGODB_READ_PATH: ${{ secrets.MONGODB_READ_PATH_DEV }}
-on:
-  push:
-    branches:
-      - main
+on: push
 
 jobs:
   Build:
