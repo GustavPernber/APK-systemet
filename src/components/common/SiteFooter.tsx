@@ -1,12 +1,15 @@
 import Logo from "./Logo";
 import { AppContext } from "../Body";
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import Icons from "@/components/Utils/Icons";
 
 const SiteFooter = () => {
   const { metadata } = useContext(AppContext);
 
-  const parsedDate = new Date(metadata.lastScraped);
+  const parsedDate = useMemo(
+    () => new Date(metadata.lastScraped),
+    [metadata.lastScraped],
+  );
 
   return (
     <footer className=" w-screen h-[10rem]  bg-gradient-to-br from-gray-200 to-gray-300 px-4 py-6 grid grid-cols-2 grid-rows-[1fr_auto_1fr]">
@@ -23,7 +26,7 @@ const SiteFooter = () => {
 
       <p className="text-gray-400 col-span-2  text-sm self-end">
         {metadata.lastScraped &&
-          `Senast uppdaterad: ${parsedDate.toLocaleString(undefined, { hour12: false, dateStyle: "full", timeStyle: "short" }).replace("at", " Kl")}`}
+          `Last updated: ${parsedDate.toLocaleString(undefined, { hour12: false, dateStyle: "full", timeStyle: "short" })}`}
       </p>
     </footer>
   );
