@@ -35,7 +35,7 @@ const ProductList = () => {
       return [];
     }
     const list = products.map((product) => {
-      return <Product product={product} key={product.dbId}></Product>;
+      return <Product product={product} key={product.dbId} />;
     });
 
     return list;
@@ -52,7 +52,7 @@ const ProductList = () => {
       {!isLoading && productElements.length < 1 && (
         <div className="flex flex-col items-center justify-center gap-4">
           <Icons.search className="text-gray-300 h-[6rem] w-[6rem]" />
-          <p className="font-serif text-xl text-gray-700">{`Inga sökträffar`}</p>
+          <p className="font-serif text-xl text-gray-700">{"Inga sökträffar"}</p>
         </div>
       )}
 

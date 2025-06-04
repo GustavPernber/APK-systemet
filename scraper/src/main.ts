@@ -164,7 +164,7 @@ async function fetchNewProducts(
     console.log(`Beginning fetch for '${firstCategory.value}'`);
     consoleFetchStatus[`${firstCategory.value}`] = {};
     for (const secondCategory of firstCategory.cat2) {
-      consoleFetchStatus![`${firstCategory.value}`]![
+      consoleFetchStatus?.[`${firstCategory.value}`]![
         `${secondCategory.value}`
       ] = 0;
 
@@ -315,7 +315,7 @@ export async function scrapeSystemBolaget() {
 
     await productInserter.push(value);
 
-    consoleFetchStatus![`${product.categoryLevel1}`]![
+    consoleFetchStatus?.[`${product.categoryLevel1}`]![
       `${product.categoryLevel2}`
     ]! += 1;
     collectedProductsCount++;
